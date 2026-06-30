@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mumma's Menu — Cloud Kitchen</title>
+<meta name="description" content="Mumma's Menu — homestyle food, freshly cooked. Order on WhatsApp." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍲</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Decorative background blobs for glass theme -->
+<div class="bg-decor">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header glass">
+  <div class="container header-inner">
+    <a href="#home" class="brand">
+      <span class="brand-emoji">🍲</span>
+      <span class="brand-text">Mumma's<br><span>Menu</span></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn cart-btn glass" id="cartBtn" aria-label="Open cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 3H5L5.4 5M5.4 5H21L18 13H7M5.4 5L7 13M7 13L4.7 16.3C4.3 16.9 4.7 17.7 5.4 17.7H18M9 21C9.6 21 10 20.6 10 20C10 19.4 9.6 19 9 19C8.4 19 8 19.4 8 20C8 20.6 8.4 21 9 21ZM18 21C18.6 21 19 20.6 19 20C19 19.4 18.6 19 18 19C17.4 19 17 19.4 17 20C17 20.6 17.4 21 18 21Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <span class="badge glass">No artificial colours • Freshly cooked</span>
+      <h1>Homestyle food,<br> made with <span class="accent">Mumma's love</span> ❤️</h1>
+      <p>Order parathas, theplas, sabji, khichdi, maggie &amp; more — straight from our cloud kitchen to your door. Pick your favourites, add to cart, and order directly on WhatsApp.</p>
+      <div class="hero-cta">
+        <a href="#menu" class="btn btn-primary">View Menu</a>
+        <a id="heroWhatsapp" class="btn btn-glass" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10.3 9.6 9.9 8.4 9.7 8c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.3s1 2.7 1.1 2.9c.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5-1.3C8.5 21.6 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3 .8.8-2.9-.2-.3C3.9 14.9 3.4 13.5 3.4 12c0-4.7 3.9-8.6 8.6-8.6s8.6 3.9 8.6 8.6-3.9 8.6-8.6 8.6z"/></svg>
+          Order on WhatsApp
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>100%</strong><span>Homemade</span></div>
+        <div><strong>9+</strong><span>Categories</span></div>
+        <div><strong>★ 4.9</strong><span>Loved by locals</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="hero-card glass">
+        <div class="hero-emoji">🫓</div>
+        <p>Aloo Paratha</p>
+        <span>₹80</span>
+      </div>
+      <div class="hero-card glass card-2">
+        <div class="hero-emoji">🍛</div>
+        <p>Paneer Butter Masala</p>
+        <span>₹110</span>
+      </div>
+      <div class="hero-card glass card-3">
+        <div class="hero-emoji">🍜</div>
+        <p>Cheese Tadka Maggie</p>
+        <span>₹100</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="menu-section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Our Menu</h2>
+      <p>Freshly cooked, homestyle favourites — pick your category</p>
+    </div>
+
+    <div class="category-pills" id="categoryPills"></div>
+
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="container about-inner">
+    <div class="about-art glass">
+      <div class="about-emoji">👩‍🍳</div>
+    </div>
+    <div class="about-text">
+      <span class="badge glass">About Us</span>
+      <h2>From our kitchen to your home</h2>
+      <p>Mumma's Menu is a home-style cloud kitchen serving freshly made parathas, theplas, sabjis, khichdi, farali specials and comfort-food maggie — cooked daily with no artificial colours and a whole lot of love.</p>
+      <ul class="about-list">
+        <li>🌿 Fresh ingredients, cooked to order</li>
+        <li>🚫 No artificial colours, ever</li>
+        <li>📦 Easy WhatsApp ordering &amp; checkout</li>
+        <li>❤️ Recipes straight from Mumma's kitchen</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / SOCIAL -->
+<footer id="contact" class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <a href="#home" class="brand brand-footer">
+        <span class="brand-emoji">🍲</span>
+        <span class="brand-text">Mumma's<br><span>Menu</span></span>
+      </a>
+      <p>Homestyle food, freshly cooked, made with mumma's love.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#home">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a id="footerWhatsapp" target="_blank" rel="noopener">💬 WhatsApp Us</a>
+      <a id="footerCall">📞 Call Us</a>
+      <span>📍 Serving your locality, fresh daily</span>
+    </div>
+
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <div class="social-row">
+        <a href="#" class="social-btn glass" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+        <a href="#" class="social-btn glass" aria-label="Facebook" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H8v3h3v7h3v-7h3l1-3h-4V9c0-.6.4-1 1-1z"/></svg>
+        </a>
+        <a id="socialWhatsapp" class="social-btn glass" aria-label="WhatsApp" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5-1.3C8.5 21.6 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="year"></span> Mumma's Menu. All rights reserved.</span>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP BUTTON -->
+<a id="floatWhatsapp" class="float-whatsapp" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5-1.3C8.5 21.6 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+</a>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer glass" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="icon-btn" id="closeCart" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <strong id="cartTotal">₹0</strong>
+    </div>
+    <button class="btn btn-primary btn-block" id="checkoutBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5-1.3C8.5 21.6 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+      Checkout on WhatsApp
+    </button>
+  </div>
+</aside>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script src="menu-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
