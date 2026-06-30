@@ -1,13 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
+import { checkPassword, createSessionToken } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
-  const { password } = (await req.json().catch(() => ({}))) as { password?: string };
-  const expected = process.env.ADMIN_PASSWORD;
-  if (!expected) {
-    return NextResponse.json({ error: "ADMIN_PASSWORD is not configured on the server" }, { status: 500 });
+  if (!process.env.ADMIN_PASSWORD) {
+    return NextResponse.json({ error: "Server configuration error" }, { status: 503 });
   }
-  if (password === expected) {
-    return NextResponse.json({ ok: true });
+
+  const body = (await req.json().catch(() => ({}))) as { password?: string };
+  const candidate = typeof body.password === "string" ? body.password : "";
+
+  if (checkPassword(candidate)) {
+    const token = createSessionToken();
+    return NextResponse.json({ ok: true, token });
   }
+
+  await new Promise((r) => setTimeout(r, 300 + Math.random() * 200));
   return NextResponse.json({ error: "Incorrect password" }, { status: 401 });
 }

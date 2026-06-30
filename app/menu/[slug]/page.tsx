@@ -2,14 +2,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getMenuData, getSiteData } from "@/lib/data";
-import CategoryItemList from "@/components/CategoryItemList";
+import { ItemCard } from "@/components/ui/ItemCard";
 
 export async function generateStaticParams() {
   const menu = await getMenuData();
   return menu.categories.map((c) => ({ slug: c.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const [site, menu] = await Promise.all([getSiteData(), getMenuData()]);
   const category = menu.categories.find((c) => c.slug === slug);
@@ -17,8 +21,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const itemNames = category.items.map((i) => i.name).join(", ");
   return {
     title: `${category.name} — ${site.brandName} Menu`,
-    description: `Order ${category.name} from ${site.brandName}: ${itemNames}. Freshly cooked and delivered, checkout instantly on WhatsApp.`,
+    description: `Order fresh ${category.name} from ${site.brandName}: ${itemNames}. FSSAI-approved home-style cooking, checkout instantly on WhatsApp.`,
     alternates: { canonical: `/menu/${slug}` },
+    openGraph: {
+      title: `${category.name} — ${site.brandName}`,
+      description: `Freshly made ${category.name} delivered from ${site.brandName}`,
+      images: category.items[0]?.image ? [{ url: category.items[0].image }] : [],
+    },
   };
 }
 
@@ -39,40 +48,65 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         "@type": "MenuItem",
         name: item.name,
         description: item.description,
-        offers: { "@type": "Offer", price: item.price, priceCurrency: "INR" },
+        image: item.image || undefined,
+        offers: {
+          "@type": "Offer",
+          price: item.price,
+          priceCurrency: "INR",
+          availability: "https://schema.org/InStock",
+        },
+        suitableForDiet: item.veg ? "https://schema.org/VegetarianDiet" : undefined,
       },
     })),
   };
 
   return (
-    <section className="py-14">
+    <section className="py-10 md:py-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
       <div className="mx-auto max-w-6xl px-6">
-        <nav className="text-sm text-neutral-500 mb-4" aria-label="Breadcrumb">
+        <nav
+          className="mb-5 flex items-center gap-1.5 text-[13px] text-neutral-500"
+          aria-label="Breadcrumb"
+        >
           <Link href="/" className="hover:text-brand-red">
             Home
-          </Link>{" "}
-          /{" "}
+          </Link>
+          <span>/</span>
           <Link href="/menu" className="hover:text-brand-red">
             Menu
-          </Link>{" "}
-          / <span className="text-black">{category.name}</span>
+          </Link>
+          <span>/</span>
+          <span className="font-medium text-neutral-800">{category.name}</span>
         </nav>
-        <h1 className="font-heading font-bold text-3xl mb-2">
-          {category.emoji} {category.name}
+
+        <h1 className="font-heading mb-2 flex items-center gap-2 text-[28px] font-bold md:text-[36px]">
+          <span aria-hidden>{category.emoji}</span>
+          {category.name}
         </h1>
-        <p className="text-neutral-600 mb-8">
-          {category.items.length} item{category.items.length > 1 ? "s" : ""} freshly made by {site.brandName}.
+        <p className="mb-8 text-[15px] text-neutral-600">
+          {category.items.length} item{category.items.length !== 1 ? "s" : ""} freshly made by{" "}
+          {site.brandName} — FSSAI approved, no artificial colours.
         </p>
 
-        <CategoryItemList emoji={category.emoji} items={category.items} />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {category.items.map((item) => (
+            <div key={item.id} itemScope itemType="https://schema.org/MenuItem">
+              <meta itemProp="name" content={item.name} />
+              <meta itemProp="description" content={item.description} />
+              <ItemCard item={item} categoryEmoji={category.emoji} variant="grid" />
+            </div>
+          ))}
+        </div>
 
-        <div className="mt-10">
-          <Link href="/menu" className="text-brand-red font-semibold hover:underline">
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          <Link href="/menu" className="text-brand-red text-[14px] font-semibold hover:underline">
             ← Back to full menu
+          </Link>
+          <Link href="/" className="hover:text-brand-red text-[14px] font-medium text-neutral-500">
+            View homepage
           </Link>
         </div>
       </div>

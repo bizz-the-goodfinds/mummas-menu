@@ -5,9 +5,33 @@
       "name": "Parathas",
       "emoji": "🫓",
       "items": [
-        { "id": "aloo-paratha", "name": "Aloo Paratha", "price": 80, "veg": true, "description": "Stuffed wholewheat flatbread with spiced mashed potato, hand-rolled and cooked on a tawa.", "image": "" },
-        { "id": "paneer-paratha", "name": "Paneer Paratha", "price": 90, "veg": true, "description": "Wholewheat flatbread stuffed with fresh crumbled paneer and home-ground spices.", "image": "" },
-        { "id": "cheese-paneer-paratha", "name": "Cheese Paneer Paratha", "price": 110, "veg": true, "description": "Our paneer paratha loaded with melted cheese for extra indulgence.", "image": "" }
+        {
+          "id": "aloo-paratha",
+          "name": "Aloo Paratha",
+          "price": 80,
+          "veg": true,
+          "description": "Wholewheat flatbread stuffed with spiced mashed potato, hand-rolled and slow-cooked on a tawa with butter. Served with fresh curd and homemade pickle.",
+          "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80",
+          "tags": ["bestseller"]
+        },
+        {
+          "id": "paneer-paratha",
+          "name": "Paneer Paratha",
+          "price": 90,
+          "veg": true,
+          "description": "Wholewheat flatbread stuffed with crumbled fresh paneer mixed with home-ground spices and green chilli. Rich, filling, and utterly satisfying.",
+          "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "cheese-paneer-paratha",
+          "name": "Cheese Paneer Paratha",
+          "price": 110,
+          "veg": true,
+          "description": "Our classic paneer paratha loaded with melted cheese for extra indulgence. A crowd favourite.",
+          "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80",
+          "tags": ["new"]
+        }
       ]
     },
     {
@@ -15,8 +39,24 @@
       "name": "Thepla",
       "emoji": "🥞",
       "items": [
-        { "id": "thepla-2pcs", "name": "Thepla (2 pcs)", "price": 40, "veg": true, "description": "Soft Gujarati-style spiced flatbread, perfect with pickle or curd.", "image": "" },
-        { "id": "butter-thepla-2pcs", "name": "Butter Thepla (2 pcs)", "price": 50, "veg": true, "description": "Classic thepla finished with a generous layer of butter.", "image": "" }
+        {
+          "id": "thepla-2pcs",
+          "name": "Thepla (2 pcs)",
+          "price": 40,
+          "veg": true,
+          "description": "Soft, golden Gujarati-style flatbread spiced with fenugreek and carom seeds. Perfect with homemade pickle or fresh curd.",
+          "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80",
+          "tags": ["bestseller"]
+        },
+        {
+          "id": "butter-thepla-2pcs",
+          "name": "Butter Thepla (2 pcs)",
+          "price": 50,
+          "veg": true,
+          "description": "Classic thepla finished hot off the tawa with a generous layer of fresh butter.",
+          "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80",
+          "tags": []
+        }
       ]
     },
     {
@@ -24,7 +64,15 @@
       "name": "Beverages",
       "emoji": "☕",
       "items": [
-        { "id": "chai-2cups", "name": "Chai (2 cups)", "price": 30, "veg": true, "description": "Freshly brewed masala chai, simmered the homestyle way.", "image": "" }
+        {
+          "id": "chai-2cups",
+          "name": "Chai (2 cups)",
+          "price": 30,
+          "veg": true,
+          "description": "Freshly brewed masala chai — ginger, cardamom, cloves — simmered the old-fashioned homestyle way.",
+          "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80",
+          "tags": []
+        }
       ]
     },
     {
@@ -32,10 +80,42 @@
       "name": "Rotis",
       "emoji": "🍞",
       "items": [
-        { "id": "roti-2pcs", "name": "Roti (2 pcs)", "price": 30, "veg": true, "description": "Soft wholewheat rotis, made fresh to order.", "image": "" },
-        { "id": "roti-10pcs", "name": "Roti (10 pcs)", "price": 130, "veg": true, "description": "A family pack of 10 soft wholewheat rotis.", "image": "" },
-        { "id": "butter-roti-2pcs", "name": "Butter Roti (2 pcs)", "price": 40, "veg": true, "description": "Soft rotis finished with a layer of butter.", "image": "" },
-        { "id": "butter-roti-10pcs", "name": "Butter Roti (10 pcs)", "price": 180, "veg": true, "description": "A family pack of 10 butter rotis.", "image": "" }
+        {
+          "id": "roti-2pcs",
+          "name": "Roti (2 pcs)",
+          "price": 30,
+          "veg": true,
+          "description": "Soft, puffed wholewheat rotis made fresh to order. Light and wholesome.",
+          "image": "https://images.unsplash.com/photo-1600935926387-12d9b03066f0?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "roti-10pcs",
+          "name": "Roti (10 pcs)",
+          "price": 130,
+          "veg": true,
+          "description": "A family pack of 10 soft wholewheat rotis. Perfect for family meals or meal prep.",
+          "image": "https://images.unsplash.com/photo-1600935926387-12d9b03066f0?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "butter-roti-2pcs",
+          "name": "Butter Roti (2 pcs)",
+          "price": 40,
+          "veg": true,
+          "description": "Soft wholewheat rotis finished with a generous spread of fresh butter.",
+          "image": "https://images.unsplash.com/photo-1600935926387-12d9b03066f0?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "butter-roti-10pcs",
+          "name": "Butter Roti (10 pcs)",
+          "price": 180,
+          "veg": true,
+          "description": "A family pack of 10 buttery wholewheat rotis — great value for family dinners.",
+          "image": "https://images.unsplash.com/photo-1600935926387-12d9b03066f0?w=600&q=80",
+          "tags": []
+        }
       ]
     },
     {
@@ -43,9 +123,33 @@
       "name": "Sabji",
       "emoji": "🍛",
       "items": [
-        { "id": "paneer-bhurji", "name": "Paneer Bhurji", "price": 100, "veg": true, "description": "Scrambled paneer cooked with onion, tomato and home-style spices.", "image": "" },
-        { "id": "paneer-butter-masala", "name": "Paneer Butter Masala", "price": 110, "veg": true, "description": "Paneer cubes simmered in a rich, buttery tomato gravy.", "image": "" },
-        { "id": "kaju-paneer-masala", "name": "Kaju Paneer Masala", "price": 130, "veg": true, "description": "Paneer and cashews in a creamy, mildly spiced gravy.", "image": "" }
+        {
+          "id": "paneer-bhurji",
+          "name": "Paneer Bhurji",
+          "price": 100,
+          "veg": true,
+          "description": "Crumbled fresh paneer scrambled with golden onions, ripe tomatoes, and home-ground spices. Rich and protein-packed.",
+          "image": "https://images.unsplash.com/photo-1631452180539-96aca7d48617?w=600&q=80",
+          "tags": ["bestseller"]
+        },
+        {
+          "id": "paneer-butter-masala",
+          "name": "Paneer Butter Masala",
+          "price": 110,
+          "veg": true,
+          "description": "Soft paneer cubes bathed in a rich, velvety tomato-butter gravy — fragrant with whole spices and cream.",
+          "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80",
+          "tags": ["bestseller"]
+        },
+        {
+          "id": "kaju-paneer-masala",
+          "name": "Kaju Paneer Masala",
+          "price": 130,
+          "veg": true,
+          "description": "Creamy cashew and paneer curry in a mildly spiced, nutty gravy. Indulgent and perfect for special occasions.",
+          "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80",
+          "tags": []
+        }
       ]
     },
     {
@@ -53,19 +157,67 @@
       "name": "Khichdi",
       "emoji": "🍚",
       "items": [
-        { "id": "daal-khichdi", "name": "Daal Khichdi", "price": 90, "veg": true, "description": "Comforting rice and lentil khichdi, light and homely.", "image": "" },
-        { "id": "tadka-daal-khichdi", "name": "Tadka Daal Khichdi", "price": 110, "veg": true, "description": "Daal khichdi finished with a hot ghee-cumin tadka.", "image": "" }
+        {
+          "id": "daal-khichdi",
+          "name": "Daal Khichdi",
+          "price": 90,
+          "veg": true,
+          "description": "Rice and yellow lentils cooked together until soft and nourishing. Light on the stomach, heavy on comfort.",
+          "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "tadka-daal-khichdi",
+          "name": "Tadka Daal Khichdi",
+          "price": 110,
+          "veg": true,
+          "description": "Classic daal khichdi elevated with a sizzling ghee-cumin tadka poured on top.",
+          "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&q=80",
+          "tags": ["bestseller"]
+        }
       ]
     },
     {
       "slug": "farali",
-      "name": "Farali (Maharashtrian Sp)",
+      "name": "Farali",
       "emoji": "🥔",
       "items": [
-        { "id": "sabudana-khichdi", "name": "Sabudana Khichdi", "price": 60, "veg": true, "description": "Classic fasting-friendly sabudana khichdi with peanuts and curry leaves.", "image": "" },
-        { "id": "sabudana-khichdi-chevdo", "name": "Sabudana Khichdi + Farali Chevdo", "price": 80, "veg": true, "description": "Sabudana khichdi served with crunchy farali chevdo.", "image": "" },
-        { "id": "sabudana-wada-4pcs", "name": "Sabudana Wada (4 pcs)", "price": 80, "veg": true, "description": "Crisp fried sabudana and potato fritters, 4 pieces.", "image": "" },
-        { "id": "farali-chutney", "name": "Farali Chutney", "price": 20, "veg": true, "description": "Tangy fasting-friendly green chutney.", "image": "" }
+        {
+          "id": "sabudana-khichdi",
+          "name": "Sabudana Khichdi",
+          "price": 60,
+          "veg": true,
+          "description": "Fasting-friendly sabudana pearls tossed with peanuts, green chilli, and curry leaves.",
+          "image": "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "sabudana-khichdi-chevdo",
+          "name": "Sabudana Khichdi + Farali Chevdo",
+          "price": 80,
+          "veg": true,
+          "description": "Sabudana khichdi served alongside crispy farali chevdo — a satisfying fasting combo.",
+          "image": "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "sabudana-wada-4pcs",
+          "name": "Sabudana Wada (4 pcs)",
+          "price": 80,
+          "veg": true,
+          "description": "Crispy-fried sabudana and potato fritters — golden outside, soft inside. Maharashtrian fasting classic.",
+          "image": "https://images.unsplash.com/photo-1600850056064-a8b380df8395?w=600&q=80",
+          "tags": ["bestseller"]
+        },
+        {
+          "id": "farali-chutney",
+          "name": "Farali Chutney",
+          "price": 20,
+          "veg": true,
+          "description": "Tangy, cooling green chutney made for fasting days — no onion, no garlic, all flavour.",
+          "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&q=80",
+          "tags": []
+        }
       ]
     },
     {
@@ -73,11 +225,51 @@
       "name": "Maggie",
       "emoji": "🍜",
       "items": [
-        { "id": "maggie", "name": "Maggie", "price": 60, "veg": true, "description": "Classic masala Maggie noodles.", "image": "" },
-        { "id": "butter-maggie", "name": "Butter Maggie", "price": 70, "veg": true, "description": "Maggie noodles finished with butter.", "image": "" },
-        { "id": "cheese-maggie", "name": "Cheese Maggie", "price": 85, "veg": true, "description": "Maggie noodles loaded with melted cheese.", "image": "" },
-        { "id": "tadka-maggie", "name": "Tadka Maggie", "price": 90, "veg": true, "description": "Maggie noodles finished with a spiced tadka.", "image": "" },
-        { "id": "cheese-tadka-maggie", "name": "Cheese Tadka Maggie", "price": 100, "veg": true, "description": "Cheese Maggie with an extra spiced tadka finish.", "image": "" }
+        {
+          "id": "maggie",
+          "name": "Maggie",
+          "price": 60,
+          "veg": true,
+          "description": "Classic masala Maggie noodles cooked the way every Indian grew up eating. Simple, nostalgic, always hits the spot.",
+          "image": "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "butter-maggie",
+          "name": "Butter Maggie",
+          "price": 70,
+          "veg": true,
+          "description": "Masala Maggie finished with a generous pat of butter stirred in at the end. Richer, silkier, better.",
+          "image": "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "cheese-maggie",
+          "name": "Cheese Maggie",
+          "price": 85,
+          "veg": true,
+          "description": "Maggie noodles smothered in melted cheese — gooey, indulgent, and impossible to stop eating.",
+          "image": "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "tadka-maggie",
+          "name": "Tadka Maggie",
+          "price": 90,
+          "veg": true,
+          "description": "Maggie with a hot spiced tadka of onions, tomatoes, and whole spices. A street-food upgrade at home.",
+          "image": "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "cheese-tadka-maggie",
+          "name": "Cheese Tadka Maggie",
+          "price": 100,
+          "veg": true,
+          "description": "The ultimate Maggie — spiced tadka finish plus a blanket of melted cheese. Our most-ordered noodle dish.",
+          "image": "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=600&q=80",
+          "tags": ["bestseller"]
+        }
       ]
     },
     {
@@ -85,8 +277,24 @@
       "name": "Extras",
       "emoji": "🧈",
       "items": [
-        { "id": "curd", "name": "Curd", "price": 20, "veg": true, "description": "Fresh homemade curd.", "image": "" },
-        { "id": "butter", "name": "Butter", "price": 20, "veg": true, "description": "A side of fresh butter.", "image": "" }
+        {
+          "id": "curd",
+          "name": "Curd",
+          "price": 20,
+          "veg": true,
+          "description": "Fresh homemade curd — cool, creamy, and the perfect sidekick to any paratha or sabji.",
+          "image": "https://images.unsplash.com/photo-1581868164904-77b124b80242?w=600&q=80",
+          "tags": []
+        },
+        {
+          "id": "butter",
+          "name": "Butter",
+          "price": 20,
+          "veg": true,
+          "description": "A generous side of fresh butter. Because everything is better with butter.",
+          "image": "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=600&q=80",
+          "tags": []
+        }
       ]
     }
   ]

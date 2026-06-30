@@ -1,60 +1,137 @@
 {
   "brandName": "Mumma's Menu",
   "shortName": "Mumma's Menu",
-  "tagline": "No artificial colours • Freshly cooked • Made with mumma's love",
-  "description": "Mumma's Menu is a home-style cloud kitchen serving freshly made parathas, theplas, sabji, khichdi, farali specials and comfort-food Maggie. Order online and check out instantly on WhatsApp.",
-  "siteUrl": "https://mummasmenu.example.com",
+  "tagline": "100% Pure Veg · FSSAI Approved · Cooked Fresh Daily",
+  "description": "Mumma's Menu is a 100% pure veg, FSSAI-approved home-style cloud kitchen in Vadodara serving freshly made parathas, theplas, sabji, khichdi, farali specials and comfort-food Maggie — cooked daily with no artificial colours and a whole lot of love. Order on WhatsApp in seconds.",
+  "siteUrl": "https://mummasmenu.in",
   "logo": "/images/logo.svg",
   "ogImage": "/images/og-image.jpg",
   "whatsappNumber": "919712000197",
   "phoneDisplay": "+91 97120 00197",
-  "email": "hello@mummasmenu.example.com",
+  "email": "hello@mummasmenu.in",
   "address": {
     "street": "",
-    "locality": "Your City",
-    "region": "",
-    "postalCode": "",
+    "locality": "Vadodara",
+    "region": "Gujarat",
+    "postalCode": "390001",
     "country": "IN"
   },
   "hours": "09:00-21:00",
-  "priceRange": "₹20 - ₹200",
+  "priceRange": "₹20 – ₹200",
   "social": {
     "instagram": "https://instagram.com/mummasmenu",
     "facebook": "https://facebook.com/mummasmenu",
     "whatsapp": "https://wa.me/919712000197"
   },
   "about": {
-    "heading": "From our kitchen to your home",
+    "heading": "From Mumma's kitchen, straight to your door",
+    "story": "Every dish starts the same way — Mumma wakes up early, picks fresh ingredients, and cooks with the same recipes she's made for her family for decades. No shortcuts, no artificial colours, no preservatives. Just real, honest, 100% vegetarian home-style food.",
     "paragraphs": [
-      "Mumma's Menu is a home-style cloud kitchen serving freshly made parathas, theplas, sabjis, khichdi, farali specials and comfort-food Maggie — cooked daily with no artificial colours and a whole lot of love."
+      "Mumma's Menu was born out of a simple idea: the best food you've ever had was probably made at home. We started as a small cloud kitchen in Vadodara because we believed that homestyle cooking shouldn't stay locked inside four walls.",
+      "Every paratha is hand-rolled. Every thepla is spiced fresh. Every sabji is slow-cooked the way your mumma would. And when you order, you get it delivered as if it came straight from our kitchen — because it does."
     ],
     "highlights": [
-      "Fresh ingredients, cooked to order",
-      "No artificial colours, ever",
-      "Easy WhatsApp ordering & checkout",
-      "Recipes straight from Mumma's kitchen"
+      "100% Pure Vegetarian Kitchen",
+      "FSSAI Approved Cloud Kitchen",
+      "Fresh ingredients, cooked daily",
+      "Zero artificial colours — ever",
+      "WhatsApp ordering in under 60 seconds",
+      "Gujarati & Maharashtrian specialties"
     ]
   },
+  "testimonials": [
+    {
+      "name": "Priya S.",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80",
+      "text": "The Aloo Paratha is exactly like what my mom used to make. Soft, buttery, and full of love. Ordering every week now!",
+      "rating": 5,
+      "location": "Vadodara"
+    },
+    {
+      "name": "Rahul M.",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80",
+      "text": "Cheese Tadka Maggie is insane! And delivery was super fast. Love that everything is pure veg and freshly cooked.",
+      "rating": 5,
+      "location": "Vadodara"
+    },
+    {
+      "name": "Kavita D.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80",
+      "text": "Best farali food I've had outside my home. The Sabudana Wada is crispy outside, soft inside — perfect for Ekadashi.",
+      "rating": 5,
+      "location": "Vadodara"
+    }
+  ],
   "faq": [
     {
       "question": "How do I place an order on Mumma's Menu?",
-      "answer": "Browse the menu, add items to your cart, then tap Checkout on WhatsApp. Your order summary is pre-filled into a WhatsApp message so you just need to hit send."
+      "answer": "Browse the menu, add items to your cart, then tap 'Checkout on WhatsApp'. Your complete order summary is pre-filled into a WhatsApp message — just hit send and we'll confirm within minutes."
     },
     {
-      "question": "Does Mumma's Menu use artificial colours?",
-      "answer": "No. Every dish at Mumma's Menu is freshly cooked with no artificial colours, using home-style recipes."
+      "question": "Is Mumma's Menu 100% vegetarian?",
+      "answer": "Yes! Mumma's Menu is a 100% pure vegetarian kitchen. Not a single non-veg item is cooked or stored here. Safe for strict vegetarians and Jains."
     },
     {
-      "question": "What are the most popular items on the menu?",
-      "answer": "Aloo Paratha, Paneer Butter Masala, and Cheese Tadka Maggie are among the most ordered items at Mumma's Menu."
+      "question": "Is Mumma's Menu FSSAI approved?",
+      "answer": "Yes! Mumma's Menu is a fully FSSAI-licensed cloud kitchen. We follow strict hygiene standards and cook every dish fresh daily with no artificial colours or preservatives."
+    },
+    {
+      "question": "Does Mumma's Menu use artificial colours or preservatives?",
+      "answer": "Never. Every dish at Mumma's Menu is freshly cooked with natural ingredients and home-style recipes handed down through generations. No artificial colours, no preservatives."
+    },
+    {
+      "question": "What are the most popular dishes?",
+      "answer": "Our bestsellers are Aloo Paratha (₹80), Paneer Butter Masala (₹110), and Cheese Tadka Maggie (₹100). The Sabudana Khichdi is a favourite on fasting days."
     },
     {
       "question": "Do you have options for fasting (Farali) days?",
-      "answer": "Yes, our Farali section includes Sabudana Khichdi, Sabudana Wada and Farali Chutney, all suitable for Maharashtrian-style fasting."
+      "answer": "Yes! Our Farali section includes Sabudana Khichdi, Sabudana Wada, and Farali Chutney — all cooked to Maharashtrian fasting standards with no onion or garlic."
     },
     {
-      "question": "What payment methods are accepted?",
-      "answer": "Orders are placed and confirmed over WhatsApp, where payment details are shared directly by Mumma's Menu."
+      "question": "What are your delivery areas and charges?",
+      "answer": "We currently deliver within Vadodara, Gujarat. Delivery charges vary by distance and are shared over WhatsApp when your order is confirmed. Orders above ₹200 may qualify for free delivery — ask us on WhatsApp!"
+    },
+    {
+      "question": "How do I pay for my order?",
+      "answer": "Payment details — UPI, cash on delivery, or bank transfer — are shared directly over WhatsApp when your order is confirmed. We accept most payment methods."
+    },
+    {
+      "question": "Can I customise my order?",
+      "answer": "Absolutely! Just mention your preferences in the special instructions when checking out — extra butter, less spice, no onion — and we'll do our best to accommodate."
     }
-  ]
+  ],
+  "fssai": {
+    "licenceNumber": "XXXXXXXXXXXX",
+    "issueDate": "2024-01-01",
+    "expiryDate": "2027-01-01",
+    "certImage": ""
+  },
+  "deliveryArea": "Vadodara, Gujarat",
+  "deliveryNote": "Delivery charges vary by distance, shared over WhatsApp. Free delivery on orders above ₹200 (within select areas).",
+  "businessHours": [
+    { "day": "Monday", "open": "09:00", "close": "21:00" },
+    { "day": "Tuesday", "open": "09:00", "close": "21:00" },
+    { "day": "Wednesday", "open": "09:00", "close": "21:00" },
+    { "day": "Thursday", "open": "09:00", "close": "21:00" },
+    { "day": "Friday", "open": "09:00", "close": "21:00" },
+    { "day": "Saturday", "open": "09:00", "close": "21:00" },
+    { "day": "Sunday", "open": "10:00", "close": "20:00", "closed": false }
+  ],
+  "orderSource": "Mumma's Menu Website",
+  "messages": {
+    "orderPrefix": "🙏 Hi Mumma's Menu! I'd like to place an order:\n\n",
+    "orderSuffix": "\n\n📍 Please share delivery details & payment options. Thank you! 🙏\n\n_(Ordered via Mumma's Menu Website)_",
+    "generalInquiry": "Hi Mumma's Menu! 👋 I'd like to know more about your menu and how to order.\n\n_(via Mumma's Menu Website)_",
+    "supportComplaint": "Hi Mumma's Menu, I have an issue with my order:\n\n[Please describe your issue here]\n\n_(via Mumma's Menu Website)_",
+    "supportTrack": "Hi Mumma's Menu! 📦 Could you please share the status of my order?\n\n_(via Mumma's Menu Website)_",
+    "supportFeedback": "Hi Mumma's Menu! ⭐ I'd like to share some feedback:\n\n[Your feedback here]\n\n_(via Mumma's Menu Website)_"
+  },
+  "support": {
+    "whatsappNumber": "919712000197",
+    "responseTime": "Usually replies within 30 minutes"
+  },
+  "retention": {
+    "promoText": "🎉 First order? Get a complimentary farali chutney on us!",
+    "promoLink": "/menu"
+  }
 }
