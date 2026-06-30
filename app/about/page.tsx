@@ -13,8 +13,25 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const site = await getSiteData();
+
+  const aboutJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: `About ${site.brandName}`,
+    description: site.about.story ?? site.description,
+    mainEntity: {
+      "@type": "Restaurant",
+      name: site.brandName,
+      url: site.siteUrl,
+    },
+  };
+
   return (
     <div className="pt-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+      />
       <About site={site} />
     </div>
   );

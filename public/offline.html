@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>You're offline — Mumma's Menu</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: linear-gradient(180deg, #fff5f5, #ffeded);
+        color: #2b2b2b;
+        text-align: center;
+        padding: 24px;
+      }
+      .emoji {
+        font-size: 64px;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0;
+      }
+      p {
+        color: #6b6b6b;
+        max-width: 320px;
+        margin: 0;
+      }
+      a {
+        margin-top: 8px;
+        display: inline-block;
+        background: #d32f2f;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 12px 28px;
+        border-radius: 999px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="emoji" aria-hidden="true">📡</div>
+    <h1>You're offline</h1>
+    <p>
+      It looks like there's no internet connection right now. Check your connection and try
+      again — Mumma's Menu will be right here.
+    </p>
+    <a href="/">Try Again</a>
+  </body>
+</html>

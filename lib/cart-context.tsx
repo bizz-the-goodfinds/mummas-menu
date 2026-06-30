@@ -1,9 +1,11 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+
 import type { CartLine } from "./types";
 
 const STORAGE_KEY = "mummasMenuCart";
+const INSTRUCTIONS_KEY = "mummasMenuInstructions";
 
 interface CartContextValue {
   lines: CartLine[];
@@ -12,19 +14,38 @@ interface CartContextValue {
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
-  addItem: (item: { id: string; name: string; price: number; emoji: string }) => void;
+  addItem: (item: {
+    id: string;
+    name: string;
+    price: number;
+    emoji: string;
+    image?: string;
+  }) => void;
   removeItem: (id: string) => void;
   qtyFor: (id: string) => number;
   clear: () => void;
   toast: string | null;
+  instructions: string;
+  setInstructions: (v: string) => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cart, setCart] = useState<Record<string, CartLine>>({});
+  const [cart, setCart] = useState<Record<string, CartLine>>(() => {
+    if (typeof window === "undefined") return {};
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? (JSON.parse(raw) as Record<string, CartLine>) : {};
+    } catch {
+      return {};
+    }
+  });
+  const [instructions, setInstructionsState] = useState<string>(() => {
+    if (typeof window === "undefined") return "";
+    return localStorage.getItem(INSTRUCTIONS_KEY) ?? "";
+  });
   const [isOpen, setIsOpen] = useState(false);
-  const [hydrated, setHydrated] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => {
@@ -34,29 +55,34 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [toast]);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setCart(JSON.parse(raw));
-    } catch {
-      // ignore corrupt storage
-    }
-    setHydrated(true);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+  }, [cart]);
+
+  const setInstructions = useCallback((v: string) => {
+    setInstructionsState(v);
+    localStorage.setItem(INSTRUCTIONS_KEY, v);
   }, []);
 
-  useEffect(() => {
-    if (hydrated) localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-  }, [cart, hydrated]);
-
-  const addItem = useCallback((item: { id: string; name: string; price: number; emoji: string }) => {
-    setCart((prev) => {
-      const existing = prev[item.id];
-      return {
-        ...prev,
-        [item.id]: { id: item.id, name: item.name, price: item.price, emoji: item.emoji, qty: (existing?.qty ?? 0) + 1 },
-      };
-    });
-    setToast(`Added ${item.name}`);
-  }, []);
+  const addItem = useCallback(
+    (item: { id: string; name: string; price: number; emoji: string; image?: string }) => {
+      setCart((prev) => {
+        const existing = prev[item.id];
+        return {
+          ...prev,
+          [item.id]: {
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            emoji: item.emoji,
+            image: item.image,
+            qty: (existing?.qty ?? 0) + 1,
+          },
+        };
+      });
+      setToast(`Added ${item.name}`);
+    },
+    [],
+  );
 
   const removeItem = useCallback((id: string) => {
     setCart((prev) => {
@@ -92,6 +118,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     qtyFor,
     clear,
     toast,
+    instructions,
+    setInstructions,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

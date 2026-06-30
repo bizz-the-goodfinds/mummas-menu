@@ -1,0 +1,47 @@
+Name,Description,Tag,Price,Image Title
+Tiffin Meals,,,,
+Sabji + 4 Roti + Rice + Daal,"A complete homestyle meal with fresh sabji, soft rotis, rice and comforting daal.",Bestseller,100,sabji-roti-daal-rice
+Sabji + 2 Paratha + Rice + Daal,"Wholesome meal served with flaky parathas, fresh sabji, rice and flavourful daal.",,120,sabji-paratha-daal-rice
+Combos,,,,
+Paneer Sabji + 4 Roti,Rich paneer curry served with four soft rotis for a hearty homemade meal.,,150,paneer-sabji-roti
+Paneer Sabji + 2 Paratha,"Creamy paneer curry paired with two buttery parathas, satisfying and delicious.",,170,paneer-sabji-paratha
+Aloo Sabzi + 4 Roti,"Simple homestyle aloo sabzi served with four soft rotis, comforting and filling.",Bestseller,80,aloo-sabzi-roti
+Aloo Sabzi + 2 Paratha,Flavourful dry aloo sabzi served with two soft parathas for a wholesome meal.,,90,aloo-sabzi-paratha
+Aloo Sabzi + 2 Thepla,"Homestyle aloo sabzi paired with two soft theplas, light and full of flavour.",,90,aloo-sabzi-thepla
+Rotis & Parathas,,,,
+Aloo Paratha,"Soft paratha generously stuffed with spiced potato filling, served hot and fresh.",,60,aloo-paratha
+Paneer Paratha,"Freshly prepared paratha stuffed with flavourful paneer, soft inside and crispy outside.",Bestseller,80,paneer-paratha
+Cheese Paneer Paratha,"Delicious paratha stuffed with creamy paneer and melted cheese, perfectly satisfying.",Bestseller,100,cheese-paneer-paratha
+Roti (10 pcs),"Freshly made soft whole wheat rotis, perfect with every homemade meal.",,80,roti
+Butter Roti (10 pcs),Soft whole wheat rotis brushed with butter for extra richness and flavour.,,100,butter-roti
+Thepla (2 pcs),"Traditional Gujarati theplas, soft, flavourful and perfect for any time of day.",,30,thepla
+Butter Thepla (2 pcs),Fresh theplas finished with butter for an extra layer of deliciousness.,,40,butter-thepla
+Sabzi,,,,
+Paneer Bhurji,Soft crumbled paneer cooked with aromatic spices for a comforting homestyle dish.,Bestseller,150,paneer-bhurji
+Paneer Butter Masala,Creamy paneer cooked in a rich buttery tomato gravy with aromatic spices.,,150,paneer-butter-masala
+Aloo Sabzi,Homestyle dry potato sabzi cooked with simple spices and everyday comfort flavours.,,60,aloo-sabzi
+Maggi,,,,
+Classic Maggi,"Classic Maggi noodles cooked to perfection, warm, comforting and ready to satisfy.",,50,maggi
+Butter Maggi,Classic Maggi tossed with butter for a rich and comforting flavour.,,60,butter-maggi
+Cheese Maggi,Classic Maggi topped with melted cheese for an irresistibly creamy bite.,,70,cheese-maggi
+Tadka Maggi,Maggi tossed with aromatic Indian tadka for a delicious desi twist.,Bestseller,70,tadka-maggi
+Cheese Tadka Maggi,Spicy tadka Maggi topped with melted cheese for the ultimate comfort bowl.,,80,cheese-tadka-maggi
+Breakfast Sp.,,,,
+Batata Poha,"Light and fluffy poha with potatoes, gently seasoned for a comforting breakfast.",,40,batata-poha
+Curd Rice,"Creamy curd rice, lightly seasoned and perfectly refreshing for a comforting meal.",Bestseller,80,curd-rice
+Daal Pakwan,"Crispy pakwan served with flavourful daal, a traditional Sindhi breakfast favourite.",Bestseller,100,daal-pakwan
+Farali,,,,
+Sabudana Khichdi,Light and flavourful sabudana cooked with peanuts and mild fasting spices.,Bestseller,60,sabudana-khichdi
+Sabudana Khichdi + Farali Chevdo,Classic sabudana khichdi topped with crunchy farali chevdo for extra texture.,,75,sabudana-khichdi-farali-chevdo
+Sabudana Vada (2 pcs),"Golden crispy sabudana vadas with a soft, flavourful centre.",Bestseller,60,sabudana-vada
+Farali Chutney,"Fresh homemade fasting chutney with refreshing flavours, perfect alongside every farali dish.",,20,farali-chutney
+Beverages,,,,
+Classic Cold Coffee,"Smooth, creamy cold coffee blended perfectly for a refreshing coffee treat.",,70,classic-cold-coffee
+Masala Chai (2 cups),"Freshly brewed masala chai with aromatic spices, warm, comforting and perfect to share.",,40,masala-chai
+Festive Sp.,,,,
+Fried Modak (7 pcs),"Golden fried modaks filled with coconut, jaggery and dry fruits.",,140,fried-modak
+Ghughra/Karanji (6 pcs),"Crispy fried pastry filled with coconut, jaggery, ghee and dry fruits.",,120,ghughra
+Gulabjamun (2 pcs),Soft and juicy gulab jamuns soaked in fragrant sugar syrup.,,40,gulabjamun
+Puranpoli,Traditional Maharashtrian sweet flatbread generously filled with jaggery and lentil stuffing.,Mumma's Sp.,60,puranpoli
+Besan Ladoo (5 pcs),"Homemade besan ladoos made with pure ghee, dry fruits and roasted gram flour.",,120,besan-ladoo
+Churma Ladoo (5 pcs),"Traditional churma ladoos made with jaggery, pure ghee and wholesome wheat flour.",,130,churma-ladoo

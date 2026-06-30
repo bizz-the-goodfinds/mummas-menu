@@ -1,24 +1,54 @@
-import type { CartLine } from "./types";
+import type { CartLine, SiteData } from "./types";
 
 export function whatsappLink(whatsappNumber: string, message: string): string {
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
-export function buildGeneralMessage(brandName: string, siteUrl: string): string {
-  return `Hi ${brandName}! 👋 I'd like to know more about your menu.\n(via ${siteUrl})`;
+export function buildGeneralMessage(site: SiteData): string {
+  return (
+    site.messages?.generalInquiry ??
+    `Hi ${site.brandName}! 👋 I'd like to know more.\n(via ${site.siteUrl})`
+  );
 }
 
-export function buildOrderMessage(brandName: string, lines: CartLine[], siteUrl: string): string {
+export function buildSupportMessage(
+  site: SiteData,
+  type: "complaint" | "track" | "feedback",
+): string {
+  const templates = site.messages ?? {};
+  const map = {
+    complaint: templates.supportComplaint,
+    track: templates.supportTrack,
+    feedback: templates.supportFeedback,
+  };
+  return map[type] ?? `Hi ${site.brandName}! I need support.\n\n_(via ${site.siteUrl})_`;
+}
+
+export function buildOrderMessage(
+  site: SiteData,
+  lines: CartLine[],
+  instructions?: string,
+): string {
   if (lines.length === 0) {
-    return `Hi ${brandName}! I'd like to place an order.\n(via ${siteUrl})`;
+    return buildGeneralMessage(site);
   }
-  let msg = `Hi ${brandName}! 👋 I'd like to order:\n\n`;
+
+  const prefix = site.messages?.orderPrefix ?? `Hi ${site.brandName}! 👋 I'd like to order:\n\n`;
+  const suffix =
+    site.messages?.orderSuffix ??
+    `\n\nPlease confirm my order. Thank you!\n_(Ordered via ${site.orderSource ?? site.siteUrl})_`;
+
   let total = 0;
-  for (const line of lines) {
+  let items = "";
+  lines.forEach((line, i) => {
     const lineTotal = line.price * line.qty;
     total += lineTotal;
-    msg += `• ${line.name} x${line.qty} — ₹${lineTotal}\n`;
-  }
-  msg += `\n*Total: ₹${total}*\n\nPlease confirm my order. Thank you!\n(Ordered via ${siteUrl})`;
-  return msg;
+    items += `${i + 1}. ${line.name} × ${line.qty} = ₹${lineTotal}\n`;
+  });
+
+  const instructionsBlock = instructions?.trim()
+    ? `\n📝 *Special instructions:* ${instructions.trim()}\n`
+    : "";
+
+  return `${prefix}${items}${instructionsBlock}\n*Total: ₹${total}*${suffix}`;
 }

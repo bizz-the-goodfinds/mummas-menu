@@ -1,65 +1,126 @@
+import Image from "next/image";
 import type { SiteData } from "@/lib/types";
 import { buildGeneralMessage, whatsappLink } from "@/lib/whatsapp";
+import { LinkButton } from "@/components/ui/Button";
+
+const HERO_IMAGE = "https://images.unsplash.com/photo-1542367592-8849eb950fd8?w=900&q=85";
+
+const TRUST_BADGES = [
+  { icon: "🌿", label: "100% Pure Veg" },
+  { icon: "✅", label: "FSSAI Approved" },
+  { icon: "🍳", label: "Cooked Daily" },
+  { icon: "⚡", label: "60-sec WhatsApp Order" },
+];
 
 export default function Hero({ site }: { site: SiteData }) {
-  const generalMsg = buildGeneralMessage(site.brandName, site.siteUrl);
+  const generalMsg = buildGeneralMessage(site);
+  const waHref = whatsappLink(site.whatsappNumber, generalMsg);
 
   return (
-    <section id="home" className="pt-16 pb-14 md:pt-[70px] md:pb-[60px]">
-      <div className="mx-auto max-w-6xl px-6 grid md:grid-cols-[1.1fr_0.9fr] gap-10 md:gap-12 items-center">
-        <div>
-          <span className="glass inline-block px-4 py-2 rounded-full text-[13px] font-semibold text-brand-red mb-5">
-            {site.tagline}
-          </span>
-          <h1 className="font-heading font-bold text-[32px] md:text-[46px] leading-[1.15] mb-4">
-            Homestyle food, <br />
-            made with <span className="text-brand-red">Mumma&apos;s love</span> ❤️
-          </h1>
-          <p className="text-[16px] leading-[1.7] text-neutral-700 max-w-[480px] mb-7">
-            Order parathas, theplas, sabji, khichdi, maggie &amp; more — straight from our cloud
-            kitchen to your door. Pick your favourites, add to cart, and order directly on
-            WhatsApp.
-          </p>
-          <div className="flex flex-wrap gap-3.5 mb-9">
-            <a
-              href="#menu"
-              className="inline-flex items-center gap-2 px-[26px] py-3.5 rounded-full font-semibold text-[15px] bg-brand-red text-white shadow-[0_10px_24px_rgba(211,47,47,0.35)] hover:-translate-y-0.5 transition-transform"
-            >
-              View Menu
-            </a>
-            <a
-              href={whatsappLink(site.whatsappNumber, generalMsg)}
-              target="_blank"
-              rel="noopener"
-              className="inline-flex items-center gap-2 px-[26px] py-3.5 rounded-full font-semibold text-[15px] text-brand-red glass-strong hover:-translate-y-0.5 transition-transform"
-            >
-              <WhatsAppIcon />
-              Order on WhatsApp
-            </a>
-          </div>
-          <div className="flex gap-9 flex-wrap">
-            <Stat value="100%" label="Homemade" />
-            <Stat value="9+" label="Categories" />
-            <Stat value="★ 4.9" label="Loved by locals" />
-          </div>
-        </div>
+    <section id="home" className="relative overflow-hidden pt-6 pb-10 md:pt-10 md:pb-16">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
+          {/* ── Left: Copy ── */}
+          <div>
+            {/* Pure Veg Banner */}
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-green-50 px-4 py-2 ring-1 ring-green-200">
+              <span className="h-2.5 w-2.5 rounded-full bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.7)]" />
+              <span className="text-[13px] font-bold text-green-800">
+                100% Pure Vegetarian Kitchen
+              </span>
+            </div>
 
-        <div className="relative h-[320px] md:h-[420px] hidden xs:block">
-          <HeroCard emoji="🫓" name="Aloo Paratha" price={80} className="top-[10%] left-[10%]" />
-          <HeroCard
-            emoji="🍛"
-            name="Paneer Butter Masala"
-            price={110}
-            className="top-[38%] left-[42%]"
-            delay="1.2s"
-          />
-          <HeroCard
-            emoji="🍜"
-            name="Cheese Tadka Maggie"
-            price={100}
-            className="top-[64%] left-[8%]"
-            delay="2.4s"
-          />
+            {/* Trust chips */}
+            <div className="no-scrollbar mb-5 overflow-x-auto">
+              <div className="flex w-max gap-2 md:w-auto md:flex-wrap">
+                {TRUST_BADGES.map((b) => (
+                  <span
+                    key={b.label}
+                    className="glass inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold text-neutral-700"
+                  >
+                    <span>{b.icon}</span>
+                    {b.label}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <h1 className="font-heading mb-5 text-[30px] leading-[1.15] font-bold md:text-[46px]">
+              Homestyle food, <span className="text-brand-red">made with love</span>
+              <br />
+              <span className="text-[22px] font-semibold text-neutral-500 md:text-[34px]">
+                delivered in Vadodara
+              </span>
+            </h1>
+
+            <p className="mb-7 max-w-[480px] text-[15px] leading-[1.75] text-neutral-600 md:text-[16px]">
+              Parathas, theplas, sabji, khichdi, farali specials &amp; comforting Maggie — all
+              cooked fresh daily, the way Mumma makes it. Order on WhatsApp in under a minute.
+            </p>
+
+            <div className="mb-10 flex flex-wrap gap-3">
+              <LinkButton href="#menu" variant="primary" size="lg">
+                Browse Menu
+              </LinkButton>
+              <LinkButton
+                href={waHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="secondary"
+                size="lg"
+              >
+                <WhatsAppIcon />
+                Order on WhatsApp
+              </LinkButton>
+            </div>
+
+            {/* Stats */}
+            <div className="flex flex-wrap gap-6">
+              <Stat value="100%" label="Pure Veg" />
+              <Stat value="9+" label="Categories" />
+              <Stat value="★ 4.9" label="Loved locally" />
+              <Stat value="FSSAI" label="Licensed kitchen" />
+            </div>
+          </div>
+
+          {/* ── Right: Food image ── */}
+          <div className="relative h-[300px] md:h-[460px]">
+            {/* Main image */}
+            <div className="glass absolute inset-0 overflow-hidden rounded-[32px]">
+              <Image
+                src={HERO_IMAGE}
+                alt="Traditional Indian thali — homestyle food from Mumma's Menu, Vadodara"
+                fill
+                sizes="(max-width: 768px) 90vw, 45vw"
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              {/* Bottom label */}
+              <div className="absolute right-4 bottom-4 left-4">
+                <p className="text-[13px] font-semibold text-white/90 drop-shadow">
+                  🍱 Homestyle thali — just like Mumma makes it
+                </p>
+              </div>
+            </div>
+
+            {/* Floating cards */}
+            <FloatingCard
+              emoji="🫓"
+              name="Aloo Paratha"
+              price={80}
+              badge="Bestseller"
+              className="-top-4 -left-4 md:-left-8"
+            />
+            <FloatingCard
+              emoji="🍜"
+              name="Cheese Tadka Maggie"
+              price={100}
+              badge="Most loved"
+              className="-right-4 -bottom-4 md:-right-8"
+              delay="1.8s"
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -69,40 +130,43 @@ export default function Hero({ site }: { site: SiteData }) {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col">
-      <strong className="font-heading text-xl text-brand-red">{value}</strong>
-      <span className="text-[13px] text-neutral-600">{label}</span>
+      <strong className="font-heading text-brand-red text-[20px]">{value}</strong>
+      <span className="mt-0.5 text-[12px] text-neutral-500">{label}</span>
     </div>
   );
 }
 
-function HeroCard({
+function FloatingCard({
   emoji,
   name,
   price,
+  badge,
   className,
   delay,
 }: {
   emoji: string;
   name: string;
   price: number;
-  className: string;
+  badge: string;
+  className?: string;
   delay?: string;
 }) {
   return (
     <div
-      className={`glass absolute w-[170px] p-[22px] rounded-3xl text-center animate-float ${className}`}
+      className={`glass-strong animate-float absolute z-10 w-[158px] rounded-2xl p-3.5 ${className ?? ""}`}
       style={delay ? { animationDelay: delay } : undefined}
     >
-      <div className="text-[44px] mb-2.5">{emoji}</div>
-      <p className="font-semibold text-sm mb-1.5">{name}</p>
-      <span className="text-brand-red font-bold font-heading">₹{price}</span>
+      <div className="mb-1 text-[32px]">{emoji}</div>
+      <p className="mb-0.5 text-[11px] font-bold text-green-700">{badge}</p>
+      <p className="text-[12px] leading-snug font-semibold">{name}</p>
+      <span className="font-heading text-brand-red text-[14px] font-bold">₹{price}</span>
     </div>
   );
 }
 
 function WhatsAppIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10.3 9.6 9.9 8.4 9.7 8c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.3s1 2.7 1.1 2.9c.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3z" />
       <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5-1.3C8.5 21.6 10.2 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3 .8.8-2.9-.2-.3C3.9 14.9 3.4 13.5 3.4 12c0-4.7 3.9-8.6 8.6-8.6s8.6 3.9 8.6 8.6-3.9 8.6-8.6 8.6z" />
     </svg>

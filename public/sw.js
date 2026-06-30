@@ -1,5 +1,5 @@
-const CACHE_NAME = "mummas-menu-v1";
-const PRECACHE_URLS = ["/", "/menu", "/about", "/contact", "/manifest.webmanifest"];
+const CACHE_NAME = "mummas-menu-v2";
+const PRECACHE_URLS = ["/", "/menu", "/about", "/contact", "/manifest.webmanifest", "/offline.html"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -21,6 +21,7 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith("/api/")) return;
 
   event.respondWith(
     caches.match(event.request).then((cached) => {
@@ -32,7 +33,13 @@ self.addEventListener("fetch", (event) => {
           }
           return response;
         })
-        .catch(() => cached);
+        .catch(() => {
+          if (cached) return cached;
+          if (event.request.mode === "navigate") {
+            return caches.match("/offline.html");
+          }
+          return Response.error();
+        });
       return cached || fetchPromise;
     })
   );

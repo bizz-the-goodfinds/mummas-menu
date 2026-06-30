@@ -5,6 +5,7 @@ export interface MenuItem {
   veg: boolean;
   description: string;
   image: string;
+  tags?: string[];
 }
 
 export interface MenuCategory {
@@ -21,6 +22,47 @@ export interface MenuData {
 export interface FaqEntry {
   question: string;
   answer: string;
+}
+
+export interface BusinessHour {
+  day: string;
+  open: string;
+  close: string;
+  closed?: boolean;
+}
+
+export interface FssaiInfo {
+  licenceNumber: string;
+  issueDate: string;
+  expiryDate: string;
+  certImage: string;
+}
+
+export interface MessageTemplates {
+  orderPrefix: string;
+  orderSuffix: string;
+  generalInquiry: string;
+  supportComplaint: string;
+  supportTrack: string;
+  supportFeedback: string;
+}
+
+export interface SupportConfig {
+  whatsappNumber: string;
+  responseTime: string;
+}
+
+export interface RetentionConfig {
+  promoText: string;
+  promoLink: string;
+}
+
+export interface Testimonial {
+  name: string;
+  text: string;
+  rating: number;
+  location: string;
+  avatar?: string;
 }
 
 export interface SiteData {
@@ -50,10 +92,20 @@ export interface SiteData {
   };
   about: {
     heading: string;
+    story?: string;
     paragraphs: string[];
     highlights: string[];
   };
   faq: FaqEntry[];
+  fssai: FssaiInfo;
+  deliveryArea: string;
+  deliveryNote?: string;
+  businessHours: BusinessHour[];
+  orderSource: string;
+  messages: MessageTemplates;
+  support: SupportConfig;
+  retention: RetentionConfig;
+  testimonials?: Testimonial[];
 }
 
 export interface CartLine {
@@ -62,4 +114,17 @@ export interface CartLine {
   price: number;
   qty: number;
   emoji: string;
+  image?: string;
+}
+
+export interface OrderEntry {
+  id: string;
+  timestamp: string;
+  items: CartLine[];
+  total: number;
+  source: string;
+}
+
+export interface OrderLog {
+  orders: OrderEntry[];
 }

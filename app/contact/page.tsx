@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getSiteData } from "@/lib/data";
-import { buildGeneralMessage, whatsappLink } from "@/lib/whatsapp";
+import { buildGeneralMessage, buildSupportMessage, whatsappLink } from "@/lib/whatsapp";
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteData();
@@ -13,40 +13,69 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ContactPage() {
   const site = await getSiteData();
-  const link = whatsappLink(site.whatsappNumber, buildGeneralMessage(site.brandName, site.siteUrl));
+  const link = whatsappLink(site.whatsappNumber, buildGeneralMessage(site));
+  const trackLink = whatsappLink(site.whatsappNumber, buildSupportMessage(site, "track"));
+  const complaintLink = whatsappLink(site.whatsappNumber, buildSupportMessage(site, "complaint"));
+  const feedbackLink = whatsappLink(site.whatsappNumber, buildSupportMessage(site, "feedback"));
 
   return (
     <section className="py-16 md:py-20">
       <div className="mx-auto max-w-3xl px-6 text-center">
-        <span className="glass inline-block px-4 py-2 rounded-full text-[13px] font-semibold text-brand-red mb-4">
+        <span className="glass text-brand-red mb-4 inline-block rounded-full px-4 py-2 text-[13px] font-semibold">
           Get In Touch
         </span>
-        <h1 className="font-heading font-bold text-3xl md:text-4xl mb-4">We&apos;d love to hear from you</h1>
-        <p className="text-neutral-600 mb-10 max-w-xl mx-auto">
-          Questions about an order, bulk catering, or just want to say hi? Reach {site.brandName} directly on
-          WhatsApp for the fastest response.
+        <h1 className="font-heading mb-4 text-3xl font-bold md:text-4xl">
+          We&apos;d love to hear from you
+        </h1>
+        <p className="mx-auto mb-3 max-w-xl text-neutral-600">
+          Questions about an order, bulk catering, or just want to say hi? Reach {site.brandName}{" "}
+          directly on WhatsApp for the fastest response.
         </p>
+        <span className="mb-10 inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-3.5 py-1.5 text-[12px] font-semibold text-green-700">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
+          {site.support.responseTime}
+        </span>
 
-        <div className="grid sm:grid-cols-3 gap-5">
+        <div className="grid gap-5 sm:grid-cols-3">
+          <ContactCard href={link} icon="💬" title="WhatsApp" value="Chat with us" external />
           <ContactCard
-            href={link}
-            icon="💬"
-            title="WhatsApp"
-            value="Chat with us"
-            external
+            href={`tel:+${site.whatsappNumber}`}
+            icon="📞"
+            title="Call"
+            value={site.phoneDisplay}
           />
-          <ContactCard href={`tel:+${site.whatsappNumber}`} icon="📞" title="Call" value={site.phoneDisplay} />
           <ContactCard href={`mailto:${site.email}`} icon="📧" title="Email" value={site.email} />
         </div>
 
-        <div className="glass rounded-3xl p-8 mt-10 text-left">
-          <h2 className="font-heading text-xl mb-3">📍 Where we deliver</h2>
-          <p className="text-neutral-700">
-            {site.address.locality}
-            {site.address.region ? `, ${site.address.region}` : ""} — fresh, home-cooked meals delivered daily.
+        <div className="glass mt-10 rounded-3xl p-8 text-left">
+          <h2 className="font-heading mb-4 text-xl">🙋 Customer Support</h2>
+          <p className="mb-5 text-neutral-700">
+            Already placed an order, or had an issue? Use one of these pre-filled WhatsApp messages
+            so we can help you faster.
           </p>
-          <h2 className="font-heading text-xl mt-6 mb-3">🕒 Hours</h2>
-          <p className="text-neutral-700">{site.hours}</p>
+          <div className="flex flex-wrap gap-3">
+            <SupportButton href={trackLink} label="📦 Track my order" />
+            <SupportButton href={complaintLink} label="⚠️ Report an issue" />
+            <SupportButton href={feedbackLink} label="⭐ Share feedback" />
+          </div>
+        </div>
+
+        <div className="glass mt-6 rounded-3xl p-8 text-left">
+          <h2 className="font-heading mb-3 text-xl">📍 Where we deliver</h2>
+          <p className="text-neutral-700">
+            {site.deliveryArea} — fresh, home-cooked meals delivered daily.
+          </p>
+          <h2 className="font-heading mt-6 mb-3 text-xl">🕒 Hours</h2>
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-[14px] text-neutral-700 sm:grid-cols-1">
+            {site.businessHours.map((h) => (
+              <li key={h.day} className="flex justify-between gap-4 sm:max-w-xs">
+                <span>{h.day}</span>
+                <span className="font-medium">
+                  {h.closed ? "Closed" : `${h.open} – ${h.close}`}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
@@ -71,11 +100,24 @@ function ContactCard({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener" : undefined}
-      className="glass rounded-3xl p-6 flex flex-col items-center gap-2 hover:-translate-y-1 transition-transform"
+      className="glass flex flex-col items-center gap-2 rounded-3xl p-6 transition-transform hover:-translate-y-1"
     >
       <span className="text-3xl">{icon}</span>
       <strong className="font-heading">{title}</strong>
-      <span className="text-sm text-neutral-600 break-all">{value}</span>
+      <span className="text-sm break-all text-neutral-600">{value}</span>
+    </a>
+  );
+}
+
+function SupportButton({ href, label }: { href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener"
+      className="glass-strong hover:text-brand-red inline-flex items-center rounded-full px-4 py-2.5 text-[13px] font-semibold text-neutral-700 transition-all hover:-translate-y-0.5"
+    >
+      {label}
     </a>
   );
 }

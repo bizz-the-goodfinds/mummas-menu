@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
+/* ─── Design tokens ──────────────────────────────────────────────────────── */
 @theme inline {
+  /* Brand colours */
   --color-brand-red: #d32f2f;
+  --color-brand-red-dark: #b71c1c;
   --color-brand-pink: #ffeded;
+  --color-brand-pink-mid: #ffd6d6;
   --color-brand-grey-light: #d9d9d9;
   --color-brand-grey-dark: #b4b4b4;
-  --color-brand-black: #000000;
+  --color-brand-black: #0d0d0d;
   --color-brand-white: #ffffff;
+
+  /* Semantic surface */
+  --color-surface: rgba(255, 255, 255, 0.55);
+  --color-surface-strong: rgba(255, 255, 255, 0.72);
+  --color-surface-border: rgba(255, 255, 255, 0.6);
+
+  /* Typography */
   --font-sans: var(--font-poppins);
   --font-heading: var(--font-baloo);
+
+  /* Shadows */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-red: 0 10px 24px rgba(211, 47, 47, 0.35);
+  --shadow-red-lg: 0 14px 28px rgba(211, 47, 47, 0.45);
+  --shadow-green: 0 10px 24px rgba(37, 211, 102, 0.35);
+
+  /* Border radius */
+  --radius-card: 1rem;
+  --radius-pill: 9999px;
+
+  /* Animation */
+  --duration-float: 5s;
+  --duration-glow: 2.4s;
 }
 
+/* ─── Global base ────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: linear-gradient(160deg, #fff6f6, #ffe2e2 60%, #ffffff);
-  color: #000;
+  background: #fdf9f8;
+  color: #0d0d0d;
   min-height: 100vh;
 }
 
+/* Bottom nav safe area on mobile */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* ─── Glassmorphism surfaces ─────────────────────────────────────────────── */
 .glass {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(16px) saturate(160%);
@@ -30,12 +63,14 @@ body {
 }
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
+/* ─── Animations ─────────────────────────────────────────────────────────── */
 @keyframes float {
   0%,
   100% {
@@ -46,7 +81,7 @@ body {
   }
 }
 .animate-float {
-  animation: float 5s ease-in-out infinite;
+  animation: float var(--duration-float, 5s) ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
@@ -61,12 +96,71 @@ body {
   }
 }
 .animate-pulse-glow {
-  animation: pulse-glow 2.4s infinite;
+  animation: pulse-glow var(--duration-glow, 2.4s) infinite;
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.35s ease-out both;
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, #f5f5f5 25%, #ececec 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .no-scrollbar {
   scrollbar-width: none;
+}
+
+/* ─── Focus ring ─────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #d32f2f;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ─── Prose image ────────────────────────────────────────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ─── Details / FAQ ──────────────────────────────────────────────────────── */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
 }
