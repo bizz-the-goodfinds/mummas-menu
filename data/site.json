@@ -1,0 +1,60 @@
+{
+  "brandName": "Mumma's Menu",
+  "shortName": "Mumma's Menu",
+  "tagline": "No artificial colours • Freshly cooked • Made with mumma's love",
+  "description": "Mumma's Menu is a home-style cloud kitchen serving freshly made parathas, theplas, sabji, khichdi, farali specials and comfort-food Maggie. Order online and check out instantly on WhatsApp.",
+  "siteUrl": "https://mummasmenu.example.com",
+  "logo": "/images/logo.svg",
+  "ogImage": "/images/og-image.jpg",
+  "whatsappNumber": "919712000197",
+  "phoneDisplay": "+91 97120 00197",
+  "email": "hello@mummasmenu.example.com",
+  "address": {
+    "street": "",
+    "locality": "Your City",
+    "region": "",
+    "postalCode": "",
+    "country": "IN"
+  },
+  "hours": "09:00-21:00",
+  "priceRange": "₹20 - ₹200",
+  "social": {
+    "instagram": "https://instagram.com/mummasmenu",
+    "facebook": "https://facebook.com/mummasmenu",
+    "whatsapp": "https://wa.me/919712000197"
+  },
+  "about": {
+    "heading": "From our kitchen to your home",
+    "paragraphs": [
+      "Mumma's Menu is a home-style cloud kitchen serving freshly made parathas, theplas, sabjis, khichdi, farali specials and comfort-food Maggie — cooked daily with no artificial colours and a whole lot of love."
+    ],
+    "highlights": [
+      "Fresh ingredients, cooked to order",
+      "No artificial colours, ever",
+      "Easy WhatsApp ordering & checkout",
+      "Recipes straight from Mumma's kitchen"
+    ]
+  },
+  "faq": [
+    {
+      "question": "How do I place an order on Mumma's Menu?",
+      "answer": "Browse the menu, add items to your cart, then tap Checkout on WhatsApp. Your order summary is pre-filled into a WhatsApp message so you just need to hit send."
+    },
+    {
+      "question": "Does Mumma's Menu use artificial colours?",
+      "answer": "No. Every dish at Mumma's Menu is freshly cooked with no artificial colours, using home-style recipes."
+    },
+    {
+      "question": "What are the most popular items on the menu?",
+      "answer": "Aloo Paratha, Paneer Butter Masala, and Cheese Tadka Maggie are among the most ordered items at Mumma's Menu."
+    },
+    {
+      "question": "Do you have options for fasting (Farali) days?",
+      "answer": "Yes, our Farali section includes Sabudana Khichdi, Sabudana Wada and Farali Chutney, all suitable for Maharashtrian-style fasting."
+    },
+    {
+      "question": "What payment methods are accepted?",
+      "answer": "Orders are placed and confirmed over WhatsApp, where payment details are shared directly by Mumma's Menu."
+    }
+  ]
+}
