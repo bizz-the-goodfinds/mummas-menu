@@ -4,7 +4,7 @@
   "tagline": "100% Pure Veg · FSSAI Approved · Cooked Fresh Daily",
   "description": "Mumma's Menu is a 100% pure veg, FSSAI-approved home-style cloud kitchen in Vadodara serving freshly made parathas, theplas, sabji, khichdi, farali specials and comfort-food Maggie — cooked daily with no artificial colours and a whole lot of love. Order on WhatsApp in seconds.",
   "siteUrl": "https://mummasmenu.in",
-  "logo": "/images/logo.svg",
+  "logo": "/images/logo/logo.png",
   "ogImage": "/images/og-image.jpg",
   "whatsappNumber": "919712000197",
   "phoneDisplay": "+91 97120 00197",
@@ -104,7 +104,7 @@
     "licenceNumber": "XXXXXXXXXXXX",
     "issueDate": "2024-01-01",
     "expiryDate": "2027-01-01",
-    "certImage": ""
+    "certImage": "/images/license/FSSAI.png"
   },
   "deliveryArea": "Vadodara, Gujarat",
   "deliveryNote": "Delivery charges vary by distance, shared over WhatsApp. Free delivery on orders above ₹200 (within select areas).",

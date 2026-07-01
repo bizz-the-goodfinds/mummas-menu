@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Hero from "@/components/Hero";
-import MenuSection from "@/components/MenuSection";
 import About from "@/components/About";
 import { getMenuData, getSiteData } from "@/lib/data";
-import type { Testimonial } from "@/lib/types";
+import type { MenuItem, MenuData, Testimonial } from "@/lib/types";
+import { ItemCard } from "@/components/ui/ItemCard";
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteData();
@@ -22,13 +22,55 @@ export default async function Home() {
   return (
     <>
       <Hero site={site} />
-      <MenuSection menu={menu} />
+      <FeaturedSection menu={menu} />
       <About site={site} compact />
       {site.testimonials && site.testimonials.length > 0 && (
         <TestimonialsSection testimonials={site.testimonials} />
       )}
-      <section className="py-10">
-        <div className="mx-auto max-w-6xl px-6 text-center">
+      <FaqSection faq={site.faq} />
+    </>
+  );
+}
+
+function FeaturedSection({ menu }: { menu: MenuData }) {
+  const bestsellers: (MenuItem & { categoryEmoji: string })[] = [];
+  for (const cat of menu.categories) {
+    for (const item of cat.items) {
+      if (item.tags?.includes("bestseller") || item.tags?.includes("most-loved")) {
+        bestsellers.push({ ...item, categoryEmoji: cat.emoji });
+        if (bestsellers.length >= 6) break;
+      }
+    }
+    if (bestsellers.length >= 6) break;
+  }
+
+  return (
+    <section className="py-10 md:py-14">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-6 flex items-end justify-between">
+          <div>
+            <span className="text-brand-red mb-1 block text-[13px] font-semibold tracking-wider uppercase">
+              Fan Favourites
+            </span>
+            <h2 className="font-heading text-[26px] md:text-[30px]">Bestsellers</h2>
+          </div>
+          <Link href="/menu" className="text-brand-red text-[14px] font-semibold hover:underline">
+            Full Menu →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {bestsellers.map((item) => (
+            <ItemCard
+              key={item.id}
+              item={item}
+              categoryEmoji={item.categoryEmoji}
+              variant="horizontal"
+            />
+          ))}
+        </div>
+
+        <div className="mt-8 text-center">
           <Link
             href="/menu"
             className="bg-brand-red inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold text-white shadow-[0_10px_24px_rgba(211,47,47,0.35)] transition-transform hover:-translate-y-0.5"
@@ -36,9 +78,8 @@ export default async function Home() {
             See Full Menu →
           </Link>
         </div>
-      </section>
-      <FaqSection faq={site.faq} />
-    </>
+      </div>
+    </section>
   );
 }
 
@@ -50,15 +91,12 @@ function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) 
           <span className="text-brand-red mb-2 inline-block text-[13px] font-semibold tracking-wider uppercase">
             Customer Love
           </span>
-          <h2 className="font-heading text-[24px] font-bold md:text-[28px]">
-            What Vadodara is saying ❤️
-          </h2>
+          <h2 className="font-heading text-[26px] md:text-[30px]">What Vadodara is saying ❤️</h2>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, i) => (
             <div key={i} className="glass flex flex-col gap-4 rounded-[22px] p-6">
-              {/* Stars */}
               <div className="flex gap-0.5">
                 {Array.from({ length: t.rating }).map((_, s) => (
                   <svg
@@ -78,7 +116,6 @@ function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) 
                 &ldquo;{t.text}&rdquo;
               </p>
 
-              {/* Author */}
               <div className="flex items-center gap-3">
                 {t.avatar ? (
                   <Image
@@ -110,7 +147,7 @@ function FaqSection({ faq }: { faq: { question: string; answer: string }[] }) {
   return (
     <section id="faq" className="py-14">
       <div className="mx-auto max-w-3xl px-6">
-        <h2 className="font-heading mb-8 text-center text-[24px] font-bold md:text-[28px]">
+        <h2 className="font-heading mb-8 text-center text-[26px] md:text-[30px]">
           Frequently Asked Questions
         </h2>
         <div className="flex flex-col gap-3">

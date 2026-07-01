@@ -2,81 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 import type { SiteData } from "@/lib/types";
 import { buildGeneralMessage, whatsappLink } from "@/lib/whatsapp";
-import { FssaiBadge } from "@/components/ui/Badge";
 
 export default function Footer({ site }: { site: SiteData }) {
   const waLink = whatsappLink(site.whatsappNumber, buildGeneralMessage(site));
-  const [first, ...rest] = site.brandName.split(" ");
-  const second = rest.join(" ");
   const todayHours = site.businessHours?.[0];
 
   return (
     <footer className="mt-16">
-      {/* ── Testimonials strip ── */}
-      {site.testimonials && site.testimonials.length > 0 && (
-        <div className="glass border-t border-white/60 py-8">
-          <div className="mx-auto max-w-6xl px-6">
-            <p className="mb-5 text-center text-[12px] font-bold tracking-widest text-neutral-400 uppercase">
-              What Vadodara is saying
-            </p>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {site.testimonials.map((t, i) => (
-                <div key={i} className="glass-strong flex flex-col gap-3 rounded-2xl p-5">
-                  <div className="flex gap-0.5">
-                    {Array.from({ length: t.rating }).map((_, s) => (
-                      <svg
-                        key={s}
-                        width="13"
-                        height="13"
-                        viewBox="0 0 24 24"
-                        fill="#f59e0b"
-                        aria-hidden
-                      >
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="flex-1 text-[13px] leading-[1.6] text-neutral-700">
-                    &ldquo;{t.text}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-2.5">
-                    {t.avatar ? (
-                      <Image
-                        src={t.avatar}
-                        alt={t.name}
-                        width={32}
-                        height={32}
-                        className="h-8 w-8 rounded-full object-cover ring-2 ring-white"
-                      />
-                    ) : (
-                      <div className="bg-brand-red flex h-8 w-8 items-center justify-center rounded-full text-[13px] font-bold text-white">
-                        {t.name.charAt(0)}
-                      </div>
-                    )}
-                    <div>
-                      <p className="text-[13px] font-semibold">{t.name}</p>
-                      <p className="text-[11px] text-neutral-500">📍 {t.location}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* ── Main footer grid ── */}
       <div className="glass rounded-t-3xl border-t border-white/60 pb-[72px] md:pb-0">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 pt-12 pb-8 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="flex flex-col gap-4 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="text-[28px]" aria-hidden>
-                🍲
-              </span>
-              <span className="font-heading text-[18px] leading-tight font-bold">
-                {first} <span className="text-brand-red">{second}</span>
-              </span>
+              <Image
+                src="/images/logo/logo-icon-black.png"
+                alt={site.brandName}
+                width={32}
+                height={32}
+                className="h-8 w-8 object-contain"
+              />
+              <span className="font-heading text-[18px] leading-tight">{site.brandName}</span>
             </Link>
             <p className="max-w-[280px] text-[13px] leading-relaxed text-neutral-600">
               {site.tagline}
@@ -86,7 +32,9 @@ export default function Footer({ site }: { site: SiteData }) {
                 <span className="h-2 w-2 rounded-full bg-green-500" />
                 <span className="text-[11px] font-bold text-green-800">100% Pure Veg Kitchen</span>
               </div>
-              <FssaiBadge />
+              <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-3 py-1.5 text-[11px] font-bold text-green-700">
+                ✅ FSSAI Approved Kitchen
+              </span>
               <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1.5 text-[11px] font-semibold text-neutral-600">
                 🚫 Zero artificial colours, ever
               </span>

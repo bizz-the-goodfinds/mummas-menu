@@ -3,8 +3,6 @@ import type { SiteData } from "@/lib/types";
 import { buildGeneralMessage, whatsappLink } from "@/lib/whatsapp";
 import { LinkButton } from "@/components/ui/Button";
 
-const HERO_IMAGE = "https://images.unsplash.com/photo-1542367592-8849eb950fd8?w=900&q=85";
-
 const TRUST_BADGES = [
   { icon: "🌿", label: "100% Pure Veg" },
   { icon: "✅", label: "FSSAI Approved" },
@@ -45,21 +43,21 @@ export default function Hero({ site }: { site: SiteData }) {
               </div>
             </div>
 
-            <h1 className="font-heading mb-5 text-[30px] leading-[1.15] font-bold md:text-[46px]">
+            <h1 className="font-heading mb-5 text-[34px] leading-[1.2] md:text-[54px]">
               Homestyle food, <span className="text-brand-red">made with love</span>
               <br />
-              <span className="text-[22px] font-semibold text-neutral-500 md:text-[34px]">
+              <span className="font-sans text-[18px] font-semibold text-neutral-500 md:text-[26px]">
                 delivered in Vadodara
               </span>
             </h1>
 
             <p className="mb-7 max-w-[480px] text-[15px] leading-[1.75] text-neutral-600 md:text-[16px]">
-              Parathas, theplas, sabji, khichdi, farali specials &amp; comforting Maggie — all
-              cooked fresh daily, the way Mumma makes it. Order on WhatsApp in under a minute.
+              Parathas, theplas, sabji, khichdi, farali specials &amp; comforting Maggi — all cooked
+              fresh daily, the way Mumma makes it. Order on WhatsApp in under a minute.
             </p>
 
             <div className="mb-10 flex flex-wrap gap-3">
-              <LinkButton href="#menu" variant="primary" size="lg">
+              <LinkButton href="/menu" variant="primary" size="lg">
                 Browse Menu
               </LinkButton>
               <LinkButton
@@ -88,34 +86,33 @@ export default function Hero({ site }: { site: SiteData }) {
             {/* Main image */}
             <div className="glass absolute inset-0 overflow-hidden rounded-[32px]">
               <Image
-                src={HERO_IMAGE}
-                alt="Traditional Indian thali — homestyle food from Mumma's Menu, Vadodara"
+                src="/images/meal/sabji-roti-daal-rice.png"
+                alt="Homestyle tiffin meal from Mumma's Menu, Vadodara — sabji, roti, dal, rice"
                 fill
                 sizes="(max-width: 768px) 90vw, 45vw"
                 className="object-cover"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              {/* Bottom label */}
               <div className="absolute right-4 bottom-4 left-4">
                 <p className="text-[13px] font-semibold text-white/90 drop-shadow">
-                  🍱 Homestyle thali — just like Mumma makes it
+                  🍱 Homestyle tiffin — just like Mumma makes it
                 </p>
               </div>
             </div>
 
             {/* Floating cards */}
             <FloatingCard
-              emoji="🫓"
+              image="/images/meal/aloo-paratha.png"
               name="Aloo Paratha"
-              price={80}
+              price={60}
               badge="Bestseller"
               className="-top-4 -left-4 md:-left-8"
             />
             <FloatingCard
-              emoji="🍜"
-              name="Cheese Tadka Maggie"
-              price={100}
+              image="/images/meal/cheese-tadka-maggi.png"
+              name="Cheese Tadka Maggi"
+              price={80}
               badge="Most loved"
               className="-right-4 -bottom-4 md:-right-8"
               delay="1.8s"
@@ -137,14 +134,14 @@ function Stat({ value, label }: { value: string; label: string }) {
 }
 
 function FloatingCard({
-  emoji,
+  image,
   name,
   price,
   badge,
   className,
   delay,
 }: {
-  emoji: string;
+  image: string;
   name: string;
   price: number;
   badge: string;
@@ -153,13 +150,17 @@ function FloatingCard({
 }) {
   return (
     <div
-      className={`glass-strong animate-float absolute z-10 w-[158px] rounded-2xl p-3.5 ${className ?? ""}`}
+      className={`glass-strong animate-float absolute z-10 w-[158px] overflow-hidden rounded-2xl ${className ?? ""}`}
       style={delay ? { animationDelay: delay } : undefined}
     >
-      <div className="mb-1 text-[32px]">{emoji}</div>
-      <p className="mb-0.5 text-[11px] font-bold text-green-700">{badge}</p>
-      <p className="text-[12px] leading-snug font-semibold">{name}</p>
-      <span className="font-heading text-brand-red text-[14px] font-bold">₹{price}</span>
+      <div className="bg-brand-pink relative h-[80px] w-full">
+        <Image src={image} alt={name} fill sizes="158px" className="object-cover" />
+      </div>
+      <div className="p-3">
+        <p className="mb-0.5 text-[10px] font-bold text-green-700">{badge}</p>
+        <p className="text-[12px] leading-snug font-semibold">{name}</p>
+        <span className="font-heading text-brand-red text-[14px] font-bold">₹{price}</span>
+      </div>
     </div>
   );
 }

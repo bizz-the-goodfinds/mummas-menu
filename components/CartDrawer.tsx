@@ -5,6 +5,7 @@ import { useCart } from "@/lib/cart-context";
 import { buildOrderMessage, whatsappLink } from "@/lib/whatsapp";
 import { QtyButton } from "@/components/ui/QtyButton";
 import type { MenuData, SiteData } from "@/lib/types";
+import { trackBeginCheckout } from "@/lib/analytics";
 
 export default function CartDrawer({ site, menu }: { site: SiteData; menu?: MenuData }) {
   const {
@@ -19,6 +20,10 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
   } = useCart();
 
   function handleCheckout() {
+    trackBeginCheckout(
+      totalPrice,
+      lines.map((l) => ({ id: l.id, name: l.name, price: l.price, qty: l.qty })),
+    );
     const message = buildOrderMessage(site, lines, instructions);
     window.open(whatsappLink(site.whatsappNumber, message), "_blank", "noopener");
     fetch("/api/content/orders", {

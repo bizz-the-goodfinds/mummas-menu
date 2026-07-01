@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 import type { CartLine } from "./types";
+import { trackAddToCart, trackRemoveFromCart, trackViewCart } from "./analytics";
 
 const STORAGE_KEY = "mummasMenuCart";
 const INSTRUCTIONS_KEY = "mummasMenuInstructions";
@@ -80,24 +81,32 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         };
       });
       setToast(`Added ${item.name}`);
+      trackAddToCart({ id: item.id, name: item.name, price: item.price });
     },
     [],
   );
 
-  const removeItem = useCallback((id: string) => {
-    setCart((prev) => {
-      const existing = prev[id];
-      if (!existing) return prev;
-      const nextQty = existing.qty - 1;
-      const next = { ...prev };
-      if (nextQty <= 0) {
-        delete next[id];
-      } else {
-        next[id] = { ...existing, qty: nextQty };
+  const removeItem = useCallback(
+    (id: string) => {
+      const existing = cart[id];
+      if (existing) {
+        trackRemoveFromCart({ id: existing.id, name: existing.name, price: existing.price });
       }
-      return next;
-    });
-  }, []);
+      setCart((prev) => {
+        const line = prev[id];
+        if (!line) return prev;
+        const nextQty = line.qty - 1;
+        const next = { ...prev };
+        if (nextQty <= 0) {
+          delete next[id];
+        } else {
+          next[id] = { ...line, qty: nextQty };
+        }
+        return next;
+      });
+    },
+    [cart],
+  );
 
   const clear = useCallback(() => setCart({}), []);
 
@@ -106,12 +115,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const totalPrice = useMemo(() => lines.reduce((sum, l) => sum + l.qty * l.price, 0), [lines]);
   const qtyFor = useCallback((id: string) => cart[id]?.qty ?? 0, [cart]);
 
+  const openCart = useCallback(() => {
+    setIsOpen(true);
+    trackViewCart(
+      totalPrice,
+      lines.map((l) => ({ id: l.id, name: l.name, price: l.price, qty: l.qty })),
+    );
+  }, [totalPrice, lines]);
+
   const value: CartContextValue = {
     lines,
     totalQty,
     totalPrice,
     isOpen,
-    openCart: () => setIsOpen(true),
+    openCart,
     closeCart: () => setIsOpen(false),
     addItem,
     removeItem,
