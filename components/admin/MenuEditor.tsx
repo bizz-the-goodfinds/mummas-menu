@@ -43,7 +43,6 @@ export function MenuEditor({ token }: { token: string }) {
         id: `new-item-${Date.now()}`,
         name: "New Item",
         price: 0,
-        veg: true,
         description: "",
         image: "",
       });
@@ -168,14 +167,6 @@ export function MenuEditor({ token }: { token: string }) {
                   className="rounded-lg border px-2 py-1 text-sm sm:col-span-4"
                   rows={2}
                 />
-                <label className="flex items-center gap-1.5 text-xs sm:col-span-2">
-                  <input
-                    type="checkbox"
-                    checked={item.veg}
-                    onChange={(e) => updateItem(catIdx, itemIdx, { veg: e.target.checked })}
-                  />
-                  Veg
-                </label>
                 <input
                   value={item.tags?.join(", ") ?? ""}
                   onChange={(e) =>
@@ -187,7 +178,7 @@ export function MenuEditor({ token }: { token: string }) {
                     })
                   }
                   placeholder="tags: bestseller, new, spicy"
-                  className="rounded-lg border px-2 py-1 text-xs sm:col-span-2"
+                  className="rounded-lg border px-2 py-1 text-xs sm:col-span-4"
                 />
               </div>
             ))}

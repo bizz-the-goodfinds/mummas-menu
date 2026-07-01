@@ -1,5 +1,5 @@
-const CACHE_NAME = "mummas-menu-v2";
-const PRECACHE_URLS = ["/", "/menu", "/about", "/contact", "/manifest.webmanifest", "/offline.html"];
+const CACHE_NAME = "mummas-menu-v3";
+const PRECACHE_URLS = ["/", "/menu", "/contact", "/manifest.webmanifest", "/offline.html"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

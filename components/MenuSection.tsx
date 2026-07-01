@@ -21,17 +21,6 @@ export default function MenuSection({ menu }: { menu: MenuData }) {
           <h1 className="font-heading text-[28px] md:text-[36px]">Our Menu</h1>
         </div>
 
-        {/* Pure Veg assurance */}
-        <div className="mb-6 flex flex-wrap items-center justify-center gap-4 rounded-2xl bg-green-50 px-5 py-3 ring-1 ring-green-100">
-          <span className="flex items-center gap-1.5 text-[12px] font-semibold text-green-800">
-            <span className="h-2 w-2 rounded-full bg-green-500" />
-            100% Pure Vegetarian
-          </span>
-          <span className="text-[12px] text-green-700">🚫 No non-veg, ever</span>
-          <span className="text-[12px] text-green-700">🌿 No artificial colours</span>
-          <span className="text-[12px] text-green-700">✅ FSSAI Certified</span>
-        </div>
-
         {/* Sticky filter bar */}
         <div className="sticky top-[68px] z-40 -mx-6 bg-white/80 px-6 pt-3 pb-4 backdrop-blur-lg">
           <div className="no-scrollbar flex gap-2 overflow-x-auto">
