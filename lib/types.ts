@@ -47,6 +47,9 @@ export interface MessageTemplates {
   supportFeedback: string;
 }
 
+/** Standalone type for data/messages.json — templates may contain {{siteUrl}} and {{brandName}} */
+export type MessagesData = MessageTemplates;
+
 export interface SupportConfig {
   whatsappNumber: string;
   responseTime: string;
@@ -101,7 +104,7 @@ export interface SiteData {
   deliveryArea: string;
   deliveryNote?: string;
   businessHours: BusinessHour[];
-  orderSource: string;
+  orderSource?: string;
   messages: MessageTemplates;
   support: SupportConfig;
   retention: RetentionConfig;

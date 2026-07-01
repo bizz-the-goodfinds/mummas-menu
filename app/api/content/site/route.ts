@@ -28,12 +28,11 @@ const ALLOWED_KEYS: Array<keyof SiteData> = [
   "fssai",
   "deliveryArea",
   "businessHours",
-  "orderSource",
-  "messages",
   "support",
   "retention",
   "testimonials",
   "deliveryNote",
+  // messages is intentionally excluded — managed via /api/content/messages
 ];
 
 export async function GET() {

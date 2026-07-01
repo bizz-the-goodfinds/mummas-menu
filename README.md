@@ -30,20 +30,27 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Copy `.env.example` to `.env` and fill in the values. Never commit `.env`.
 
-| Variable                                   | Required | Description                            |
-| ------------------------------------------ | -------- | -------------------------------------- |
-| `ADMIN_PASSWORD`                           | Yes      | Password for the `/admin` portal       |
-| `NEXT_PUBLIC_FIREBASE_API_KEY`             | Yes      | Firebase web config                    |
-| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`         | Yes      | Firebase web config                    |
-| `NEXT_PUBLIC_FIREBASE_PROJECT_ID`          | Yes      | Firebase web config                    |
-| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`      | Yes      | Firebase web config                    |
-| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | Yes      | Firebase web config                    |
-| `NEXT_PUBLIC_FIREBASE_APP_ID`              | Yes      | Firebase web config                    |
-| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`      | Yes      | GA4 Measurement ID (e.g. `G-XXXXXXXX`) |
+| Variable                                   | Required    | Description                                                                                                                             |
+| ------------------------------------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `ADMIN_PASSWORD`                           | Yes         | Password for the `/admin` portal                                                                                                        |
+| `SITE_URL`                                 | Recommended | Canonical public URL (e.g. `https://mummasmenu.in`). Used in WhatsApp messages & JSON-LD. Falls back to `VERCEL_URL` → `data/site.json` |
+| `NEXT_PUBLIC_FIREBASE_API_KEY`             | Yes         | Firebase web config                                                                                                                     |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`         | Yes         | Firebase web config                                                                                                                     |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID`          | Yes         | Firebase web config                                                                                                                     |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`      | Yes         | Firebase web config                                                                                                                     |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | Yes         | Firebase web config                                                                                                                     |
+| `NEXT_PUBLIC_FIREBASE_APP_ID`              | Yes         | Firebase web config                                                                                                                     |
+| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID`      | Yes         | GA4 Measurement ID (e.g. `G-XXXXXXXX`)                                                                                                  |
 
 All `NEXT_PUBLIC_*` variables are intentionally browser-visible — this is by Firebase's web SDK design, not a security issue.
 
 To get Firebase values: **Firebase Console → Project Settings → Your apps → Web app → SDK setup**.
+
+**`SITE_URL` resolution order** (first set wins):
+
+1. `SITE_URL` — set to your custom domain on production
+2. `VERCEL_URL` — auto-set by Vercel on every deployment (prefix `https://` is added automatically)
+3. `siteUrl` in `data/site.json` — local dev fallback
 
 ---
 
@@ -103,7 +110,10 @@ lib/
   types.ts           Shared TypeScript types
   whatsapp.ts        WhatsApp message builders
 
-data/                JSON content files (menu, site config)
+data/
+  menu.json          Menu categories and items
+  site.json          Brand info, contact, hours, FAQ, testimonials
+  messages.json      WhatsApp message templates (supports {{siteUrl}}, {{brandName}})
 public/              Static assets, service worker, fonts
 instrumentation-client.ts   Global error tracking (runs before app boots)
 
