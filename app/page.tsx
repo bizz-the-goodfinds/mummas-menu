@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import { getMenuData, getSiteData } from "@/lib/data";
 import type { MenuItem, MenuData, Testimonial } from "@/lib/types";
-import { ItemCard } from "@/components/ui/ItemCard";
+import { FeaturedGrid } from "@/components/FeaturedGrid";
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteData();
@@ -19,11 +18,25 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const [site, menu] = await Promise.all([getSiteData(), getMenuData()]);
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: site.faq.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Hero site={site} />
       <FeaturedSection menu={menu} />
-      <About site={site} compact />
+      <About site={site} />
       {site.testimonials && site.testimonials.length > 0 && (
         <TestimonialsSection testimonials={site.testimonials} />
       )}
@@ -32,17 +45,40 @@ export default async function Home() {
   );
 }
 
+const FEATURED_COUNT = 6;
+const FEATURED_UNTAGGED_COUNT = 2;
+
 function FeaturedSection({ menu }: { menu: MenuData }) {
-  const bestsellers: (MenuItem & { categoryEmoji: string })[] = [];
+  type FeaturedItem = MenuItem & { categoryEmoji: string };
+
+  const tagged: FeaturedItem[] = [];
+  const untagged: FeaturedItem[] = [];
+
   for (const cat of menu.categories) {
     for (const item of cat.items) {
-      if (item.tags?.includes("bestseller") || item.tags?.includes("most-loved")) {
-        bestsellers.push({ ...item, categoryEmoji: cat.emoji });
-        if (bestsellers.length >= 6) break;
-      }
+      const hasTag = item.tags?.some((t) => t.trim().length > 0);
+      const bucket = hasTag ? tagged : untagged;
+      bucket.push({ ...item, categoryEmoji: cat.emoji });
     }
-    if (bestsellers.length >= 6) break;
   }
+
+  // Surface every distinct tag at least once before topping up with more of the same tag,
+  // so e.g. a single "mummas-sp" item isn't crowded out by 10 "bestseller" items.
+  const seenTags = new Set<string>();
+  const taggedByVariety: FeaturedItem[] = [];
+  for (const item of tagged) {
+    if (item.tags!.some((t) => t.trim() && !seenTags.has(t))) {
+      item.tags!.forEach((t) => t.trim() && seenTags.add(t));
+      taggedByVariety.push(item);
+    }
+  }
+  for (const item of tagged) {
+    if (!taggedByVariety.includes(item)) taggedByVariety.push(item);
+  }
+
+  const untaggedSlots = Math.min(FEATURED_UNTAGGED_COUNT, untagged.length);
+  const taggedSlots = FEATURED_COUNT - untaggedSlots;
+  const taggedPicks = taggedByVariety.slice(0, taggedSlots);
 
   return (
     <section className="py-10 md:py-14">
@@ -50,25 +86,20 @@ function FeaturedSection({ menu }: { menu: MenuData }) {
         <div className="mb-6 flex items-end justify-between">
           <div>
             <span className="text-brand-red mb-1 block text-[13px] font-semibold tracking-wider uppercase">
-              Fan Favourites
+              TOP PICKS
             </span>
-            <h2 className="font-heading text-[26px] md:text-[30px]">Bestsellers</h2>
+            <h2 className="font-heading text-[26px] md:text-[30px]">Worth Trying</h2>
           </div>
           <Link href="/menu" className="text-brand-red text-[14px] font-semibold hover:underline">
             Full Menu →
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {bestsellers.map((item) => (
-            <ItemCard
-              key={item.id}
-              item={item}
-              categoryEmoji={item.categoryEmoji}
-              variant="horizontal"
-            />
-          ))}
-        </div>
+        <FeaturedGrid
+          taggedItems={taggedPicks}
+          untaggedPool={untagged}
+          untaggedCount={untaggedSlots}
+        />
 
         <div className="mt-8 text-center">
           <Link
@@ -82,6 +113,8 @@ function FeaturedSection({ menu }: { menu: MenuData }) {
     </section>
   );
 }
+
+const AVATAR_EMOJIS = ["😋", "🤩", "🙌", "😍", "🥰", "👍", "🎉", "😊"];
 
 function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
@@ -117,19 +150,9 @@ function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) 
               </p>
 
               <div className="flex items-center gap-3">
-                {t.avatar ? (
-                  <Image
-                    src={t.avatar}
-                    alt={t.name}
-                    width={40}
-                    height={40}
-                    className="h-10 w-10 rounded-full object-cover ring-2 ring-white"
-                  />
-                ) : (
-                  <div className="bg-brand-red flex h-10 w-10 items-center justify-center rounded-full text-[15px] font-bold text-white">
-                    {t.name.charAt(0)}
-                  </div>
-                )}
+                <div className="bg-brand-red/10 flex h-10 w-10 items-center justify-center rounded-full text-[20px] ring-2 ring-white">
+                  {t.avatarEmoji ?? AVATAR_EMOJIS[i % AVATAR_EMOJIS.length]}
+                </div>
                 <div>
                   <p className="text-[14px] font-semibold">{t.name}</p>
                   <p className="text-[12px] text-neutral-500">📍 {t.location}</p>

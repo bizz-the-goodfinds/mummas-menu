@@ -1,21 +1,24 @@
 # Mumma's Menu
 
-> Mumma's Menu is a home-style cloud kitchen serving freshly made Indian comfort food — parathas, theplas, rotis, sabji, khichdi, Maharashtrian farali specials, and Maggie. No artificial colours, cooked fresh daily. Orders are placed by adding items to a cart and checking out via a pre-filled WhatsApp message.
+> Mumma's Menu is a home kitchen and cloud kitchen serving freshly made Indian comfort food — parathas, theplas, rotis, sabji, khichdi, Maharashtrian farali specials, and Maggi. No artificial colours, cooked fresh daily. Orders are placed by adding items to a cart and checking out via a pre-filled WhatsApp message.
 
 ## Key facts
 - Cuisine: Indian, Gujarati, Maharashtrian, vegetarian
 - Ordering: browse menu → add to cart → checkout on WhatsApp
 - Price range: ₹20–₹200 per item
 - No artificial colours; freshly cooked to order
+- Fulfilment: self-pickup available now; delivery is arranged via a partner rider (Porter/Uber) until in-house delivery launches
+- Some dishes need advance notice (up to ~5 hours) for preparation
+- A monthly meal plan/subscription is in development
 
 ## Pages
 - /menu — full categorized menu with prices
 - /menu/{category} — individual category pages (parathas, thepla, beverages, rotis, sabji, khichdi, farali, maggie, extras)
-- /about — about the kitchen
+- / — home page, includes an About section with the kitchen's story
 - /contact — WhatsApp, phone, email, delivery area, hours
 
 ## Popular items
-- Aloo Paratha — ₹80
-- Paneer Butter Masala — ₹110
-- Cheese Tadka Maggie — ₹100
+- Aloo Paratha — ₹60
+- Paneer Butter Masala — ₹150
+- Cheese Tadka Maggi — ₹80
 - Sabudana Khichdi — ₹60 (fasting/farali friendly)

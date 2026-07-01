@@ -8,8 +8,7 @@ const TAG_STYLES: Record<string, string> = {
 
 const TAG_LABELS: Record<string, string> = {
   bestseller: "⭐ Bestseller",
-  "most-loved": "❤️ Most Loved",
-  "mummas-sp": "👩‍🍳 Mumma's Sp.",
+  "mummas-sp": "❤️ Mumma's Sp.",
   new: "✨ New",
   spicy: "🌶 Spicy",
 };

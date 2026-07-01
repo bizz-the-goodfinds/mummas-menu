@@ -17,7 +17,7 @@ color, icons) plus static PWA metadata:
 Strategy: **stale-while-revalidate** for same-origin GET requests, with an offline
 fallback for navigations.
 
-- `install` — precaches `PRECACHE_URLS` (`/`, `/menu`, `/about`, `/contact`,
+- `install` — precaches `PRECACHE_URLS` (`/`, `/menu`, `/contact`,
   `/manifest.webmanifest`, `/offline.html`) into `CACHE_NAME`.
 - `activate` — deletes any cache whose name isn't the current `CACHE_NAME`, so old
   versions don't linger.

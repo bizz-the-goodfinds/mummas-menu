@@ -38,6 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: site.description,
     keywords: [
       "cloud kitchen",
+      "home kitchen",
       "FSSAI approved kitchen",
       "home food delivery",
       "paratha order online",
@@ -111,16 +112,23 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     acceptsReservations: false,
     hasMenu: `${site.siteUrl}/menu`,
     areaServed: site.deliveryArea,
-  };
-
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: site.faq.map((f) => ({
-      "@type": "Question",
-      name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
+    ...(site.testimonials && site.testimonials.length > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: (
+              site.testimonials.reduce((sum, t) => sum + t.rating, 0) / site.testimonials.length
+            ).toFixed(1),
+            reviewCount: site.testimonials.length,
+          },
+          review: site.testimonials.map((t) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: t.name },
+            reviewRating: { "@type": "Rating", ratingValue: t.rating, bestRating: 5 },
+            reviewBody: t.text,
+          })),
+        }
+      : {}),
   };
 
   return (
@@ -129,10 +137,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       </head>
       <body className="relative flex min-h-full flex-col overflow-x-hidden pb-[56px] font-sans md:pb-0">
@@ -151,7 +155,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <ServiceWorkerRegister />
           <Header brandName={site.brandName} />
           <main className="flex-1">{children}</main>
-          <Footer site={site} />
+          <Footer site={site} menu={menu} />
           <CartDrawer site={site} menu={menu} />
           <WhatsAppFloat site={site} />
           <Toast />

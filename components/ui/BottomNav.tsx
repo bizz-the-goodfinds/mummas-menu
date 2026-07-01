@@ -43,7 +43,7 @@ const NAV = [
     ),
   },
   {
-    href: "/about",
+    href: "/#about",
     label: "About",
     icon: (
       <svg

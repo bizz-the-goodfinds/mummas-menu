@@ -2,7 +2,6 @@ export interface MenuItem {
   id: string;
   name: string;
   price: number;
-  veg: boolean;
   description: string;
   image: string;
   tags?: string[];
@@ -65,7 +64,7 @@ export interface Testimonial {
   text: string;
   rating: number;
   location: string;
-  avatar?: string;
+  avatarEmoji?: string;
 }
 
 export interface SiteData {

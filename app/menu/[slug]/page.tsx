@@ -19,14 +19,23 @@ export async function generateMetadata({
   const category = menu.categories.find((c) => c.slug === slug);
   if (!category) return {};
   const itemNames = category.items.map((i) => i.name).join(", ");
+  const description = `Order fresh ${category.name} from ${site.brandName}: ${itemNames}. FSSAI-approved home-style cooking, checkout instantly on WhatsApp.`;
+  const ogImage = category.items[0]?.image || site.ogImage;
   return {
     title: `${category.name} — ${site.brandName} Menu`,
-    description: `Order fresh ${category.name} from ${site.brandName}: ${itemNames}. FSSAI-approved home-style cooking, checkout instantly on WhatsApp.`,
+    description,
     alternates: { canonical: `/menu/${slug}` },
     openGraph: {
       title: `${category.name} — ${site.brandName}`,
-      description: `Freshly made ${category.name} delivered from ${site.brandName}`,
-      images: category.items[0]?.image ? [{ url: category.items[0].image }] : [],
+      description,
+      url: `${site.siteUrl}/menu/${slug}`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: category.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${category.name} — ${site.brandName}`,
+      description,
+      images: [ogImage],
     },
   };
 }
@@ -55,9 +64,24 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           priceCurrency: "INR",
           availability: "https://schema.org/InStock",
         },
-        suitableForDiet: item.veg ? "https://schema.org/VegetarianDiet" : undefined,
+        suitableForDiet: "https://schema.org/VegetarianDiet",
       },
     })),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: site.siteUrl },
+      { "@type": "ListItem", position: 2, name: "Menu", item: `${site.siteUrl}/menu` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: category.name,
+        item: `${site.siteUrl}/menu/${slug}`,
+      },
+    ],
   };
 
   return (
@@ -65,6 +89,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <div className="mx-auto max-w-6xl px-6">
         <nav

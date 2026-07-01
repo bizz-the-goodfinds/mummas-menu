@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useCart } from "@/lib/cart-context";
 import type { MenuItem } from "@/lib/types";
-import { VegBadge, TagBadge } from "./Badge";
+import { TagBadge } from "./Badge";
 import { QtyButton } from "./QtyButton";
 import { ItemDetailSheet } from "./ItemDetailSheet";
 
@@ -65,9 +65,6 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
           <div className="flex flex-1 flex-col gap-2 p-3">
             <div className="flex items-start justify-between gap-2">
               <div className="flex-1">
-                <div className="mb-1 flex items-center gap-1.5">
-                  <VegBadge />
-                </div>
                 <h3 className="text-[14px] leading-snug font-semibold">{item.name}</h3>
               </div>
               <span className="font-heading text-brand-red shrink-0 text-[15px] font-bold">
@@ -132,7 +129,6 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
 
         <div className="flex min-w-0 flex-1 flex-col gap-1">
           <div className="flex flex-wrap items-center gap-1.5">
-            <VegBadge />
             {item.tags?.map((t) => (
               <TagBadge key={t} tag={t} />
             ))}

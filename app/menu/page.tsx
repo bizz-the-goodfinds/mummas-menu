@@ -4,10 +4,23 @@ import { getMenuData, getSiteData } from "@/lib/data";
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteData();
+  const description = `Browse the full ${site.brandName} menu: parathas, theplas, sabji, khichdi, farali specials, Maggi and more. Add to cart and order on WhatsApp in seconds.`;
   return {
     title: `Full Menu — ${site.brandName}`,
-    description: `Browse the full ${site.brandName} menu: parathas, theplas, sabji, khichdi, farali specials, Maggie and more. Add to cart and order on WhatsApp in seconds.`,
+    description,
     alternates: { canonical: "/menu" },
+    openGraph: {
+      title: `Full Menu — ${site.brandName}`,
+      description,
+      url: `${site.siteUrl}/menu`,
+      images: [{ url: site.ogImage, width: 1200, height: 630, alt: site.brandName }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Full Menu — ${site.brandName}`,
+      description,
+      images: [site.ogImage],
+    },
   };
 }
 

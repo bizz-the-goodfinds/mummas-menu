@@ -9,7 +9,7 @@ import { useCart } from "@/lib/cart-context";
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/menu", label: "Menu" },
-  { href: "/about", label: "About" },
+  { href: "/#about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 

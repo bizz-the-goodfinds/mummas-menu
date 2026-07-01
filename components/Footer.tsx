@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { SiteData } from "@/lib/types";
+import type { MenuData, SiteData } from "@/lib/types";
 import { buildGeneralMessage, whatsappLink } from "@/lib/whatsapp";
 
-export default function Footer({ site }: { site: SiteData }) {
+export default function Footer({ site, menu }: { site: SiteData; menu: MenuData }) {
   const waLink = whatsappLink(site.whatsappNumber, buildGeneralMessage(site));
   const todayHours = site.businessHours?.[0];
 
@@ -27,25 +27,13 @@ export default function Footer({ site }: { site: SiteData }) {
             <p className="max-w-[280px] text-[13px] leading-relaxed text-neutral-600">
               {site.tagline}
             </p>
-            <div className="flex flex-col gap-2">
-              <div className="inline-flex w-fit items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 ring-1 ring-green-100">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
-                <span className="text-[11px] font-bold text-green-800">100% Pure Veg Kitchen</span>
-              </div>
-              <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-3 py-1.5 text-[11px] font-bold text-green-700">
-                ✅ FSSAI Approved Kitchen
-              </span>
-              <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-neutral-100 px-3 py-1.5 text-[11px] font-semibold text-neutral-600">
-                🚫 Zero artificial colours, ever
-              </span>
-            </div>
             {todayHours && (
               <p className="text-[12px] text-neutral-500">
-                ⏰ Open {todayHours.open} – {todayHours.close} · Delivery: {site.deliveryArea}
+                ⏰ Open {todayHours.open} – {todayHours.close}
               </p>
             )}
             {site.deliveryNote && (
-              <p className="text-[11px] text-neutral-400">{site.deliveryNote}</p>
+              <p className="text-[11px] text-neutral-600">{site.deliveryNote}</p>
             )}
           </div>
 
@@ -57,8 +45,7 @@ export default function Footer({ site }: { site: SiteData }) {
             {[
               { href: "/", label: "Home" },
               { href: "/menu", label: "Full Menu" },
-              { href: "/about", label: "Our Story" },
-              { href: "/trust", label: "FSSAI & Trust" },
+              { href: "/#about", label: "Our Story" },
               { href: "/contact", label: "Contact" },
             ].map(({ href, label }) => (
               <Link
@@ -76,21 +63,13 @@ export default function Footer({ site }: { site: SiteData }) {
             <h4 className="mb-1 text-[13px] font-bold tracking-wider text-neutral-400 uppercase">
               Menu
             </h4>
-            {[
-              { href: "/menu/parathas", label: "🫓 Parathas" },
-              { href: "/menu/thepla", label: "🥞 Thepla" },
-              { href: "/menu/sabji", label: "🍛 Sabji" },
-              { href: "/menu/khichdi", label: "🍚 Khichdi" },
-              { href: "/menu/farali", label: "🥔 Farali Specials" },
-              { href: "/menu/maggie", label: "🍜 Maggie" },
-              { href: "/menu/rotis", label: "🍞 Rotis" },
-            ].map(({ href, label }) => (
+            {menu.categories.map((cat) => (
               <Link
-                key={href}
-                href={href}
+                key={cat.slug}
+                href={`/menu/${cat.slug}`}
                 className="hover:text-brand-red text-[13px] text-neutral-600 transition-colors"
               >
-                {label}
+                {cat.emoji} {cat.name}
               </Link>
             ))}
           </div>
@@ -168,9 +147,7 @@ export default function Footer({ site }: { site: SiteData }) {
           <p>
             © {new Date().getFullYear()} {site.brandName} · All rights reserved · 100% Pure Veg
             {" · "}
-            <Link href="/trust" className="hover:text-brand-red">
-              FSSAI #{site.fssai?.licenceNumber ?? "—"}
-            </Link>
+            FSSAI #{site.fssai?.licenceNumber ?? "—"}
             {" · "}
             Made with ❤️ in {site.address.locality}
           </p>

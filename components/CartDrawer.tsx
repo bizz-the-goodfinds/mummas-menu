@@ -55,7 +55,7 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
         role="dialog"
         aria-modal
         aria-label="Shopping cart"
-        className={`glass fixed top-0 z-[200] flex h-full w-full max-w-[420px] flex-col rounded-l-3xl transition-[right] duration-300 ease-out ${isOpen ? "right-0" : "-right-full"}`}
+        className={`bg-brand-white fixed top-0 z-[200] flex h-full w-full max-w-[420px] flex-col rounded-l-3xl shadow-2xl transition-[right] duration-300 ease-out ${isOpen ? "right-0" : "-right-full"}`}
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/60 px-6 py-5">

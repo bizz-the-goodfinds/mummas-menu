@@ -20,7 +20,6 @@ You can edit them two ways:
           "id": "paneer-tikka",
           "name": "Paneer Tikka",
           "price": 220,
-          "veg": true,
           "description": "Char-grilled cottage cheese, smoky masala.",
           "image": "https://images.unsplash.com/photo-...",
           "tags": ["bestseller"]
@@ -35,7 +34,8 @@ You can edit them two ways:
   derives it from the category name automatically.
 - `tags` is a free-form string array; `"bestseller"` and `"new"` get special badge
   styling in `components/ui/Badge.tsx` — any other tag still renders as a plain badge.
-- `veg` drives the green/red veg-indicator dot.
+- There is no per-item veg field — the whole kitchen is pure veg, so every item shows the
+  same static VEG badge (`components/ui/Badge.tsx`).
 
 ### Images
 
@@ -64,8 +64,8 @@ Retention sections — see `components/admin/SiteEditor.tsx` for the exact field
 
 Key sections:
 
-- `fssai` — licence number, issue/expiry dates, certificate image. Surfaced on
-  `/trust`, in the footer, and in `LocalBusiness` JSON-LD structured data.
+- `fssai` — licence number, issue/expiry dates, certificate image. Surfaced in
+  the footer and in `LocalBusiness` JSON-LD structured data.
 - `businessHours` — one entry per day (`day`, `open`, `close`, `closed`), used on the
   Contact page and in `OpeningHoursSpecification` structured data.
 - `messages` — WhatsApp templates; see [WHATSAPP.md](./WHATSAPP.md).

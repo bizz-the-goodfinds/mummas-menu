@@ -4,7 +4,7 @@ import { useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import type { MenuItem } from "@/lib/types";
-import { VegBadge, TagBadge } from "./Badge";
+import { TagBadge } from "./Badge";
 import { QtyButton } from "./QtyButton";
 import { useCart } from "@/lib/cart-context";
 import { trackViewItem } from "@/lib/analytics";
@@ -107,10 +107,7 @@ export function ItemDetailSheet({ item, categoryEmoji, onClose }: ItemDetailShee
         <div className="p-6">
           <div className="mb-3 flex items-start justify-between gap-3">
             <div className="flex-1">
-              <div className="mb-1 flex items-center gap-2">
-                <VegBadge />
-              </div>
-              <h2 className="font-heading text-[20px] leading-snug font-bold">{item.name}</h2>
+              <h2 className="text-[20px] leading-snug font-bold">{item.name}</h2>
             </div>
             <span className="font-heading text-brand-red shrink-0 text-[22px] font-bold">
               ₹{item.price}

@@ -6,8 +6,7 @@ import { LinkButton } from "@/components/ui/Button";
 const TRUST_BADGES = [
   { icon: "🌿", label: "100% Pure Veg" },
   { icon: "✅", label: "FSSAI Approved" },
-  { icon: "🍳", label: "Cooked Daily" },
-  { icon: "⚡", label: "60-sec WhatsApp Order" },
+  { icon: "📍", label: "Vadodara" },
 ];
 
 export default function Hero({ site }: { site: SiteData }) {
@@ -20,14 +19,6 @@ export default function Hero({ site }: { site: SiteData }) {
         <div className="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
           {/* ── Left: Copy ── */}
           <div>
-            {/* Pure Veg Banner */}
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-green-50 px-4 py-2 ring-1 ring-green-200">
-              <span className="h-2.5 w-2.5 rounded-full bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.7)]" />
-              <span className="text-[13px] font-bold text-green-800">
-                100% Pure Vegetarian Kitchen
-              </span>
-            </div>
-
             {/* Trust chips */}
             <div className="no-scrollbar mb-5 overflow-x-auto">
               <div className="flex w-max gap-2 md:w-auto md:flex-wrap">
@@ -46,9 +37,6 @@ export default function Hero({ site }: { site: SiteData }) {
             <h1 className="font-heading mb-5 text-[34px] leading-[1.2] md:text-[54px]">
               Homestyle food, <span className="text-brand-red">made with love</span>
               <br />
-              <span className="font-sans text-[18px] font-semibold text-neutral-500 md:text-[26px]">
-                delivered in Vadodara
-              </span>
             </h1>
 
             <p className="mb-7 max-w-[480px] text-[15px] leading-[1.75] text-neutral-600 md:text-[16px]">
@@ -71,18 +59,10 @@ export default function Hero({ site }: { site: SiteData }) {
                 Order on WhatsApp
               </LinkButton>
             </div>
-
-            {/* Stats */}
-            <div className="flex flex-wrap gap-6">
-              <Stat value="100%" label="Pure Veg" />
-              <Stat value="9+" label="Categories" />
-              <Stat value="★ 4.9" label="Loved locally" />
-              <Stat value="FSSAI" label="Licensed kitchen" />
-            </div>
           </div>
 
           {/* ── Right: Food image ── */}
-          <div className="relative h-[300px] md:h-[460px]">
+          <div className="relative hidden h-[460px] md:block">
             {/* Main image */}
             <div className="glass absolute inset-0 overflow-hidden rounded-[32px]">
               <Image
@@ -121,15 +101,6 @@ export default function Hero({ site }: { site: SiteData }) {
         </div>
       </div>
     </section>
-  );
-}
-
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="flex flex-col">
-      <strong className="font-heading text-brand-red text-[20px]">{value}</strong>
-      <span className="mt-0.5 text-[12px] text-neutral-500">{label}</span>
-    </div>
   );
 }
 

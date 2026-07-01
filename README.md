@@ -92,9 +92,7 @@ app/                 Next.js App Router pages & layouts
   layout.tsx         Root layout (fonts, JSON-LD, providers)
   page.tsx           Home page
   menu/              Full menu page
-  about/             About page
   contact/           Contact page
-  trust/             FSSAI trust page
   admin/             Admin portal (password-protected)
   api/               API routes (content, orders, media)
 

@@ -2,61 +2,52 @@
   "brandName": "Mumma's Menu",
   "shortName": "Mumma's Menu",
   "tagline": "100% Pure Veg · FSSAI Approved · Cooked Fresh Daily",
-  "description": "Mumma's Menu is a 100% pure veg, FSSAI-approved home-style cloud kitchen in Vadodara serving freshly made parathas, theplas, sabji, khichdi, farali specials and comfort-food Maggie — cooked daily with no artificial colours and a whole lot of love. Order on WhatsApp in seconds.",
+  "description": "Mumma's Menu is a 100% pure veg, FSSAI-approved home kitchen and cloud kitchen in Vadodara serving freshly made parathas, theplas, sabji, khichdi, farali specials and comfort-food Maggi — cooked daily with no artificial colours and a whole lot of love. Order on WhatsApp in seconds.",
   "siteUrl": "https://mummas-menu.vercel.app",
   "logo": "/images/logo/logo.png",
   "ogImage": "/images/og-image.jpg",
   "whatsappNumber": "919712000197",
   "phoneDisplay": "+91 97120 00197",
-  "email": "hello@mummasmenu.in",
+  "email": "mummasmenu.orders@gmail.com",
   "address": {
     "street": "",
     "locality": "Vadodara",
     "region": "Gujarat",
-    "postalCode": "390001",
+    "postalCode": "390019",
     "country": "IN"
   },
-  "hours": "09:00-21:00",
+  "hours": "08:00 AM - 08:00 PM",
   "priceRange": "₹20 – ₹200",
   "social": {
-    "instagram": "https://instagram.com/mummasmenu",
-    "facebook": "https://facebook.com/mummasmenu",
+    "instagram": "https://instagram.com/mummas.menu",
     "whatsapp": "https://wa.me/919712000197"
   },
   "about": {
     "heading": "From Mumma's kitchen, straight to your door",
     "story": "Every dish starts the same way — Mumma wakes up early, picks fresh ingredients, and cooks with the same recipes she's made for her family for decades. No shortcuts, no artificial colours, no preservatives. Just real, honest, 100% vegetarian home-style food.",
     "paragraphs": [
-      "Mumma's Menu was born out of a simple idea: the best food you've ever had was probably made at home. We started as a small cloud kitchen in Vadodara because we believed that homestyle cooking shouldn't stay locked inside four walls.",
-      "Every paratha is hand-rolled. Every thepla is spiced fresh. Every sabji is slow-cooked the way your mumma would. And when you order, you get it delivered as if it came straight from our kitchen — because it does."
+      "Mumma's Menu was born out of a simple idea: the best food you've ever had was probably made at home. We started as a small home kitchen in Vadodara and grew into a full-fledged cloud kitchen — because we believed that homestyle cooking shouldn't stay locked inside four walls."
     ],
-    "highlights": [
-      "100% Pure Vegetarian Kitchen",
-      "FSSAI Approved Cloud Kitchen",
-      "Fresh ingredients, cooked daily",
-      "Zero artificial colours — ever",
-      "WhatsApp ordering in under 60 seconds",
-      "Gujarati & Maharashtrian specialties"
-    ]
+    "highlights": []
   },
   "testimonials": [
     {
       "name": "Priya S.",
-      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80",
+      "avatarEmoji": "😋",
       "text": "The Aloo Paratha is exactly like what my mom used to make. Soft, buttery, and full of love. Ordering every week now!",
       "rating": 5,
       "location": "Vadodara"
     },
     {
       "name": "Rahul M.",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80",
-      "text": "Cheese Tadka Maggie is insane! And delivery was super fast. Love that everything is pure veg and freshly cooked.",
+      "avatarEmoji": "🤩",
+      "text": "Cheese Tadka Maggi is insane! And delivery was super fast. Love that everything is pure veg and freshly cooked.",
       "rating": 5,
       "location": "Vadodara"
     },
     {
       "name": "Kavita D.",
-      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80",
+      "avatarEmoji": "🙌",
       "text": "Best farali food I've had outside my home. The Sabudana Wada is crispy outside, soft inside — perfect for Ekadashi.",
       "rating": 5,
       "location": "Vadodara"
@@ -73,7 +64,7 @@
     },
     {
       "question": "Is Mumma's Menu FSSAI approved?",
-      "answer": "Yes! Mumma's Menu is a fully FSSAI-licensed cloud kitchen. We follow strict hygiene standards and cook every dish fresh daily with no artificial colours or preservatives."
+      "answer": "Yes! Mumma's Menu is a fully FSSAI-licensed home kitchen and cloud kitchen. We follow strict hygiene standards and cook every dish fresh daily with no artificial colours or preservatives."
     },
     {
       "question": "Does Mumma's Menu use artificial colours or preservatives?",
@@ -81,15 +72,23 @@
     },
     {
       "question": "What are the most popular dishes?",
-      "answer": "Our bestsellers are Aloo Paratha (₹80), Paneer Butter Masala (₹110), and Cheese Tadka Maggie (₹100). The Sabudana Khichdi is a favourite on fasting days."
+      "answer": "Our bestsellers are Aloo Paratha (₹60), Paneer Butter Masala (₹150), and Cheese Tadka Maggi (₹80). The Sabudana Khichdi is a favourite on fasting days."
     },
     {
       "question": "Do you have options for fasting (Farali) days?",
       "answer": "Yes! Our Farali section includes Sabudana Khichdi, Sabudana Wada, and Farali Chutney — all cooked to Maharashtrian fasting standards with no onion or garlic."
     },
     {
-      "question": "What are your delivery areas and charges?",
-      "answer": "We currently deliver within Vadodara, Gujarat. Delivery charges vary by distance and are shared over WhatsApp when your order is confirmed. Orders above ₹200 may qualify for free delivery — ask us on WhatsApp!"
+      "question": "Do you offer delivery or self-pickup?",
+      "answer": "Self-pickup from our Vadodara kitchen is available right now — just place your order on WhatsApp and swing by when it's ready. For delivery, we currently arrange a trusted partner rider (Porter/Uber) on your behalf; the fare is shared over WhatsApp before your order is confirmed. We're building our own in-house delivery service, coming soon!"
+    },
+    {
+      "question": "Do I need to order in advance?",
+      "answer": "Most dishes are freshly made to order and ready quickly. A few specials need extra preparation time — for those, we'll ask for around 5 hours' advance notice on WhatsApp, so it's best to order early in the day if you have something specific in mind."
+    },
+    {
+      "question": "Do you have a monthly meal plan or subscription?",
+      "answer": "We're currently working on a monthly meal plan for regulars — stay tuned! Until then, you're welcome to order anytime via WhatsApp."
     },
     {
       "question": "How do I pay for my order?",
@@ -101,21 +100,21 @@
     }
   ],
   "fssai": {
-    "licenceNumber": "XXXXXXXXXXXX",
-    "issueDate": "2024-01-01",
-    "expiryDate": "2027-01-01",
+    "licenceNumber": "20726032000175",
+    "issueDate": "12-01-2026",
+    "expiryDate": "11-01-2028",
     "certImage": "/images/license/FSSAI.png"
   },
   "deliveryArea": "Vadodara, Gujarat",
-  "deliveryNote": "Delivery charges vary by distance, shared over WhatsApp. Free delivery on orders above ₹200 (within select areas).",
+  "deliveryNote": "Self-pickup is available right now! For delivery, we book a trusted partner rider (Porter/Uber) on your behalf — our own delivery fleet is launching soon. Some dishes need a 4-5 hours' advance notice, so order early where possible.",
   "businessHours": [
-    { "day": "Monday", "open": "09:00", "close": "21:00" },
-    { "day": "Tuesday", "open": "09:00", "close": "21:00" },
-    { "day": "Wednesday", "open": "09:00", "close": "21:00" },
-    { "day": "Thursday", "open": "09:00", "close": "21:00" },
-    { "day": "Friday", "open": "09:00", "close": "21:00" },
-    { "day": "Saturday", "open": "09:00", "close": "21:00" },
-    { "day": "Sunday", "open": "10:00", "close": "20:00", "closed": false }
+    { "day": "Monday", "open": "08:00 AM", "close": "08:00 PM" },
+    { "day": "Tuesday", "open": "08:00 AM", "close": "08:00 PM" },
+    { "day": "Wednesday", "open": "08:00 AM", "close": "08:00 PM" },
+    { "day": "Thursday", "open": "08:00 AM", "close": "08:00 PM" },
+    { "day": "Friday", "open": "08:00 AM", "close": "08:00 PM" },
+    { "day": "Saturday", "open": "08:00 AM", "close": "08:00 PM" },
+    { "day": "Sunday", "open": "08:00 AM", "close": "08:00 PM", "closed": true }
   ],
   "support": {
     "whatsappNumber": "919712000197",

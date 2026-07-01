@@ -14,7 +14,6 @@ function sanitizeItem(item: unknown): MenuItem {
     id: String(i.id ?? "").slice(0, 128),
     name: String(i.name ?? "").slice(0, 128),
     price: Math.max(0, Math.min(Number(i.price) || 0, 100_000)),
-    veg: Boolean(i.veg),
     description: String(i.description ?? "").slice(0, 512),
     image: String(i.image ?? "").slice(0, 512),
     tags: Array.isArray(i.tags) ? (i.tags as unknown[]).map(String).slice(0, 8) : [],

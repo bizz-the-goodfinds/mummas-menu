@@ -4,10 +4,23 @@ import { buildGeneralMessage, buildSupportMessage, whatsappLink } from "@/lib/wh
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteData();
+  const description = `Get in touch with ${site.brandName} on WhatsApp, phone, or social media. We're happy to help with your order.`;
   return {
     title: `Contact Us — ${site.brandName}`,
-    description: `Get in touch with ${site.brandName} on WhatsApp, phone, or social media. We're happy to help with your order.`,
+    description,
     alternates: { canonical: "/contact" },
+    openGraph: {
+      title: `Contact Us — ${site.brandName}`,
+      description,
+      url: `${site.siteUrl}/contact`,
+      images: [{ url: site.ogImage, width: 1200, height: 630, alt: site.brandName }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Contact Us — ${site.brandName}`,
+      description,
+      images: [site.ogImage],
+    },
   };
 }
 
@@ -63,7 +76,9 @@ export default async function ContactPage() {
         <div className="glass mt-6 rounded-3xl p-8 text-left">
           <h2 className="font-heading mb-3 text-xl">📍 Where we deliver</h2>
           <p className="text-neutral-700">
-            {site.deliveryArea} — fresh, home-cooked meals delivered daily.
+            {site.deliveryArea} — fresh, home-cooked meals, freshly made daily. Self-pickup is
+            available now; for delivery we book a trusted partner rider (Porter/Uber) on your
+            behalf, with our own delivery service launching soon.
           </p>
           <h2 className="font-heading mt-6 mb-3 text-xl">🕒 Hours</h2>
           <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-[14px] text-neutral-700 sm:grid-cols-1">
