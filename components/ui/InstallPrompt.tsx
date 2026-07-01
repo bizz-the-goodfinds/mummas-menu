@@ -1,6 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import {
+  trackPwaPromptShown,
+  trackPwaInstallAccepted,
+  trackPwaInstallDismissed,
+} from "@/lib/analytics";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
@@ -20,6 +25,7 @@ export function InstallPrompt() {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       setVisible(true);
+      trackPwaPromptShown();
     };
 
     window.addEventListener("beforeinstallprompt", handler);
@@ -31,12 +37,14 @@ export function InstallPrompt() {
     await deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === "accepted") {
+      trackPwaInstallAccepted();
       setVisible(false);
     }
     setDeferredPrompt(null);
   }
 
   function handleDismiss() {
+    trackPwaInstallDismissed();
     localStorage.setItem(DISMISS_KEY, "1");
     setVisible(false);
   }

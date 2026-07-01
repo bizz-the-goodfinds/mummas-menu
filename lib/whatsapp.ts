@@ -1,27 +1,34 @@
 import type { CartLine, SiteData } from "./types";
 
+/** Replace {{siteUrl}} and {{brandName}} placeholders in a message template. */
+function interpolate(template: string, site: SiteData): string {
+  return template
+    .replace(/\{\{siteUrl\}\}/g, site.siteUrl)
+    .replace(/\{\{brandName\}\}/g, site.brandName);
+}
+
 export function whatsappLink(whatsappNumber: string, message: string): string {
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
 export function buildGeneralMessage(site: SiteData): string {
-  return (
+  const template =
     site.messages?.generalInquiry ??
-    `Hi ${site.brandName}! 👋 I'd like to know more.\n(via ${site.siteUrl})`
-  );
+    `Hi {{brandName}}! 👋 I'd like to know more.\n(via {{siteUrl}})`;
+  return interpolate(template, site);
 }
 
 export function buildSupportMessage(
   site: SiteData,
   type: "complaint" | "track" | "feedback",
 ): string {
-  const templates = site.messages ?? {};
   const map = {
-    complaint: templates.supportComplaint,
-    track: templates.supportTrack,
-    feedback: templates.supportFeedback,
+    complaint: site.messages?.supportComplaint,
+    track: site.messages?.supportTrack,
+    feedback: site.messages?.supportFeedback,
   };
-  return map[type] ?? `Hi ${site.brandName}! I need support.\n\n_(via ${site.siteUrl})_`;
+  const template = map[type] ?? `Hi {{brandName}}! I need support.\n\n_(via {{siteUrl}})_`;
+  return interpolate(template, site);
 }
 
 export function buildOrderMessage(
@@ -33,10 +40,15 @@ export function buildOrderMessage(
     return buildGeneralMessage(site);
   }
 
-  const prefix = site.messages?.orderPrefix ?? `Hi ${site.brandName}! 👋 I'd like to order:\n\n`;
-  const suffix =
+  const prefix = interpolate(
+    site.messages?.orderPrefix ?? `Hi {{brandName}}! 👋 I'd like to order:\n\n`,
+    site,
+  );
+  const suffix = interpolate(
     site.messages?.orderSuffix ??
-    `\n\nPlease confirm my order. Thank you!\n_(Ordered via ${site.orderSource ?? site.siteUrl})_`;
+      `\n\nPlease confirm my order. Thank you!\n_(Ordered via {{siteUrl}})_`,
+    site,
+  );
 
   let total = 0;
   let items = "";

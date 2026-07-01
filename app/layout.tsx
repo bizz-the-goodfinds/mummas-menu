@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Baloo_2, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { getSiteData, getMenuData } from "@/lib/data";
 import { CartProvider } from "@/lib/cart-context";
@@ -11,6 +12,7 @@ import Toast from "@/components/Toast";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import { BottomNav } from "@/components/ui/BottomNav";
 import { InstallPrompt } from "@/components/ui/InstallPrompt";
+import { WebVitals } from "@/components/WebVitals";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -19,10 +21,9 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const baloo = Baloo_2({
-  variable: "--font-baloo",
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+const magnolia = localFont({
+  src: "../public/font/magnolia_script/Magnolia Script.otf",
+  variable: "--font-magnolia",
   display: "swap",
 });
 
@@ -123,7 +124,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   };
 
   return (
-    <html lang="en" className={`${poppins.variable} ${baloo.variable} h-full antialiased`}>
+    <html lang="en" className={`${poppins.variable} ${magnolia.variable} h-full antialiased`}>
       <head>
         <script
           type="application/ld+json"
@@ -146,6 +147,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <div className="absolute -right-[60px] -bottom-[60px] h-[280px] w-[280px] rounded-full bg-[#d32f2f] opacity-[0.06] blur-[60px]" />
         </div>
         <CartProvider>
+          <WebVitals />
           <ServiceWorkerRegister />
           <Header brandName={site.brandName} />
           <main className="flex-1">{children}</main>

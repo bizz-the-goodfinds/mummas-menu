@@ -3,8 +3,8 @@
   "shortName": "Mumma's Menu",
   "tagline": "100% Pure Veg · FSSAI Approved · Cooked Fresh Daily",
   "description": "Mumma's Menu is a 100% pure veg, FSSAI-approved home-style cloud kitchen in Vadodara serving freshly made parathas, theplas, sabji, khichdi, farali specials and comfort-food Maggie — cooked daily with no artificial colours and a whole lot of love. Order on WhatsApp in seconds.",
-  "siteUrl": "https://mummasmenu.in",
-  "logo": "/images/logo.svg",
+  "siteUrl": "https://mummas-menu.vercel.app",
+  "logo": "/images/logo/logo.png",
   "ogImage": "/images/og-image.jpg",
   "whatsappNumber": "919712000197",
   "phoneDisplay": "+91 97120 00197",
@@ -104,7 +104,7 @@
     "licenceNumber": "XXXXXXXXXXXX",
     "issueDate": "2024-01-01",
     "expiryDate": "2027-01-01",
-    "certImage": ""
+    "certImage": "/images/license/FSSAI.png"
   },
   "deliveryArea": "Vadodara, Gujarat",
   "deliveryNote": "Delivery charges vary by distance, shared over WhatsApp. Free delivery on orders above ₹200 (within select areas).",
@@ -117,15 +117,6 @@
     { "day": "Saturday", "open": "09:00", "close": "21:00" },
     { "day": "Sunday", "open": "10:00", "close": "20:00", "closed": false }
   ],
-  "orderSource": "Mumma's Menu Website",
-  "messages": {
-    "orderPrefix": "🙏 Hi Mumma's Menu! I'd like to place an order:\n\n",
-    "orderSuffix": "\n\n📍 Please share delivery details & payment options. Thank you! 🙏\n\n_(Ordered via Mumma's Menu Website)_",
-    "generalInquiry": "Hi Mumma's Menu! 👋 I'd like to know more about your menu and how to order.\n\n_(via Mumma's Menu Website)_",
-    "supportComplaint": "Hi Mumma's Menu, I have an issue with my order:\n\n[Please describe your issue here]\n\n_(via Mumma's Menu Website)_",
-    "supportTrack": "Hi Mumma's Menu! 📦 Could you please share the status of my order?\n\n_(via Mumma's Menu Website)_",
-    "supportFeedback": "Hi Mumma's Menu! ⭐ I'd like to share some feedback:\n\n[Your feedback here]\n\n_(via Mumma's Menu Website)_"
-  },
   "support": {
     "whatsappNumber": "919712000197",
     "responseTime": "Usually replies within 30 minutes"

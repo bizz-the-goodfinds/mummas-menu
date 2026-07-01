@@ -7,6 +7,7 @@ import type { MenuItem } from "@/lib/types";
 import { VegBadge, TagBadge } from "./Badge";
 import { QtyButton } from "./QtyButton";
 import { useCart } from "@/lib/cart-context";
+import { trackViewItem } from "@/lib/analytics";
 
 interface ItemDetailSheetProps {
   item: MenuItem;
@@ -29,6 +30,10 @@ export function ItemDetailSheet({ item, categoryEmoji, onClose }: ItemDetailShee
   const handleRemove = () => removeItem(item.id);
 
   const close = useCallback(() => onClose(), [onClose]);
+
+  useEffect(() => {
+    trackViewItem({ id: item.id, name: item.name, price: item.price });
+  }, [item.id, item.name, item.price]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";

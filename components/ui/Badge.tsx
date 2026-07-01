@@ -1,11 +1,15 @@
 const TAG_STYLES: Record<string, string> = {
   bestseller: "bg-amber-100 text-amber-700 border border-amber-200",
+  "most-loved": "bg-pink-100 text-pink-700 border border-pink-200",
+  "mummas-sp": "bg-orange-100 text-orange-700 border border-orange-200",
   new: "bg-blue-100 text-blue-700 border border-blue-200",
   spicy: "bg-red-100 text-red-700 border border-red-200",
 };
 
 const TAG_LABELS: Record<string, string> = {
   bestseller: "⭐ Bestseller",
+  "most-loved": "❤️ Most Loved",
+  "mummas-sp": "👩‍🍳 Mumma's Sp.",
   new: "✨ New",
   spicy: "🌶 Spicy",
 };
