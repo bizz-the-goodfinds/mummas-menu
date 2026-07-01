@@ -10,8 +10,9 @@ const CSP = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https://images.unsplash.com https://plus.unsplash.com https://images.pexels.com",
-  // Firebase Analytics/Installations SDKs call these endpoints directly.
-  `connect-src 'self' https://firebase.googleapis.com https://firebaseinstallations.googleapis.com https://www.google-analytics.com https://*.google-analytics.com${isDev ? " ws:" : ""}`,
+  // Firebase Analytics/Installations SDKs call these endpoints directly;
+  // gtag routes hits through google.com/g/collect under consent-mode restrictions.
+  `connect-src 'self' https://firebase.googleapis.com https://firebaseinstallations.googleapis.com https://www.google-analytics.com https://*.google-analytics.com https://www.google.com${isDev ? " ws:" : ""}`,
   "frame-ancestors 'none'",
 ].join("; ");
 

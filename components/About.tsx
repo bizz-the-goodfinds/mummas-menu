@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { SiteData } from "@/lib/types";
 
 const HIGHLIGHT_ICONS = ["🌿", "✅", "🚫", "💬", "👩‍🍳", "🍛"];
@@ -6,10 +7,14 @@ export default function About({ site }: { site: SiteData }) {
   return (
     <section id="about" className="scroll-mt-24 py-16 md:py-[70px]">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 md:grid-cols-[0.8fr_1.2fr] md:gap-12">
-        <div className="glass flex h-[220px] items-center justify-center rounded-[28px] md:h-[320px]">
-          <span className="text-[90px] md:text-[120px]" aria-hidden>
-            👩‍🍳
-          </span>
+        <div className="relative h-[220px] overflow-hidden rounded-[28px] md:h-[320px]">
+          <Image
+            src="/images/aboutus.png"
+            alt="Mumma cooking in the kitchen"
+            fill
+            sizes="(min-width: 768px) 40vw, 90vw"
+            className="object-cover"
+          />
         </div>
         <div>
           <span className="text-brand-red mb-2 inline-block text-[13px] font-semibold tracking-wider uppercase">
