@@ -104,7 +104,7 @@ function FeaturedSection({ menu }: { menu: MenuData }) {
         <div className="mt-8 text-center">
           <Link
             href="/menu"
-            className="bg-brand-red inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold text-white shadow-[0_10px_24px_rgba(211,47,47,0.35)] transition-transform hover:-translate-y-0.5"
+            className="bg-brand-black inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold text-white shadow-[0_10px_24px_rgba(13,13,13,0.35)] transition-transform hover:-translate-y-0.5"
           >
             See Full Menu →
           </Link>

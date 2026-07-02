@@ -55,7 +55,7 @@ export function InstallPrompt() {
   if (!visible) return null;
 
   return (
-    <div className="install-prompt-surface animate-fade-up fixed relative right-4 bottom-[72px] left-4 z-[180] flex items-center gap-3 rounded-2xl p-4 pr-9 shadow-xl md:right-4 md:bottom-4 md:left-auto md:w-[340px]">
+    <div className="install-prompt-surface animate-slide-down fixed top-[76px] right-4 left-4 z-[95] mx-auto flex max-w-[420px] items-center gap-3 rounded-2xl p-4 pr-9 shadow-xl md:top-[84px]">
       <button
         onClick={handleDismiss}
         aria-label="Close install prompt"

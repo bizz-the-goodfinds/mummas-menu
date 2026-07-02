@@ -121,7 +121,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {category.items.map((item) => (
-            <div key={item.id} itemScope itemType="https://schema.org/MenuItem">
+            <div key={item.id} itemScope itemType="https://schema.org/MenuItem" className="h-full">
               <meta itemProp="name" content={item.name} />
               <meta itemProp="description" content={item.description} />
               <ItemCard item={item} categoryEmoji={category.emoji} variant="grid" />
