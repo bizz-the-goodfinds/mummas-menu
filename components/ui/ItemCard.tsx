@@ -128,11 +128,13 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <div className="flex min-h-[20px] flex-wrap items-center gap-1.5">
-            {item.tags?.map((t) => (
-              <TagBadge key={t} tag={t} />
-            ))}
-          </div>
+          {item.tags && item.tags.length > 0 && (
+            <div className="flex flex-wrap items-center gap-1.5">
+              {item.tags.map((t) => (
+                <TagBadge key={t} tag={t} />
+              ))}
+            </div>
+          )}
           <h3 className="line-clamp-1 text-[14px] leading-snug font-semibold">{item.name}</h3>
           <p className="line-clamp-2 min-h-[30px] text-[12px] leading-snug text-neutral-500">
             {item.description}

@@ -25,24 +25,6 @@ const NAV = [
     ),
   },
   {
-    href: "/menu",
-    label: "Menu",
-    icon: (
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M3 6h18M3 12h18M3 18h18" />
-      </svg>
-    ),
-  },
-  {
     href: "/#about",
     label: "About",
     icon: (
@@ -59,6 +41,24 @@ const NAV = [
         <circle cx="12" cy="12" r="10" />
         <line x1="12" y1="8" x2="12" y2="12" />
         <line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+    ),
+  },
+  {
+    href: "/menu",
+    label: "Menu",
+    icon: (
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M3 6h18M3 12h18M3 18h18" />
       </svg>
     ),
   },
@@ -126,9 +126,9 @@ export function BottomNav() {
         </button>
       )}
 
-      {/* Nav tabs — Cart sits centered between Menu and About */}
+      {/* Nav tabs — Cart sits centered between Menu and Contact */}
       <div className="flex items-center">
-        {NAV.slice(0, 2).map(({ href, label, icon }) => {
+        {NAV.slice(0, 3).map(({ href, label, icon }) => {
           const active = pathname === href || (href !== "/" && pathname.startsWith(href));
           return (
             <Link
@@ -162,7 +162,7 @@ export function BottomNav() {
           Cart
         </button>
 
-        {NAV.slice(2).map(({ href, label, icon }) => {
+        {NAV.slice(3).map(({ href, label, icon }) => {
           const active = pathname === href || (href !== "/" && pathname.startsWith(href));
           return (
             <Link

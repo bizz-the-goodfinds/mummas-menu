@@ -15,6 +15,8 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
     closeCart,
     addItem,
     removeItem,
+    clear,
+    notify,
     instructions,
     setInstructions,
   } = useCart();
@@ -31,6 +33,9 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items: lines, total: totalPrice, source: site.orderSource }),
     }).catch(() => {});
+    clear();
+    closeCart();
+    notify("Order sent! We'll confirm on WhatsApp shortly 🎉");
   }
 
   // "You might also like" — items not already in cart, from all categories
