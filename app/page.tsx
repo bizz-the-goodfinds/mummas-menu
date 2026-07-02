@@ -34,7 +34,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <Hero site={site} />
+      <Hero site={site} menu={menu} />
       <FeaturedSection menu={menu} />
       <About site={site} />
       {site.testimonials && site.testimonials.length > 0 && (

@@ -23,13 +23,13 @@ export default function MenuSection({ menu }: { menu: MenuData }) {
         </div>
 
         {/* Sticky filter bar */}
-        <div className="sticky top-[68px] z-40 -mx-6 flex items-center justify-between bg-white/80 px-6 pt-3 pb-4 backdrop-blur-lg">
+        <div className="sticky top-[68px] z-40 -mx-6 flex items-center justify-between gap-4 bg-white/80 px-6 pt-3 pb-4 backdrop-blur-lg">
           <CategoryFilter
             categories={menu.categories}
             activeSlug={activeSlug}
             onSelect={setActiveSlug}
           />
-          <span className="text-[12px] font-medium text-neutral-400">
+          <span className="shrink-0 text-[12px] font-medium whitespace-nowrap text-neutral-400">
             {visibleCategories.reduce((sum, c) => sum + c.items.length, 0)} items
           </span>
         </div>

@@ -1,7 +1,8 @@
 import Image from "next/image";
-import type { SiteData } from "@/lib/types";
+import type { MenuData, MenuItem, SiteData } from "@/lib/types";
 import { buildGeneralMessage, whatsappLink } from "@/lib/whatsapp";
 import { LinkButton } from "@/components/ui/Button";
+import { TagBadge } from "@/components/ui/Badge";
 
 const TRUST_BADGES = [
   { icon: "🌿", label: "100% Pure Veg" },
@@ -9,9 +10,20 @@ const TRUST_BADGES = [
   { icon: "📍", label: "Vadodara" },
 ];
 
-export default function Hero({ site }: { site: SiteData }) {
+const FLOATING_ITEM_IDS = ["aloo-paratha", "puranpoli"];
+
+function findMenuItem(menu: MenuData, id: string): MenuItem | undefined {
+  for (const cat of menu.categories) {
+    const item = cat.items.find((i) => i.id === id);
+    if (item) return item;
+  }
+  return undefined;
+}
+
+export default function Hero({ site, menu }: { site: SiteData; menu: MenuData }) {
   const generalMsg = buildGeneralMessage(site);
   const waHref = whatsappLink(site.whatsappNumber, generalMsg);
+  const [firstItem, secondItem] = FLOATING_ITEM_IDS.map((id) => findMenuItem(menu, id));
 
   return (
     <section id="home" className="relative overflow-hidden pt-6 pb-10 md:pt-10 md:pb-16">
@@ -26,6 +38,7 @@ export default function Hero({ site }: { site: SiteData }) {
                   <span
                     key={b.label}
                     className="glass inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold text-neutral-700"
+                    style={{ boxShadow: "none" }}
                   >
                     <span>{b.icon}</span>
                     {b.label}
@@ -82,21 +95,25 @@ export default function Hero({ site }: { site: SiteData }) {
             </div>
 
             {/* Floating cards */}
-            <FloatingCard
-              image="/images/meal/aloo-paratha.png"
-              name="Aloo Paratha"
-              price={60}
-              badge="Bestseller"
-              className="-top-4 -left-4 md:-left-8"
-            />
-            <FloatingCard
-              image="/images/meal/cheese-tadka-maggi.png"
-              name="Cheese Tadka Maggi"
-              price={80}
-              badge="Most loved"
-              className="-right-4 -bottom-4 md:-right-8"
-              delay="1.8s"
-            />
+            {firstItem && (
+              <FloatingCard
+                image={firstItem.image}
+                name={firstItem.name}
+                price={firstItem.price}
+                tag={firstItem.tags?.[0]}
+                className="-top-4 -left-4 md:-left-8"
+              />
+            )}
+            {secondItem && (
+              <FloatingCard
+                image={secondItem.image}
+                name={secondItem.name}
+                price={secondItem.price}
+                tag={secondItem.tags?.[0]}
+                className="-right-4 -bottom-4 md:-right-8"
+                delay="1.8s"
+              />
+            )}
           </div>
         </div>
       </div>
@@ -108,14 +125,14 @@ function FloatingCard({
   image,
   name,
   price,
-  badge,
+  tag,
   className,
   delay,
 }: {
   image: string;
   name: string;
   price: number;
-  badge: string;
+  tag?: string;
   className?: string;
   delay?: string;
 }) {
@@ -124,12 +141,16 @@ function FloatingCard({
       className={`glass-strong animate-float absolute z-10 w-[158px] overflow-hidden rounded-2xl ${className ?? ""}`}
       style={delay ? { animationDelay: delay } : undefined}
     >
-      <div className="bg-brand-pink relative h-[80px] w-full">
+      <div className="bg-brand-pink relative aspect-square w-full">
         <Image src={image} alt={name} fill sizes="158px" className="object-cover" />
+        {tag && (
+          <div className="absolute top-2 left-2">
+            <TagBadge tag={tag} />
+          </div>
+        )}
       </div>
       <div className="p-3">
-        <p className="mb-0.5 text-[10px] font-bold text-green-700">{badge}</p>
-        <p className="text-[12px] leading-snug font-semibold">{name}</p>
+        <p className="line-clamp-1 text-[12px] leading-snug font-semibold">{name}</p>
         <span className="font-heading text-brand-red text-[14px] font-bold">₹{price}</span>
       </div>
     </div>

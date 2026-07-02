@@ -23,10 +23,10 @@ export default function Toast() {
                 className="h-full w-full object-cover"
               />
             ) : (
-              <span className="text-sm leading-none">{toast.emoji}</span>
+              <span className="text-sm leading-none">{toast.emoji ?? "🎉"}</span>
             )}
           </div>
-          Added {toast.name}
+          {toast.message}
         </>
       )}
     </div>

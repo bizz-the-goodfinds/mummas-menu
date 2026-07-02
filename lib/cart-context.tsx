@@ -25,7 +25,8 @@ interface CartContextValue {
   removeItem: (id: string) => void;
   qtyFor: (id: string) => number;
   clear: () => void;
-  toast: { name: string; emoji: string; image?: string } | null;
+  toast: { message: string; emoji?: string; image?: string } | null;
+  notify: (message: string, opts?: { emoji?: string; image?: string }) => void;
   instructions: string;
   setInstructions: (v: string) => void;
 }
@@ -47,13 +48,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return localStorage.getItem(INSTRUCTIONS_KEY) ?? "";
   });
   const [isOpen, setIsOpen] = useState(false);
-  const [toast, setToast] = useState<{ name: string; emoji: string; image?: string } | null>(null);
+  const [toast, setToast] = useState<{ message: string; emoji?: string; image?: string } | null>(
+    null,
+  );
 
   useEffect(() => {
     if (!toast) return;
     const t = setTimeout(() => setToast(null), 2000);
     return () => clearTimeout(t);
   }, [toast]);
+
+  const notify = useCallback((message: string, opts?: { emoji?: string; image?: string }) => {
+    setToast({ message, emoji: opts?.emoji, image: opts?.image });
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
@@ -80,7 +87,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           },
         };
       });
-      setToast({ name: item.name, emoji: item.emoji, image: item.image });
+      setToast({ message: `Added ${item.name}`, emoji: item.emoji, image: item.image });
       trackAddToCart({ id: item.id, name: item.name, price: item.price });
     },
     [],
@@ -135,6 +142,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     qtyFor,
     clear,
     toast,
+    notify,
     instructions,
     setInstructions,
   };
