@@ -5,7 +5,7 @@ type Size = "sm" | "md" | "lg";
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    "bg-brand-red text-white shadow-[0_10px_24px_rgba(211,47,47,0.35)] hover:shadow-[0_14px_28px_rgba(211,47,47,0.45)] hover:-translate-y-0.5",
+    "bg-brand-black text-white shadow-[0_10px_24px_rgba(13,13,13,0.35)] hover:shadow-[0_14px_28px_rgba(13,13,13,0.45)] hover:-translate-y-0.5",
   secondary: "glass-strong text-brand-red hover:-translate-y-0.5",
   ghost: "text-neutral-700 hover:text-brand-red hover:bg-brand-pink/50",
   whatsapp:

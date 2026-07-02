@@ -25,7 +25,7 @@ interface CartContextValue {
   removeItem: (id: string) => void;
   qtyFor: (id: string) => number;
   clear: () => void;
-  toast: string | null;
+  toast: { name: string; emoji: string; image?: string } | null;
   instructions: string;
   setInstructions: (v: string) => void;
 }
@@ -47,7 +47,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return localStorage.getItem(INSTRUCTIONS_KEY) ?? "";
   });
   const [isOpen, setIsOpen] = useState(false);
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ name: string; emoji: string; image?: string } | null>(null);
 
   useEffect(() => {
     if (!toast) return;
@@ -80,7 +80,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           },
         };
       });
-      setToast(`Added ${item.name}`);
+      setToast({ name: item.name, emoji: item.emoji, image: item.image });
       trackAddToCart({ id: item.id, name: item.name, price: item.price });
     },
     [],

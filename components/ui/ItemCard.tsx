@@ -37,7 +37,7 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
           tabIndex={0}
           onClick={() => setDetailOpen(true)}
           onKeyDown={(e) => e.key === "Enter" && setDetailOpen(true)}
-          className="glass group flex cursor-pointer flex-col overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-xl"
+          className="glass group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-xl"
           aria-label={`View ${item.name} details`}
         >
           <div className="bg-brand-pink relative aspect-[4/3] w-full overflow-hidden">
@@ -65,7 +65,7 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
           <div className="flex flex-1 flex-col gap-2 p-3">
             <div className="flex items-start justify-between gap-2">
               <div className="flex-1">
-                <h3 className="text-[14px] leading-snug font-semibold">{item.name}</h3>
+                <h3 className="line-clamp-1 text-[14px] leading-snug font-semibold">{item.name}</h3>
               </div>
               <span className="font-heading text-brand-red shrink-0 text-[15px] font-bold">
                 ₹{item.price}
@@ -108,7 +108,7 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
         tabIndex={0}
         onClick={() => setDetailOpen(true)}
         onKeyDown={(e) => e.key === "Enter" && setDetailOpen(true)}
-        className="glass group flex cursor-pointer gap-3 rounded-2xl p-3 transition-shadow duration-300 hover:shadow-lg"
+        className="glass group flex h-full cursor-pointer gap-3 rounded-2xl p-3 transition-shadow duration-300 hover:shadow-lg"
         aria-label={`View ${item.name} details`}
       >
         <div className="bg-brand-pink relative h-[90px] w-[90px] shrink-0 overflow-hidden rounded-xl">
@@ -128,13 +128,13 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="flex min-h-[20px] flex-wrap items-center gap-1.5">
             {item.tags?.map((t) => (
               <TagBadge key={t} tag={t} />
             ))}
           </div>
-          <h3 className="text-[14px] leading-snug font-semibold">{item.name}</h3>
-          <p className="line-clamp-2 text-[12px] leading-snug text-neutral-500">
+          <h3 className="line-clamp-1 text-[14px] leading-snug font-semibold">{item.name}</h3>
+          <p className="line-clamp-2 min-h-[30px] text-[12px] leading-snug text-neutral-500">
             {item.description}
           </p>
           <div

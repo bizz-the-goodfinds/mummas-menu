@@ -121,6 +121,32 @@ body {
   animation: fade-up 0.35s ease-out both;
 }
 
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slide-down {
+  animation: slide-down 0.35s ease-out both;
+}
+
+@keyframes slide-up-sheet {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.animate-slide-up-sheet {
+  animation: slide-up-sheet 0.25s ease-out both;
+}
+
 @keyframes slide-in-right {
   from {
     transform: translateX(100%);

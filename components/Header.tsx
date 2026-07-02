@@ -74,7 +74,7 @@ export default function Header({ brandName }: { brandName: string }) {
           <button
             onClick={openCart}
             aria-label={`Open cart, ${cartQty} items`}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full bg-white/60 ring-1 ring-white/80 transition-transform hover:-translate-y-0.5"
+            className="relative flex h-10 w-10 items-center justify-center rounded-full bg-white/60 ring-1 ring-white/80 transition-transform hover:-translate-y-0.5 md:hidden"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path

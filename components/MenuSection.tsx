@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { MenuData } from "@/lib/types";
 import { ItemCard } from "@/components/ui/ItemCard";
+import { CategoryFilter } from "@/components/ui/CategoryFilter";
 
 export default function MenuSection({ menu }: { menu: MenuData }) {
   const [activeSlug, setActiveSlug] = useState<string>("all");
@@ -22,35 +23,15 @@ export default function MenuSection({ menu }: { menu: MenuData }) {
         </div>
 
         {/* Sticky filter bar */}
-        <div className="sticky top-[68px] z-40 -mx-6 bg-white/80 px-6 pt-3 pb-4 backdrop-blur-lg">
-          <div className="no-scrollbar flex gap-2 overflow-x-auto">
-            {/* All pill */}
-            <button
-              onClick={() => setActiveSlug("all")}
-              className={`shrink-0 rounded-full border px-5 py-2 text-[13px] font-semibold transition-all duration-200 hover:-translate-y-0.5 active:scale-95 ${
-                activeSlug === "all"
-                  ? "border-brand-red bg-brand-red text-white shadow-[0_6px_20px_rgba(211,47,47,0.35)]"
-                  : "hover:border-brand-red/40 hover:text-brand-red border-neutral-200 bg-white text-neutral-600"
-              }`}
-            >
-              All
-            </button>
-
-            {menu.categories.map((cat) => (
-              <button
-                key={cat.slug}
-                onClick={() => setActiveSlug(cat.slug)}
-                className={`shrink-0 rounded-full border px-4 py-2 text-[13px] font-semibold transition-all duration-200 hover:-translate-y-0.5 active:scale-95 ${
-                  activeSlug === cat.slug
-                    ? "border-brand-red bg-brand-red text-white shadow-[0_6px_20px_rgba(211,47,47,0.35)]"
-                    : "hover:border-brand-red/40 hover:text-brand-red border-neutral-200 bg-white text-neutral-600"
-                }`}
-              >
-                <span className="mr-1">{cat.emoji}</span>
-                {cat.name}
-              </button>
-            ))}
-          </div>
+        <div className="sticky top-[68px] z-40 -mx-6 flex items-center justify-between bg-white/80 px-6 pt-3 pb-4 backdrop-blur-lg">
+          <CategoryFilter
+            categories={menu.categories}
+            activeSlug={activeSlug}
+            onSelect={setActiveSlug}
+          />
+          <span className="text-[12px] font-medium text-neutral-400">
+            {visibleCategories.reduce((sum, c) => sum + c.items.length, 0)} items
+          </span>
         </div>
 
         {/* Category sections */}
@@ -81,6 +62,7 @@ export default function MenuSection({ menu }: { menu: MenuData }) {
                     itemProp="hasMenuItem"
                     itemScope
                     itemType="https://schema.org/MenuItem"
+                    className="h-full"
                   >
                     <meta itemProp="name" content={item.name} />
                     <meta itemProp="description" content={item.description} />

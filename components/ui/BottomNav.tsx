@@ -126,9 +126,9 @@ export function BottomNav() {
         </button>
       )}
 
-      {/* Nav tabs */}
+      {/* Nav tabs — Cart sits centered between Menu and About */}
       <div className="flex items-center">
-        {NAV.map(({ href, label, icon }) => {
+        {NAV.slice(0, 2).map(({ href, label, icon }) => {
           const active = pathname === href || (href !== "/" && pathname.startsWith(href));
           return (
             <Link
@@ -161,6 +161,22 @@ export function BottomNav() {
           </span>
           Cart
         </button>
+
+        {NAV.slice(2).map(({ href, label, icon }) => {
+          const active = pathname === href || (href !== "/" && pathname.startsWith(href));
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={`flex flex-1 flex-col items-center gap-0.5 py-2.5 text-[10px] font-medium transition-colors ${
+                active ? "text-brand-red" : "text-neutral-500"
+              }`}
+            >
+              <span className={active ? "text-brand-red" : "text-neutral-400"}>{icon}</span>
+              {label}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );

@@ -11,6 +11,7 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import Toast from "@/components/Toast";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import { BottomNav } from "@/components/ui/BottomNav";
+import { DesktopCartBar } from "@/components/ui/DesktopCartBar";
 import { InstallPrompt } from "@/components/ui/InstallPrompt";
 import { WebVitals } from "@/components/WebVitals";
 
@@ -160,6 +161,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <WhatsAppFloat site={site} />
           <Toast />
           <BottomNav />
+          <DesktopCartBar />
           <InstallPrompt />
         </CartProvider>
       </body>
