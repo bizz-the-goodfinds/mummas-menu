@@ -11,6 +11,21 @@ color, icons) plus static PWA metadata:
 - `categories: ["food", "shopping", "lifestyle"]`
 - `shortcuts` — long-press/right-click app icon shortcuts to `/menu` ("View Menu") and
   `/contact` ("Order on WhatsApp"), each with an icon reference.
+- `theme_color` / `background_color` are `#fdf9f8` (the page background) so the
+  Android status bar and splash screen blend with the light header instead of showing
+  a hard red band. The same colour is exported as `viewport.themeColor` in
+  `app/layout.tsx` (with `viewportFit: "cover"` so `env(safe-area-inset-*)` works).
+
+## Native-feeling behaviours
+
+- **Back gesture closes overlays** — the cart drawer, mobile nav, and item detail
+  sheet use `lib/use-overlay.ts`, which pushes a history entry on open and closes the
+  overlay on `popstate`. In the installed app the system back gesture dismisses the
+  overlay instead of exiting; UI close buttons go through the same `history.back()`
+  path so no stale entries pile up. The hook also locks body scroll while an overlay
+  is open.
+- **Haptics** — `lib/haptics.ts` wraps `navigator.vibrate` (no-op on iOS Safari).
+  Light taps fire on add/remove-to-cart and a success pattern on checkout.
 
 ## Service worker (`public/sw.js`)
 

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -27,6 +27,14 @@ const magnolia = localFont({
   variable: "--font-magnolia",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  // Match the page background so the status bar blends in instead of showing a
+  // hard red band above the light header (most visible in the installed PWA).
+  themeColor: "#fdf9f8",
+  // Lets content extend under notches/home bar so safe-area insets apply.
+  viewportFit: "cover",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteData();

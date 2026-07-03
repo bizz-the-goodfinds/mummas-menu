@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
+import { useOverlay } from "@/lib/use-overlay";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -24,6 +25,8 @@ export default function Header({ brandName }: { brandName: string }) {
     setPrevPathname(pathname);
     setNavOpen(false);
   }
+
+  const closeNav = useOverlay(navOpen, () => setNavOpen(false));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -93,7 +96,7 @@ export default function Header({ brandName }: { brandName: string }) {
           </button>
 
           <button
-            onClick={() => setNavOpen((v) => !v)}
+            onClick={() => (navOpen ? closeNav() : setNavOpen(true))}
             aria-label={navOpen ? "Close menu" : "Open menu"}
             aria-expanded={navOpen}
             className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-full bg-white/60 ring-1 ring-white/80 md:hidden"
@@ -113,7 +116,7 @@ export default function Header({ brandName }: { brandName: string }) {
 
       {navOpen && (
         <nav
-          className="flex flex-col gap-1 rounded-b-2xl border-t border-white/60 bg-white/95 px-5 py-4 backdrop-blur-xl md:hidden"
+          className="flex max-h-[calc(100dvh-120px)] flex-col gap-1 overflow-y-auto overscroll-contain rounded-b-2xl border-t border-white/60 bg-white/95 px-5 py-4 backdrop-blur-xl md:hidden"
           aria-label="Mobile navigation"
         >
           {NAV_LINKS.map(({ href, label }) => {
