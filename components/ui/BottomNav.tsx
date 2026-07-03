@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
+import { haptic } from "@/lib/haptics";
 
 const NAV = [
   {
@@ -102,9 +103,7 @@ export function BottomNav() {
   const { totalQty, totalPrice, openCart } = useCart();
 
   const handleCartClick = () => {
-    if (typeof navigator !== "undefined" && "vibrate" in navigator) {
-      navigator.vibrate(30);
-    }
+    haptic(30);
     openCart();
   };
 

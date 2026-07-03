@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 import type { CartLine } from "./types";
+import { haptic } from "./haptics";
 import { trackAddToCart, trackRemoveFromCart, trackViewCart } from "./analytics";
 
 const STORAGE_KEY = "mummasMenuCart";
@@ -88,6 +89,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         };
       });
       setToast({ message: `Added ${item.name}`, emoji: item.emoji, image: item.image });
+      haptic();
       trackAddToCart({ id: item.id, name: item.name, price: item.price });
     },
     [],
@@ -97,6 +99,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     (id: string) => {
       const existing = cart[id];
       if (existing) {
+        haptic();
         trackRemoveFromCart({ id: existing.id, name: existing.name, price: existing.price });
       }
       setCart((prev) => {
@@ -115,7 +118,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     [cart],
   );
 
-  const clear = useCallback(() => setCart({}), []);
+  // Persist synchronously too: on checkout the page hands off to WhatsApp
+  // immediately, and the async persist effect may never run before the tab is
+  // suspended — leaving the old cart in localStorage.
+  const clear = useCallback(() => {
+    setCart({});
+    try {
+      localStorage.setItem(STORAGE_KEY, "{}");
+    } catch {
+      // storage unavailable — in-memory state is still cleared
+    }
+  }, []);
 
   const lines = useMemo(() => Object.values(cart), [cart]);
   const totalQty = useMemo(() => lines.reduce((sum, l) => sum + l.qty, 0), [lines]);
@@ -130,13 +143,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     );
   }, [totalPrice, lines]);
 
+  const closeCart = useCallback(() => setIsOpen(false), []);
+
   const value: CartContextValue = {
     lines,
     totalQty,
     totalPrice,
     isOpen,
     openCart,
-    closeCart: () => setIsOpen(false),
+    closeCart,
     addItem,
     removeItem,
     qtyFor,

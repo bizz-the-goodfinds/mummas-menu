@@ -1,4 +1,4 @@
-const CACHE_NAME = "mummas-menu-v3";
+const CACHE_NAME = "mummas-menu-v4";
 const PRECACHE_URLS = ["/", "/menu", "/contact", "/manifest.webmanifest", "/offline.html"];
 
 self.addEventListener("install", (event) => {

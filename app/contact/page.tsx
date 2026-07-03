@@ -81,11 +81,11 @@ export default async function ContactPage() {
             behalf, with our own delivery service launching soon.
           </p>
           <h2 className="font-heading mt-6 mb-3 text-xl">🕒 Hours</h2>
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-[14px] text-neutral-700 sm:grid-cols-1">
+          <ul className="grid max-w-xs grid-cols-1 gap-y-1.5 text-[14px] text-neutral-700">
             {site.businessHours.map((h) => (
-              <li key={h.day} className="flex justify-between gap-4 sm:max-w-xs">
+              <li key={h.day} className="flex items-baseline justify-between gap-4">
                 <span>{h.day}</span>
-                <span className="font-medium">
+                <span className="font-medium whitespace-nowrap">
                   {h.closed ? "Closed" : `${h.open} – ${h.close}`}
                 </span>
               </li>

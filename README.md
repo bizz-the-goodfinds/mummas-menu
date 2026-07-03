@@ -105,7 +105,9 @@ lib/
   analytics.ts       Typed event tracking helpers
   cart-context.tsx   Cart state (React context)
   data.ts            Content data loaders
+  haptics.ts         Vibration feedback helper (best-effort, PWA)
   types.ts           Shared TypeScript types
+  use-overlay.ts     Overlay hook: body scroll lock + back-gesture close
   whatsapp.ts        WhatsApp message builders
 
 data/

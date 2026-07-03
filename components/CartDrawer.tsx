@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useCart } from "@/lib/cart-context";
+import { useOverlay } from "@/lib/use-overlay";
+import { haptic } from "@/lib/haptics";
 import { buildOrderMessage, whatsappLink } from "@/lib/whatsapp";
 import { QtyButton } from "@/components/ui/QtyButton";
 import type { MenuData, SiteData } from "@/lib/types";
@@ -21,21 +23,30 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
     setInstructions,
   } = useCart();
 
+  const requestClose = useOverlay(isOpen, closeCart);
+
   function handleCheckout() {
     trackBeginCheckout(
       totalPrice,
       lines.map((l) => ({ id: l.id, name: l.name, price: l.price, qty: l.qty })),
     );
     const message = buildOrderMessage(site, lines, instructions);
-    window.open(whatsappLink(site.whatsappNumber, message), "_blank", "noopener");
+    const url = whatsappLink(site.whatsappNumber, message);
     fetch("/api/content/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items: lines, total: totalPrice, source: site.orderSource }),
     }).catch(() => {});
+    // Clear before handing off to WhatsApp — once the WhatsApp app takes over
+    // (mobile/PWA) this page may be suspended and never run anything after.
     clear();
+    setInstructions("");
     closeCart();
+    haptic([16, 60, 24]);
     notify("Order sent! We'll confirm on WhatsApp shortly 🎉");
+    const win = window.open(url, "_blank", "noopener");
+    // Popup blocked (common in installed PWAs) — navigate directly instead.
+    if (!win) window.location.href = url;
   }
 
   // "You might also like" — items not already in cart, from all categories
@@ -50,20 +61,29 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
     <>
       {/* Backdrop */}
       <div
-        onClick={closeCart}
+        onClick={requestClose}
         aria-hidden
         className={`fixed inset-0 z-[150] bg-black/40 transition-opacity duration-300 ${isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
       />
 
-      {/* Drawer */}
+      {/* Drawer — bottom sheet on mobile, side drawer on md+ */}
       <aside
         role="dialog"
         aria-modal
         aria-label="Shopping cart"
-        className={`bg-brand-white fixed top-0 z-[200] flex h-full w-full max-w-[420px] flex-col rounded-l-3xl shadow-2xl transition-[right] duration-300 ease-out ${isOpen ? "right-0" : "-right-full"}`}
+        className={`bg-brand-white fixed inset-x-0 bottom-0 z-[200] flex max-h-[88dvh] flex-col rounded-t-[28px] shadow-2xl transition-transform duration-300 ease-out md:inset-x-auto md:top-0 md:right-0 md:h-full md:max-h-none md:w-full md:max-w-[420px] md:rounded-l-3xl md:rounded-tr-none ${
+          isOpen
+            ? "translate-y-0 md:translate-x-0"
+            : "translate-y-full md:translate-x-full md:translate-y-0"
+        }`}
       >
+        {/* Grab handle (mobile sheet) */}
+        <div className="flex shrink-0 justify-center pt-3 md:hidden" aria-hidden>
+          <span className="h-1.5 w-12 rounded-full bg-neutral-200" />
+        </div>
+
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/60 px-6 py-5">
+        <div className="flex items-center justify-between border-b border-white/60 px-6 py-4 md:py-5">
           <div>
             <h2 className="font-heading text-[19px] font-bold">Your Cart</h2>
             {lines.length > 0 && (
@@ -73,7 +93,7 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
             )}
           </div>
           <button
-            onClick={closeCart}
+            onClick={requestClose}
             aria-label="Close cart"
             className="glass hover:text-brand-red flex h-9 w-9 items-center justify-center rounded-full text-neutral-600 transition-colors"
           >
@@ -93,9 +113,9 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
         </div>
 
         {/* Body */}
-        <div className="flex flex-1 flex-col gap-3 overflow-y-auto px-6 py-4">
+        <div className="flex flex-1 flex-col gap-3 overflow-y-auto overscroll-contain px-6 py-4">
           {lines.length === 0 ? (
-            <EmptyCart onClose={closeCart} />
+            <EmptyCart onClose={requestClose} />
           ) : (
             <>
               {/* Cart lines */}
@@ -215,7 +235,7 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
 
         {/* Footer */}
         {lines.length > 0 && (
-          <div className="border-t border-white/60 px-6 pt-4 pb-6">
+          <div className="border-t border-white/60 px-6 pt-4 pb-[max(env(safe-area-inset-bottom),24px)]">
             <div className="mb-1 flex items-center justify-between">
               <span className="text-[14px] text-neutral-600">Subtotal</span>
               <strong className="font-heading text-brand-red text-[22px]">₹{totalPrice}</strong>

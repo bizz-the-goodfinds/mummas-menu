@@ -7,6 +7,7 @@ import type { MenuItem } from "@/lib/types";
 import { TagBadge } from "./Badge";
 import { QtyButton } from "./QtyButton";
 import { useCart } from "@/lib/cart-context";
+import { useOverlay } from "@/lib/use-overlay";
 import { trackViewItem } from "@/lib/analytics";
 
 interface ItemDetailSheetProps {
@@ -35,22 +36,25 @@ export function ItemDetailSheet({ item, categoryEmoji, onClose }: ItemDetailShee
     trackViewItem({ id: item.id, name: item.name, price: item.price });
   }, [item.id, item.name, item.price]);
 
+  // Mounted only while open — scroll lock + back-gesture close for its lifetime
+  const requestClose = useOverlay(true, close);
+
   useEffect(() => {
-    document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape") requestClose();
     };
     document.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [close]);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [requestClose]);
 
   return createPortal(
     <div className="fixed inset-0 z-[300] flex items-end justify-center md:items-center">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={close} aria-hidden />
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={requestClose}
+        aria-hidden
+      />
 
       {/* Sheet / Modal */}
       <div
@@ -76,7 +80,7 @@ export function ItemDetailSheet({ item, categoryEmoji, onClose }: ItemDetailShee
           )}
           {/* Top-right close */}
           <button
-            onClick={close}
+            onClick={requestClose}
             aria-label="Close"
             className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
           >
