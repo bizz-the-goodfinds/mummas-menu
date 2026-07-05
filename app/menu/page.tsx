@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import MenuSection from "@/components/MenuSection";
 import { getMenuData, getSiteData } from "@/lib/data";
 
@@ -26,5 +27,22 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function MenuPage() {
   const [, menu] = await Promise.all([getSiteData(), getMenuData()]);
-  return <MenuSection menu={menu} />;
+  return (
+    <Suspense fallback={<MenuSectionFallback />}>
+      <MenuSection menu={menu} />
+    </Suspense>
+  );
+}
+
+function MenuSectionFallback() {
+  return (
+    <section className="py-10 md:py-16">
+      <div className="mx-auto max-w-6xl px-6 text-center">
+        <span className="text-brand-red mb-1 block text-[13px] font-semibold tracking-wider uppercase">
+          100% Pure Veg · Cooked Fresh Daily
+        </span>
+        <h1 className="font-heading text-[28px] md:text-[36px]">Our Menu</h1>
+      </div>
+    </section>
+  );
 }

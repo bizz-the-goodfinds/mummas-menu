@@ -68,7 +68,8 @@ export default function Footer({ site, menu }: { site: SiteData; menu: MenuData 
               .map((cat) => (
                 <Link
                   key={cat.slug}
-                  href={`/menu/${cat.slug}`}
+                  href={`/menu?category=${cat.slug}`}
+                  scroll={false}
                   className="hover:text-brand-red text-[13px] text-neutral-600 transition-colors"
                 >
                   {cat.emoji} {cat.name}

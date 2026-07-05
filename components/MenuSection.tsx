@@ -1,18 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { MenuData } from "@/lib/types";
 import { ItemCard } from "@/components/ui/ItemCard";
 import { CategoryFilter } from "@/components/ui/CategoryFilter";
 
 export default function MenuSection({ menu }: { menu: MenuData }) {
-  const [activeSlug, setActiveSlug] = useState<string>("all");
+  const requestedSlug = useSearchParams().get("category");
 
   // Drop categories with no available items entirely — from the filter pills too,
   // not just the item grid — so there's nothing to select that would show empty.
   const availableCategories = menu.categories
     .map((c) => ({ ...c, items: c.items.filter((item) => item.isAvailability !== false) }))
     .filter((c) => c.items.length > 0);
+
+  const isValidRequestedSlug =
+    requestedSlug !== null && availableCategories.some((c) => c.slug === requestedSlug);
+
+  // Links like the footer's category links (e.g. /menu?category=parathas) select
+  // the matching filter pill, same as clicking it directly. The lazy initializer
+  // covers a fresh navigation to /menu?category=X; the render-time re-sync below
+  // (per https://react.dev/learn/you-might-not-need-an-effect) covers a same-page
+  // link click that only changes the query string without remounting.
+  const [activeSlug, setActiveSlug] = useState<string>(() =>
+    isValidRequestedSlug ? (requestedSlug as string) : "all",
+  );
+  const [syncedSlug, setSyncedSlug] = useState(requestedSlug);
+  if (requestedSlug !== syncedSlug) {
+    setSyncedSlug(requestedSlug);
+    if (isValidRequestedSlug) {
+      setActiveSlug(requestedSlug as string);
+    }
+  }
+
+  // Once the filtered section for the requested category has actually rendered,
+  // scroll it into view — mirrors selecting the pill and jumping to that section.
+  useEffect(() => {
+    if (requestedSlug && requestedSlug === activeSlug) {
+      document
+        .getElementById(`cat-${activeSlug}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [activeSlug, requestedSlug]);
 
   const visibleCategories =
     activeSlug === "all"
