@@ -10,20 +10,39 @@ const TRUST_BADGES = [
   { icon: "📍", label: "Vadodara" },
 ];
 
+// Preferred dishes for the two floating cards; if one is unavailable, fall
+// back to any other available item so the hero always shows two picks.
 const FLOATING_ITEM_IDS = ["aloo-paratha", "puranpoli"];
 
-function findMenuItem(menu: MenuData, id: string): MenuItem | undefined {
+function collectAvailableItems(menu: MenuData): MenuItem[] {
+  const items: MenuItem[] = [];
   for (const cat of menu.categories) {
-    const item = cat.items.find((i) => i.id === id);
-    if (item) return item;
+    for (const item of cat.items) {
+      if (item.isAvailability !== false) items.push(item);
+    }
   }
-  return undefined;
+  return items;
+}
+
+function pickFloatingItems(menu: MenuData): (MenuItem | undefined)[] {
+  const available = collectAvailableItems(menu);
+  const picks: MenuItem[] = [];
+
+  for (const id of FLOATING_ITEM_IDS) {
+    const preferred = available.find((i) => i.id === id);
+    if (preferred && !picks.includes(preferred)) picks.push(preferred);
+  }
+  for (const item of available) {
+    if (picks.length >= FLOATING_ITEM_IDS.length) break;
+    if (!picks.includes(item)) picks.push(item);
+  }
+  return picks;
 }
 
 export default function Hero({ site, menu }: { site: SiteData; menu: MenuData }) {
   const generalMsg = buildGeneralMessage(site);
   const waHref = whatsappLink(site.whatsappNumber, generalMsg);
-  const [firstItem, secondItem] = FLOATING_ITEM_IDS.map((id) => findMenuItem(menu, id));
+  const [firstItem, secondItem] = pickFloatingItems(menu);
 
   return (
     <section id="home" className="relative overflow-hidden pt-6 pb-10 md:pt-10 md:pb-16">

@@ -6,7 +6,9 @@ import { ItemCard } from "@/components/ui/ItemCard";
 
 export async function generateStaticParams() {
   const menu = await getMenuData();
-  return menu.categories.map((c) => ({ slug: c.slug }));
+  return menu.categories
+    .filter((c) => c.items.some((item) => item.isAvailability !== false))
+    .map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({
@@ -18,9 +20,11 @@ export async function generateMetadata({
   const [site, menu] = await Promise.all([getSiteData(), getMenuData()]);
   const category = menu.categories.find((c) => c.slug === slug);
   if (!category) return {};
-  const itemNames = category.items.map((i) => i.name).join(", ");
+  const availableItems = category.items.filter((i) => i.isAvailability !== false);
+  if (availableItems.length === 0) return {};
+  const itemNames = availableItems.map((i) => i.name).join(", ");
   const description = `Order fresh ${category.name} from ${site.brandName}: ${itemNames}. FSSAI-approved home-style cooking, checkout instantly on WhatsApp.`;
-  const ogImage = category.items[0]?.image || site.ogImage;
+  const ogImage = availableItems[0]?.image || site.ogImage;
   return {
     title: `${category.name} — ${site.brandName} Menu`,
     description,
@@ -45,12 +49,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const [site, menu] = await Promise.all([getSiteData(), getMenuData()]);
   const category = menu.categories.find((c) => c.slug === slug);
   if (!category) notFound();
+  const availableItems = category.items.filter((i) => i.isAvailability !== false);
+  if (availableItems.length === 0) notFound();
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: `${category.name} — ${site.brandName}`,
-    itemListElement: category.items.map((item, idx) => ({
+    itemListElement: availableItems.map((item, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
       item: {
@@ -115,12 +121,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           {category.name}
         </h1>
         <p className="mb-8 text-[15px] text-neutral-600">
-          {category.items.length} item{category.items.length !== 1 ? "s" : ""} freshly made by{" "}
+          {availableItems.length} item{availableItems.length !== 1 ? "s" : ""} freshly made by{" "}
           {site.brandName} — FSSAI approved, no artificial colours.
         </p>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {category.items.map((item) => (
+          {availableItems.map((item) => (
             <div key={item.id} itemScope itemType="https://schema.org/MenuItem" className="h-full">
               <meta itemProp="name" content={item.name} />
               <meta itemProp="description" content={item.description} />

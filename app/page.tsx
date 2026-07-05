@@ -56,6 +56,7 @@ function FeaturedSection({ menu }: { menu: MenuData }) {
 
   for (const cat of menu.categories) {
     for (const item of cat.items) {
+      if (item.isAvailability === false) continue;
       const hasTag = item.tags?.some((t) => t.trim().length > 0);
       const bucket = hasTag ? tagged : untagged;
       bucket.push({ ...item, categoryEmoji: cat.emoji });

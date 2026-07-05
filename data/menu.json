@@ -11,7 +11,8 @@
           "price": 100,
           "description": "A complete homestyle meal with fresh sabji, soft rotis, rice and comforting daal.",
           "image": "/images/meal/sabji-roti-daal-rice.png",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": true
         },
         {
           "id": "sabji-paratha-daal-rice",
@@ -19,7 +20,8 @@
           "price": 120,
           "description": "Wholesome meal served with flaky parathas, fresh sabji, rice and flavourful daal.",
           "image": "/images/meal/sabji-paratha-daal-rice.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         }
       ]
     },
@@ -34,7 +36,8 @@
           "price": 150,
           "description": "Rich paneer curry served with four soft rotis for a hearty homemade meal.",
           "image": "/images/meal/paneer-sabji-roti.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "paneer-sabji-paratha",
@@ -42,7 +45,8 @@
           "price": 170,
           "description": "Creamy paneer curry paired with two buttery parathas, satisfying and delicious.",
           "image": "/images/meal/paneer-sabji-paratha.jpg",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "aloo-sabzi-roti",
@@ -50,7 +54,8 @@
           "price": 80,
           "description": "Simple homestyle aloo sabzi served with four soft rotis, comforting and filling.",
           "image": "/images/meal/aloo-sabzi-roti.png",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": true
         },
         {
           "id": "aloo-sabzi-paratha",
@@ -58,7 +63,8 @@
           "price": 90,
           "description": "Flavourful dry aloo sabzi served with two soft parathas for a wholesome meal.",
           "image": "/images/meal/aloo-sabzi-paratha.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "aloo-sabzi-thepla",
@@ -66,7 +72,8 @@
           "price": 90,
           "description": "Homestyle aloo sabzi paired with two soft theplas, light and full of flavour.",
           "image": "/images/meal/aloo-sabzi-thepla.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         }
       ]
     },
@@ -81,7 +88,8 @@
           "price": 60,
           "description": "Soft paratha generously stuffed with spiced potato filling, served hot and fresh.",
           "image": "/images/meal/aloo-paratha.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "paneer-paratha",
@@ -89,7 +97,8 @@
           "price": 80,
           "description": "Freshly prepared paratha stuffed with flavourful paneer, soft inside and crispy outside.",
           "image": "/images/meal/paneer-paratha.png",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": true
         },
         {
           "id": "cheese-paneer-paratha",
@@ -97,7 +106,8 @@
           "price": 100,
           "description": "Delicious paratha stuffed with creamy paneer and melted cheese, perfectly satisfying.",
           "image": "/images/meal/cheese-paneer-paratha.png",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": true
         },
         {
           "id": "roti-10pcs",
@@ -105,7 +115,8 @@
           "price": 80,
           "description": "Freshly made soft whole wheat rotis, perfect with every homemade meal.",
           "image": "/images/meal/roti.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "butter-roti-10pcs",
@@ -113,7 +124,8 @@
           "price": 100,
           "description": "Soft whole wheat rotis brushed with butter for extra richness and flavour.",
           "image": "/images/meal/butter-roti.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "thepla-2pcs",
@@ -121,7 +133,8 @@
           "price": 30,
           "description": "Traditional Gujarati theplas, soft, flavourful and perfect for any time of day.",
           "image": "/images/meal/thepla.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "butter-thepla-2pcs",
@@ -129,7 +142,8 @@
           "price": 40,
           "description": "Fresh theplas finished with butter for an extra layer of deliciousness.",
           "image": "/images/meal/butter-thepla.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         }
       ]
     },
@@ -144,7 +158,8 @@
           "price": 150,
           "description": "Soft crumbled paneer cooked with aromatic spices for a comforting homestyle dish.",
           "image": "/images/meal/paneer-bhurji.png",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": true
         },
         {
           "id": "paneer-butter-masala",
@@ -152,7 +167,8 @@
           "price": 150,
           "description": "Creamy paneer cooked in a rich buttery tomato gravy with aromatic spices.",
           "image": "/images/meal/paneer-butter-masala.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "aloo-sabzi",
@@ -160,7 +176,8 @@
           "price": 60,
           "description": "Homestyle dry potato sabzi cooked with simple spices and everyday comfort flavours.",
           "image": "/images/meal/aloo-sabzi.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         }
       ]
     },
@@ -175,7 +192,8 @@
           "price": 50,
           "description": "Classic Maggi noodles cooked to perfection, warm, comforting and ready to satisfy.",
           "image": "/images/meal/maggi.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "butter-maggi",
@@ -183,7 +201,8 @@
           "price": 60,
           "description": "Classic Maggi tossed with butter for a rich and comforting flavour.",
           "image": "/images/meal/butter-maggi.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "cheese-maggi",
@@ -191,7 +210,8 @@
           "price": 70,
           "description": "Classic Maggi topped with melted cheese for an irresistibly creamy bite.",
           "image": "/images/meal/cheese-maggi.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "tadka-maggi",
@@ -199,7 +219,8 @@
           "price": 70,
           "description": "Maggi tossed with aromatic Indian tadka for a delicious desi twist.",
           "image": "/images/meal/tadka-maggi.png",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": true
         },
         {
           "id": "cheese-tadka-maggi",
@@ -207,7 +228,8 @@
           "price": 80,
           "description": "Spicy tadka Maggi topped with melted cheese for the ultimate comfort bowl.",
           "image": "/images/meal/cheese-tadka-maggi.png",
-          "tags": [""]
+          "tags": [""],
+          "isAvailability": true
         }
       ]
     },
@@ -222,7 +244,8 @@
           "price": 40,
           "description": "Light and fluffy poha with potatoes, gently seasoned for a comforting breakfast.",
           "image": "/images/meal/batata-poha.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "curd-rice",
@@ -230,7 +253,8 @@
           "price": 80,
           "description": "Creamy curd rice, lightly seasoned and perfectly refreshing for a comforting meal.",
           "image": "/images/meal/curd-rice.png",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": true
         },
         {
           "id": "daal-pakwan",
@@ -238,7 +262,8 @@
           "price": 100,
           "description": "Crispy pakwan served with flavourful daal, a traditional Sindhi breakfast favourite.",
           "image": "/images/meal/daal-pakwan.png",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": false
         }
       ]
     },
@@ -253,7 +278,8 @@
           "price": 60,
           "description": "Light and flavourful sabudana cooked with peanuts and mild fasting spices.",
           "image": "/images/meal/sabudana-khichdi.png",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": true
         },
         {
           "id": "sabudana-khichdi-farali-chevdo",
@@ -261,7 +287,8 @@
           "price": 75,
           "description": "Classic sabudana khichdi topped with crunchy farali chevdo for extra texture.",
           "image": "/images/meal/sabudana-khichdi-farali-chevdo.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "sabudana-vada",
@@ -269,7 +296,8 @@
           "price": 60,
           "description": "Golden crispy sabudana vadas with a soft, flavourful centre.",
           "image": "/images/meal/sabudana-vada.png",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": true
         },
         {
           "id": "farali-chutney",
@@ -277,7 +305,8 @@
           "price": 20,
           "description": "Fresh homemade fasting chutney with refreshing flavours, perfect alongside every farali dish.",
           "image": "/images/meal/farali-chutney.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         }
       ]
     },
@@ -292,7 +321,8 @@
           "price": 70,
           "description": "Smooth, creamy cold coffee blended perfectly for a refreshing coffee treat.",
           "image": "/images/meal/classic-cold-coffee.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         },
         {
           "id": "masala-chai",
@@ -300,7 +330,8 @@
           "price": 40,
           "description": "Freshly brewed masala chai with aromatic spices, warm, comforting and perfect to share.",
           "image": "/images/meal/masala-chai.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": true
         }
       ]
     },
@@ -315,7 +346,8 @@
           "price": 140,
           "description": "Golden fried modaks filled with coconut, jaggery and dry fruits.",
           "image": "/images/meal/fried-modak.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": false
         },
         {
           "id": "ghughra",
@@ -323,7 +355,8 @@
           "price": 120,
           "description": "Crispy fried pastry filled with coconut, jaggery, ghee and dry fruits.",
           "image": "/images/meal/ghughra.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": false
         },
         {
           "id": "gulabjamun",
@@ -331,7 +364,8 @@
           "price": 40,
           "description": "Soft and juicy gulab jamuns soaked in fragrant sugar syrup.",
           "image": "/images/meal/gulabjamun.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": false
         },
         {
           "id": "puranpoli",
@@ -339,7 +373,8 @@
           "price": 60,
           "description": "Traditional Maharashtrian sweet flatbread generously filled with jaggery and lentil stuffing.",
           "image": "/images/meal/puranpoli.jpg",
-          "tags": ["mummas-sp"]
+          "tags": ["mummas-sp"],
+          "isAvailability": false
         },
         {
           "id": "besan-ladoo",
@@ -347,7 +382,8 @@
           "price": 120,
           "description": "Homemade besan ladoos made with pure ghee, dry fruits and roasted gram flour.",
           "image": "/images/meal/besan-ladoo.jpg",
-          "tags": []
+          "tags": [],
+          "isAvailability": false
         },
         {
           "id": "churma-ladoo",
@@ -355,7 +391,8 @@
           "price": 130,
           "description": "Traditional churma ladoos made with jaggery, pure ghee and wholesome wheat flour.",
           "image": "/images/meal/churma-ladoo.png",
-          "tags": []
+          "tags": [],
+          "isAvailability": false
         }
       ]
     }

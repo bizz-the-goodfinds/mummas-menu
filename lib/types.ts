@@ -5,6 +5,8 @@ export interface MenuItem {
   description: string;
   image: string;
   tags?: string[];
+  /** Whether the item is currently orderable. Defaults to true when absent. */
+  isAvailability?: boolean;
 }
 
 export interface MenuCategory {

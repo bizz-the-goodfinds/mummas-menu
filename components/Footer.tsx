@@ -63,15 +63,17 @@ export default function Footer({ site, menu }: { site: SiteData; menu: MenuData 
             <h4 className="mb-1 text-[13px] font-bold tracking-wider text-neutral-400 uppercase">
               Menu
             </h4>
-            {menu.categories.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/menu/${cat.slug}`}
-                className="hover:text-brand-red text-[13px] text-neutral-600 transition-colors"
-              >
-                {cat.emoji} {cat.name}
-              </Link>
-            ))}
+            {menu.categories
+              .filter((cat) => cat.items.some((item) => item.isAvailability !== false))
+              .map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={`/menu/${cat.slug}`}
+                  className="hover:text-brand-red text-[13px] text-neutral-600 transition-colors"
+                >
+                  {cat.emoji} {cat.name}
+                </Link>
+              ))}
           </div>
 
           {/* Contact */}

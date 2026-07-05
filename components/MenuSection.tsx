@@ -8,8 +8,16 @@ import { CategoryFilter } from "@/components/ui/CategoryFilter";
 export default function MenuSection({ menu }: { menu: MenuData }) {
   const [activeSlug, setActiveSlug] = useState<string>("all");
 
+  // Drop categories with no available items entirely — from the filter pills too,
+  // not just the item grid — so there's nothing to select that would show empty.
+  const availableCategories = menu.categories
+    .map((c) => ({ ...c, items: c.items.filter((item) => item.isAvailability !== false) }))
+    .filter((c) => c.items.length > 0);
+
   const visibleCategories =
-    activeSlug === "all" ? menu.categories : menu.categories.filter((c) => c.slug === activeSlug);
+    activeSlug === "all"
+      ? availableCategories
+      : availableCategories.filter((c) => c.slug === activeSlug);
 
   return (
     <section id="menu" className="py-10 md:py-16" itemScope itemType="https://schema.org/Menu">
@@ -25,7 +33,7 @@ export default function MenuSection({ menu }: { menu: MenuData }) {
         {/* Sticky filter bar */}
         <div className="sticky top-[68px] z-40 -mx-6 flex items-center justify-between gap-4 bg-white/80 px-6 pt-3 pb-4 backdrop-blur-lg">
           <CategoryFilter
-            categories={menu.categories}
+            categories={availableCategories}
             activeSlug={activeSlug}
             onSelect={setActiveSlug}
           />
