@@ -45,6 +45,7 @@ export function MenuEditor({ token }: { token: string }) {
         price: 0,
         description: "",
         image: "",
+        isAvailability: true,
       });
       return next;
     });
@@ -160,6 +161,16 @@ export function MenuEditor({ token }: { token: string }) {
                 >
                   Remove
                 </button>
+                <label className="flex items-center gap-2 text-sm sm:col-span-4">
+                  <input
+                    type="checkbox"
+                    checked={item.isAvailability !== false}
+                    onChange={(e) =>
+                      updateItem(catIdx, itemIdx, { isAvailability: e.target.checked })
+                    }
+                  />
+                  Available (shown on the website)
+                </label>
                 <textarea
                   value={item.description}
                   onChange={(e) => updateItem(catIdx, itemIdx, { description: e.target.value })}

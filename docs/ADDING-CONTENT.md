@@ -78,6 +78,21 @@ If you have your own photo:
 
 ---
 
+## Hide a dish without deleting it (out of stock / seasonal)
+
+If a dish is temporarily unavailable (ran out of an ingredient, only served on
+certain occasions, etc.), you don't have to delete it — just hide it.
+
+1. Click the **Menu** tab.
+2. Find the dish.
+3. Uncheck the **Available (shown on the website)** checkbox.
+4. Click **Save**.
+
+The dish disappears from the website immediately, but stays saved in the admin
+so you can bring it back later by re-checking the box and saving again.
+
+---
+
 ## Add a new category
 
 A "category" is a group of dishes — like "Tiffin Meals", "Parathas", "Combos".

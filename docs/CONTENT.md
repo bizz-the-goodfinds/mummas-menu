@@ -22,7 +22,8 @@ You can edit them two ways:
           "price": 220,
           "description": "Char-grilled cottage cheese, smoky masala.",
           "image": "https://images.unsplash.com/photo-...",
-          "tags": ["bestseller"]
+          "tags": ["bestseller"],
+          "isAvailability": true
         }
       ]
     }
@@ -34,6 +35,11 @@ You can edit them two ways:
   derives it from the category name automatically.
 - `tags` is a free-form string array; `"bestseller"` and `"new"` get special badge
   styling in `components/ui/Badge.tsx` — any other tag still renders as a plain badge.
+- `isAvailability` (optional, defaults to `true` when absent) controls whether the item
+  is shown to customers. Setting it to `false` hides the item from the full menu, the
+  category pages, the homepage featured section, and Hero floating cards, without
+  deleting it — useful for temporarily out-of-stock or seasonal items. The admin Menu
+  Editor exposes this as an "Available" checkbox per item.
 - There is no per-item veg field — the whole kitchen is pure veg, so every item shows the
   same static VEG badge (`components/ui/Badge.tsx`).
 
