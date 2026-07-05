@@ -6,9 +6,7 @@ import { ItemCard } from "@/components/ui/ItemCard";
 
 export async function generateStaticParams() {
   const menu = await getMenuData();
-  return menu.categories
-    .filter((c) => c.items.some((item) => item.isAvailability !== false))
-    .map((c) => ({ slug: c.slug }));
+  return menu.categories.filter((c) => c.items.length > 0).map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({
@@ -20,7 +18,7 @@ export async function generateMetadata({
   const [site, menu] = await Promise.all([getSiteData(), getMenuData()]);
   const category = menu.categories.find((c) => c.slug === slug);
   if (!category) return {};
-  const availableItems = category.items.filter((i) => i.isAvailability !== false);
+  const availableItems = category.items;
   if (availableItems.length === 0) return {};
   const itemNames = availableItems.map((i) => i.name).join(", ");
   const description = `Order fresh ${category.name} from ${site.brandName}: ${itemNames}. FSSAI-approved home-style cooking, checkout instantly on WhatsApp.`;
@@ -49,7 +47,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const [site, menu] = await Promise.all([getSiteData(), getMenuData()]);
   const category = menu.categories.find((c) => c.slug === slug);
   if (!category) notFound();
-  const availableItems = category.items.filter((i) => i.isAvailability !== false);
+  const availableItems = category.items;
   if (availableItems.length === 0) notFound();
 
   const itemListJsonLd = {

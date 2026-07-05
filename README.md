@@ -9,6 +9,7 @@ A Next.js 16 PWA for Mumma's Menu, a 100% pure-veg FSSAI-approved homestyle clou
 - **Framework** — Next.js 16 (App Router)
 - **Language** — TypeScript
 - **Styling** — Tailwind CSS v4
+- **Data & Auth** — Supabase (Postgres content store, Storage for images, Auth for the admin portal)
 - **Analytics** — Firebase Analytics (GA4)
 - **PWA** — Service worker + Web App Manifest
 
@@ -19,6 +20,7 @@ A Next.js 16 PWA for Mumma's Menu, a 100% pure-veg FSSAI-approved homestyle clou
 ```bash
 npm install
 cp .env.example .env       # fill in your values (see Environment Variables below)
+npm run migrate            # one-time: create schema + admin user + seed content in Supabase
 npm run dev
 ```
 
@@ -32,8 +34,14 @@ Copy `.env.example` to `.env` and fill in the values. Never commit `.env`.
 
 | Variable                                   | Required    | Description                                                                                                                             |
 | ------------------------------------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `ADMIN_PASSWORD`                           | Yes         | Password for the `/admin` portal                                                                                                        |
-| `SITE_URL`                                 | Recommended | Canonical public URL (e.g. `https://mummasmenu.in`). Used in WhatsApp messages & JSON-LD. Falls back to `VERCEL_URL` → `data/site.json` |
+| `NEXT_PUBLIC_SUPABASE_URL`                 | Yes         | Supabase project URL (Project Settings → API)                                                                                           |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`     | Yes         | Supabase publishable key — browser-safe, used only for admin login                                                                      |
+| `SUPABASE_SECRET_KEY`                      | Yes         | Supabase secret key — server-only, bypasses RLS for content reads/writes                                                                |
+| `SUPABASE_DB_URL`                          | Scripts     | Direct Postgres connection string — used only by `npm run migrate`                                                                      |
+| `ADMIN_EMAIL`                              | Yes         | Email of the Supabase Auth admin user (created by `npm run migrate`)                                                                    |
+| `ADMIN_PASSWORD`                           | Yes         | Password of the Supabase Auth admin user                                                                                                |
+| `BACKUP_ENCRYPTION_KEY`                    | Scripts     | 64-hex-char AES key for `npm run backup` / `npm run restore` (`openssl rand -hex 32`)                                                   |
+| `SITE_URL`                                 | Recommended | Canonical public URL (e.g. `https://mummasmenu.in`). Used in WhatsApp messages & JSON-LD. Falls back to `VERCEL_URL` → stored site data |
 | `NEXT_PUBLIC_FIREBASE_API_KEY`             | Yes         | Firebase web config                                                                                                                     |
 | `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`         | Yes         | Firebase web config                                                                                                                     |
 | `NEXT_PUBLIC_FIREBASE_PROJECT_ID`          | Yes         | Firebase web config                                                                                                                     |
@@ -93,27 +101,40 @@ app/                 Next.js App Router pages & layouts
   page.tsx           Home page
   menu/              Full menu page
   contact/           Contact page
-  admin/             Admin portal (password-protected)
-  api/               API routes (content, orders, media)
+  mm-ops-admin/      Admin panel (unlisted route, Supabase Auth, sidebar UI)
+  api/               Public API routes (content, orders, media)
+  api/admin/         Admin CRUD APIs (items, categories, menu, backups)
+  loading.tsx        Skeleton loading states (also in menu/, contact/)
 
 components/          Shared UI components
-  ui/                Primitive UI pieces (ItemCard, QtyButton, …)
+  ui/                Primitive UI pieces (ItemCard, QtyButton, Skeleton, …)
   admin/             Admin portal tabs
 
 lib/
+  supabase.ts        Server-only Supabase client (secret key) + storage helpers
+  menu-store.ts      Menu reads + CRUD against the normalized tables
+  logger.ts          Structured logger (pretty in dev, JSON in production)
+  supabase-browser.ts Browser Supabase client (publishable key, admin login only)
   firebase.ts        Firebase app init (browser-safe singleton)
   analytics.ts       Typed event tracking helpers
+  auth.ts            Admin request authorization (Supabase JWT verification)
   cart-context.tsx   Cart state (React context)
-  data.ts            Content data loaders
+  data.ts            Site/messages/orders loaders (Supabase + cache tags)
   haptics.ts         Vibration feedback helper (best-effort, PWA)
   types.ts           Shared TypeScript types
   use-overlay.ts     Overlay hook: body scroll lock + back-gesture close
   whatsapp.ts        WhatsApp message builders
 
-data/
-  menu.json          Menu categories and items
-  site.json          Brand info, contact, hours, FAQ, testimonials
-  messages.json      WhatsApp message templates (supports {{siteUrl}}, {{brandName}})
+scripts/
+  migrate-to-supabase.mjs  Modular setup/migration (run all or --only <modules>)
+  generate-assets.mjs      Regenerates OG image + PWA icons from the logo
+  backup.mjs         Encrypted backup → backups/*.mmbk (and optionally Storage)
+  restore.mjs        Restore a backup file into Supabase
+  e2e.mjs            End-to-end test suite (runs against a production build)
+  lib/backup-core.mjs      Shared backup engine (CLI + admin API)
+
+data/                Seed JSON used by npm run migrate (live data lives in Supabase)
+backups/             Encrypted database backups (safe to commit — AES-256-GCM)
 public/              Static assets, service worker, fonts
 instrumentation-client.ts   Global error tracking (runs before app boots)
 
@@ -137,24 +158,34 @@ npm run type-check   # TypeScript check (no emit)
 npm run lint         # ESLint
 npm run lint:fix     # ESLint with auto-fix
 npm run format       # Prettier
+npm run migrate      # Supabase setup/migration (all modules, or -- --only schema,images)
+npm run generate-assets  # Rebuild OG image + PWA icons from the logo
+npm run backup       # Encrypted DB backup → backups/ (add --with-images for storage files)
+npm run restore      # Restore a backup: npm run restore -- backups/<file>
+npm run e2e          # End-to-end tests (run npm run build first)
 ```
 
 ---
 
-## Admin Portal
+## Admin Panel
 
-Visit `/admin` and enter the `ADMIN_PASSWORD`. Tabs available:
+A full admin panel lives at `/mm-ops-admin` (unlisted — not linked anywhere, `noindex`, excluded from the sitemap). Log in with the Supabase Auth admin credentials (`ADMIN_EMAIL` / `ADMIN_PASSWORD`, created by `npm run migrate`). Sidebar sections:
 
-- **Menu** — add/edit/delete categories and items
-- **Site** — edit brand info, hours, FAQs, testimonials
-- **Orders** — view incoming WhatsApp orders
-- **Messages** — manage message templates
-- **Media** — upload and manage images
+- **Dashboard** — item health, order stats, recent orders
+- **Menu Items** — searchable/sortable/paginated table with category & status filters, dedicated add/edit pages with a **live customer-view preview**, image upload, soft delete + recycle bin restore
+- **Categories** — same CRUD treatment, with slug/order/visibility control
+- **Orders** — sortable table + CSV export
+- **Site Content / WhatsApp Messages / Media** — brand info, templates, image uploads
+- **Backups** — one-click encrypted backup into a private Storage bucket, with download links
+
+Every item carries `isVisible` (hide without deleting), a `status` (`available`, `coming-soon`, `out-of-stock`, `festive-special` — non-orderable statuses show a badge and disable Add), and `createdAt`/`updatedAt`/`deletedAt` timestamps. Every save expires the site's content cache, so changes are live immediately.
 
 ---
 
 ## Deployment
 
-Any platform that supports Next.js works. Set all environment variables from `.env.example` in your hosting provider's dashboard before deploying.
+Any platform that supports Next.js works. Set all environment variables from `.env.example` in your hosting provider's dashboard before deploying (`SUPABASE_DB_URL` and `BACKUP_ENCRYPTION_KEY` are only needed locally for scripts).
+
+Because all content, images, and orders live in Supabase, admin edits persist correctly on serverless hosting — no filesystem writes remain.
 
 Recommended: [Vercel](https://vercel.com) (zero-config Next.js support).

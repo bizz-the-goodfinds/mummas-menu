@@ -12,7 +12,8 @@
           "description": "A complete homestyle meal with fresh sabji, soft rotis, rice and comforting daal.",
           "image": "/images/meal/sabji-roti-daal-rice.png",
           "tags": ["bestseller"],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "sabji-paratha-daal-rice",
@@ -21,9 +22,11 @@
           "description": "Wholesome meal served with flaky parathas, fresh sabji, rice and flavourful daal.",
           "image": "/images/meal/sabji-paratha-daal-rice.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         }
-      ]
+      ],
+      "isVisible": true
     },
     {
       "slug": "combos",
@@ -37,7 +40,8 @@
           "description": "Rich paneer curry served with four soft rotis for a hearty homemade meal.",
           "image": "/images/meal/paneer-sabji-roti.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "paneer-sabji-paratha",
@@ -46,7 +50,8 @@
           "description": "Creamy paneer curry paired with two buttery parathas, satisfying and delicious.",
           "image": "/images/meal/paneer-sabji-paratha.jpg",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "aloo-sabzi-roti",
@@ -55,7 +60,8 @@
           "description": "Simple homestyle aloo sabzi served with four soft rotis, comforting and filling.",
           "image": "/images/meal/aloo-sabzi-roti.png",
           "tags": ["bestseller"],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "aloo-sabzi-paratha",
@@ -64,7 +70,8 @@
           "description": "Flavourful dry aloo sabzi served with two soft parathas for a wholesome meal.",
           "image": "/images/meal/aloo-sabzi-paratha.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "aloo-sabzi-thepla",
@@ -73,9 +80,11 @@
           "description": "Homestyle aloo sabzi paired with two soft theplas, light and full of flavour.",
           "image": "/images/meal/aloo-sabzi-thepla.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         }
-      ]
+      ],
+      "isVisible": true
     },
     {
       "slug": "rotis-parathas",
@@ -89,7 +98,8 @@
           "description": "Soft paratha generously stuffed with spiced potato filling, served hot and fresh.",
           "image": "/images/meal/aloo-paratha.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "paneer-paratha",
@@ -98,7 +108,8 @@
           "description": "Freshly prepared paratha stuffed with flavourful paneer, soft inside and crispy outside.",
           "image": "/images/meal/paneer-paratha.png",
           "tags": ["bestseller"],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "cheese-paneer-paratha",
@@ -107,7 +118,8 @@
           "description": "Delicious paratha stuffed with creamy paneer and melted cheese, perfectly satisfying.",
           "image": "/images/meal/cheese-paneer-paratha.png",
           "tags": ["bestseller"],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "roti-10pcs",
@@ -116,7 +128,8 @@
           "description": "Freshly made soft whole wheat rotis, perfect with every homemade meal.",
           "image": "/images/meal/roti.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "butter-roti-10pcs",
@@ -125,7 +138,8 @@
           "description": "Soft whole wheat rotis brushed with butter for extra richness and flavour.",
           "image": "/images/meal/butter-roti.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "thepla-2pcs",
@@ -134,7 +148,8 @@
           "description": "Traditional Gujarati theplas, soft, flavourful and perfect for any time of day.",
           "image": "/images/meal/thepla.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "butter-thepla-2pcs",
@@ -143,9 +158,11 @@
           "description": "Fresh theplas finished with butter for an extra layer of deliciousness.",
           "image": "/images/meal/butter-thepla.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         }
-      ]
+      ],
+      "isVisible": true
     },
     {
       "slug": "sabzi",
@@ -159,7 +176,8 @@
           "description": "Soft crumbled paneer cooked with aromatic spices for a comforting homestyle dish.",
           "image": "/images/meal/paneer-bhurji.png",
           "tags": ["bestseller"],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "paneer-butter-masala",
@@ -168,7 +186,8 @@
           "description": "Creamy paneer cooked in a rich buttery tomato gravy with aromatic spices.",
           "image": "/images/meal/paneer-butter-masala.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "aloo-sabzi",
@@ -177,9 +196,11 @@
           "description": "Homestyle dry potato sabzi cooked with simple spices and everyday comfort flavours.",
           "image": "/images/meal/aloo-sabzi.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         }
-      ]
+      ],
+      "isVisible": true
     },
     {
       "slug": "maggi",
@@ -193,7 +214,8 @@
           "description": "Classic Maggi noodles cooked to perfection, warm, comforting and ready to satisfy.",
           "image": "/images/meal/maggi.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "butter-maggi",
@@ -202,7 +224,8 @@
           "description": "Classic Maggi tossed with butter for a rich and comforting flavour.",
           "image": "/images/meal/butter-maggi.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "cheese-maggi",
@@ -211,7 +234,8 @@
           "description": "Classic Maggi topped with melted cheese for an irresistibly creamy bite.",
           "image": "/images/meal/cheese-maggi.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "tadka-maggi",
@@ -220,7 +244,8 @@
           "description": "Maggi tossed with aromatic Indian tadka for a delicious desi twist.",
           "image": "/images/meal/tadka-maggi.png",
           "tags": ["bestseller"],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "cheese-tadka-maggi",
@@ -229,9 +254,11 @@
           "description": "Spicy tadka Maggi topped with melted cheese for the ultimate comfort bowl.",
           "image": "/images/meal/cheese-tadka-maggi.png",
           "tags": [""],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         }
-      ]
+      ],
+      "isVisible": true
     },
     {
       "slug": "breakfast",
@@ -245,7 +272,8 @@
           "description": "Light and fluffy poha with potatoes, gently seasoned for a comforting breakfast.",
           "image": "/images/meal/batata-poha.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "curd-rice",
@@ -254,7 +282,8 @@
           "description": "Creamy curd rice, lightly seasoned and perfectly refreshing for a comforting meal.",
           "image": "/images/meal/curd-rice.png",
           "tags": ["bestseller"],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "daal-pakwan",
@@ -263,9 +292,11 @@
           "description": "Crispy pakwan served with flavourful daal, a traditional Sindhi breakfast favourite.",
           "image": "/images/meal/daal-pakwan.png",
           "tags": ["bestseller"],
-          "isAvailability": false
+          "isVisible": false,
+          "status": "available"
         }
-      ]
+      ],
+      "isVisible": true
     },
     {
       "slug": "farali",
@@ -279,7 +310,8 @@
           "description": "Light and flavourful sabudana cooked with peanuts and mild fasting spices.",
           "image": "/images/meal/sabudana-khichdi.png",
           "tags": ["bestseller"],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "sabudana-khichdi-farali-chevdo",
@@ -288,7 +320,8 @@
           "description": "Classic sabudana khichdi topped with crunchy farali chevdo for extra texture.",
           "image": "/images/meal/sabudana-khichdi-farali-chevdo.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "sabudana-vada",
@@ -297,7 +330,8 @@
           "description": "Golden crispy sabudana vadas with a soft, flavourful centre.",
           "image": "/images/meal/sabudana-vada.png",
           "tags": ["bestseller"],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "farali-chutney",
@@ -306,9 +340,11 @@
           "description": "Fresh homemade fasting chutney with refreshing flavours, perfect alongside every farali dish.",
           "image": "/images/meal/farali-chutney.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         }
-      ]
+      ],
+      "isVisible": true
     },
     {
       "slug": "beverages",
@@ -322,7 +358,8 @@
           "description": "Smooth, creamy cold coffee blended perfectly for a refreshing coffee treat.",
           "image": "/images/meal/classic-cold-coffee.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         },
         {
           "id": "masala-chai",
@@ -331,9 +368,11 @@
           "description": "Freshly brewed masala chai with aromatic spices, warm, comforting and perfect to share.",
           "image": "/images/meal/masala-chai.png",
           "tags": [],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         }
-      ]
+      ],
+      "isVisible": true
     },
     {
       "slug": "festive",
@@ -347,7 +386,8 @@
           "description": "Golden fried modaks filled with coconut, jaggery and dry fruits.",
           "image": "/images/meal/fried-modak.png",
           "tags": [],
-          "isAvailability": false
+          "isVisible": false,
+          "status": "available"
         },
         {
           "id": "ghughra",
@@ -356,7 +396,8 @@
           "description": "Crispy fried pastry filled with coconut, jaggery, ghee and dry fruits.",
           "image": "/images/meal/ghughra.png",
           "tags": [],
-          "isAvailability": false
+          "isVisible": false,
+          "status": "available"
         },
         {
           "id": "gulabjamun",
@@ -365,7 +406,8 @@
           "description": "Soft and juicy gulab jamuns soaked in fragrant sugar syrup.",
           "image": "/images/meal/gulabjamun.png",
           "tags": [],
-          "isAvailability": false
+          "isVisible": false,
+          "status": "available"
         },
         {
           "id": "puranpoli",
@@ -374,7 +416,8 @@
           "description": "Traditional Maharashtrian sweet flatbread generously filled with jaggery and lentil stuffing.",
           "image": "/images/meal/puranpoli.jpg",
           "tags": ["mummas-sp"],
-          "isAvailability": false
+          "isVisible": false,
+          "status": "available"
         },
         {
           "id": "besan-ladoo",
@@ -383,7 +426,8 @@
           "description": "Homemade besan ladoos made with pure ghee, dry fruits and roasted gram flour.",
           "image": "/images/meal/besan-ladoo.jpg",
           "tags": [],
-          "isAvailability": false
+          "isVisible": false,
+          "status": "available"
         },
         {
           "id": "churma-ladoo",
@@ -392,9 +436,11 @@
           "description": "Traditional churma ladoos made with jaggery, pure ghee and wholesome wheat flour.",
           "image": "/images/meal/churma-ladoo.png",
           "tags": [],
-          "isAvailability": false
+          "isVisible": false,
+          "status": "available"
         }
-      ]
+      ],
+      "isVisible": true
     }
   ]
 }

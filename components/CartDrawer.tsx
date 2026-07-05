@@ -175,7 +175,7 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
                   placeholder="Extra butter, less spice, no onion…"
                   rows={2}
                   maxLength={300}
-                  className="focus:ring-brand-red/30 w-full resize-none rounded-xl border border-white/60 bg-white/60 px-3 py-2.5 text-[13px] backdrop-blur-sm placeholder:text-neutral-400 focus:ring-2 focus:outline-none"
+                  className="focus:ring-brand-red/30 focus:border-brand-red/40 w-full resize-none rounded-xl border border-neutral-300 bg-white px-3 py-2.5 text-[13px] placeholder:text-neutral-400 focus:ring-2 focus:outline-none"
                 />
               </div>
 
@@ -240,9 +240,14 @@ export default function CartDrawer({ site, menu }: { site: SiteData; menu?: Menu
               <span className="text-[14px] text-neutral-600">Subtotal</span>
               <strong className="font-heading text-brand-red text-[22px]">₹{totalPrice}</strong>
             </div>
-            <p className="mb-4 text-[11px] text-neutral-400">
-              {site.deliveryNote ?? "Delivery charges & payment details shared on WhatsApp"}
-            </p>
+            <div className="border-brand-red/25 bg-brand-pink/40 mb-4 flex items-start gap-2 rounded-xl border px-3 py-2.5">
+              <span className="text-[14px] leading-snug" aria-hidden>
+                📍
+              </span>
+              <p className="text-[12px] leading-relaxed text-neutral-700">
+                {site.deliveryNote ?? "Delivery charges & payment details shared on WhatsApp"}
+              </p>
+            </div>
             <button
               onClick={handleCheckout}
               className="inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-[#25D366] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_10px_24px_rgba(37,211,102,0.35)] transition-all duration-200 hover:-translate-y-0.5"

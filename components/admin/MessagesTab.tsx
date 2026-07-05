@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { EditorSkeleton } from "@/components/ui/Skeleton";
 import type { MessagesData } from "@/lib/types";
 
 const FIELDS: Array<{ key: keyof MessagesData; label: string; help: string }> = [
@@ -36,7 +37,7 @@ export function MessagesTab({ token }: { token: string }) {
       .then(setMessages);
   }, []);
 
-  if (!messages) return <p className="text-sm text-neutral-500">Loading message templates…</p>;
+  if (!messages) return <EditorSkeleton />;
 
   function setTemplate(key: keyof MessagesData, value: string) {
     setMessages((prev) => (prev ? { ...prev, [key]: value } : prev));

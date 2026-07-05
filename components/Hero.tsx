@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { isOrderable } from "@/lib/types";
 import type { MenuData, MenuItem, SiteData } from "@/lib/types";
 import { buildGeneralMessage, whatsappLink } from "@/lib/whatsapp";
 import { LinkButton } from "@/components/ui/Button";
@@ -18,7 +19,7 @@ function collectAvailableItems(menu: MenuData): MenuItem[] {
   const items: MenuItem[] = [];
   for (const cat of menu.categories) {
     for (const item of cat.items) {
-      if (item.isAvailability !== false) items.push(item);
+      if (isOrderable(item.status)) items.push(item);
     }
   }
   return items;
@@ -45,7 +46,7 @@ export default function Hero({ site, menu }: { site: SiteData; menu: MenuData })
   const [firstItem, secondItem] = pickFloatingItems(menu);
 
   return (
-    <section id="home" className="relative overflow-hidden pt-6 pb-10 md:pt-10 md:pb-16">
+    <section id="home" className="relative overflow-hidden pt-6 pb-2 md:pt-10 md:pb-16">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
           {/* ── Left: Copy ── */}
@@ -76,7 +77,7 @@ export default function Hero({ site, menu }: { site: SiteData; menu: MenuData })
               fresh daily, the way Mumma makes it. Order on WhatsApp in under a minute.
             </p>
 
-            <div className="mb-10 flex flex-wrap gap-3">
+            <div className="mb-2 flex flex-wrap gap-3 md:mb-10">
               <LinkButton href="/menu" variant="primary" size="lg">
                 Browse Menu
               </LinkButton>

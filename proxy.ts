@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Simple in-process sliding-window rate limiter for the auth endpoint.
-// On Vercel serverless each pod is independent, so this is best-effort
-// protection — good enough for low-traffic sites. Swap for Upstash Redis
-// for stricter enforcement across pods.
+// Simple in-process sliding-window rate limiter for the public order-logging
+// endpoint (admin login goes straight to Supabase Auth, which has its own
+// rate limits). On Vercel serverless each pod is independent, so this is
+// best-effort protection — good enough for low-traffic sites. Swap for
+// Upstash Redis for stricter enforcement across pods.
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 10;
 
@@ -18,7 +19,7 @@ function rateLimit(ip: string): boolean {
 }
 
 export function proxy(req: NextRequest) {
-  if (req.nextUrl.pathname === "/api/content/auth" && req.method === "POST") {
+  if (req.nextUrl.pathname === "/api/content/orders" && req.method === "POST") {
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0].trim() ??
       req.headers.get("x-real-ip") ??
@@ -35,5 +36,5 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/content/auth"],
+  matcher: ["/api/content/orders"],
 };

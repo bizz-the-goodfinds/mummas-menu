@@ -8,11 +8,15 @@ No technical knowledge needed. Just a web browser.
 ## Before you start
 
 1. Open the website in your browser.
-2. Go to the **Admin page**: add `/admin` at the end of the website address.  
-   Example: `https://mummasmenu.com/admin`
-3. Type the admin password and press **Enter**.
+2. Go to the **Admin page**: the address is private (not linked from the
+   website, so search engines can't find it) — ask Dip for the exact link and
+   bookmark it.
+3. Type the admin **email and password** and press **Enter**.
+   (You stay logged in on that device until you log out.)
 
-You are now inside the admin area. You will see tabs at the top — **Menu**, **Site**, **Orders**, **Messages**, **Media**.
+You are now inside the admin panel. The menu on the left (or the chips on top,
+on a phone) has: **Dashboard**, **Menu Items**, **Categories**, **Orders**,
+**Site Content**, **WhatsApp Messages**, **Media**, and **Backups**.
 
 ---
 
@@ -22,11 +26,10 @@ A "menu item" is one dish — like "Aloo Paratha" or "Paneer Sabji + Rice".
 
 **Steps:**
 
-1. Click the **Menu** tab.
-2. Find the category (section) where this dish belongs.  
-   For example, if you are adding a paratha, look for the Parathas section.
-3. Click the **"+ Add Item"** button inside that section.
-4. Fill in the form:
+1. Click **Menu Items** in the sidebar.
+2. Click **"+ New Item"** (top right).
+3. Fill in the form — the card on the right shows a **live preview** of
+   exactly how the dish will look on the website while you type:
 
    | Field           | What to type                        | Example                                                              |
    | --------------- | ----------------------------------- | -------------------------------------------------------------------- |
@@ -36,9 +39,19 @@ A "menu item" is one dish — like "Aloo Paratha" or "Paneer Sabji + Rice".
    | **Image URL**   | Web link to a photo (see below)     | https://...                                                          |
    | **Tags**        | Optional labels (see below)         | bestseller                                                           |
 
-5. Click **Save**.
+4. Choose the **Category** and a **Status** (see below), keep "Visible on the
+   website" on, and click **Create item**.
 
 The dish appears on the website immediately.
+
+### Item status
+
+| Status              | What customers see                     |
+| ------------------- | -------------------------------------- |
+| **Available**       | Normal — can be ordered                |
+| **Coming Soon**     | Badge on the card, Add button disabled |
+| **Out of Stock**    | Badge on the card, Add button disabled |
+| **Festive Special** | Golden badge — can be ordered          |
 
 ---
 
@@ -53,28 +66,32 @@ The easiest way is to use a free image from the internet:
 
 If you have your own photo:
 
-1. In the admin area, click the **Media** tab.
-2. Click **Upload** and choose the photo from your phone or computer.
-3. Copy the path it gives you and paste it into the **Image URL** field.
+The easiest way: while adding or editing a dish, click **Upload** next to the
+Image field and pick a photo — it's stored in the cloud (Supabase) and the
+link fills in automatically.
+
+You can also upload from the **Media** page in the sidebar and copy the link
+from there.
 
 ---
 
 ## Edit an existing dish (change name, price, description)
 
-1. Click the **Menu** tab.
-2. Find the dish you want to change. You can scroll or use the browser's find (Ctrl+F / Cmd+F).
-3. Click the **Edit** (pencil) icon next to the dish.
-4. Change whatever you need.
-5. Click **Save**.
+1. Click **Menu Items** in the sidebar.
+2. Find the dish — use the search box, or filter by category/status.
+3. Click the row to open the edit page.
+4. Change whatever you need (the live preview updates as you type).
+5. Click **Save changes**.
 
 ---
 
 ## Remove a dish
 
-1. Click the **Menu** tab.
-2. Find the dish.
-3. Click the **Delete** (trash) icon next to it.
-4. Confirm when asked.
+1. Click **Menu Items**, then click the dish to open it.
+2. Click **Delete** (top right) and confirm.
+
+Deleted dishes go to the **recycle bin** (tick "Recycle bin" above the items
+table to see them) — open one and click **Restore** to bring it back.
 
 ---
 
@@ -83,10 +100,13 @@ If you have your own photo:
 If a dish is temporarily unavailable (ran out of an ingredient, only served on
 certain occasions, etc.), you don't have to delete it — just hide it.
 
-1. Click the **Menu** tab.
-2. Find the dish.
-3. Uncheck the **Available (shown on the website)** checkbox.
-4. Click **Save**.
+You have two options:
+
+- **Out of stock but still listed**: open the dish and set **Status** to
+  "Out of Stock" (or "Coming Soon"). Customers see it with a badge but can't
+  order it.
+- **Completely hidden**: open the dish and switch off **Visible on the
+  website**. It disappears from the site entirely.
 
 The dish disappears from the website immediately, but stays saved in the admin
 so you can bring it back later by re-checking the box and saving again.
@@ -99,26 +119,25 @@ A "category" is a group of dishes — like "Tiffin Meals", "Parathas", "Combos".
 
 **Steps:**
 
-1. Click the **Menu** tab.
-2. Scroll to the very bottom of the page.
-3. Click **"+ Add Category"**.
-4. Fill in the form:
+1. Click **Categories** in the sidebar.
+2. Click **"+ New Category"**.
+3. Fill in the form (the preview shows the filter pill as it will appear):
 
    | Field     | What to type                           | Example      |
    | --------- | -------------------------------------- | ------------ |
    | **Name**  | The category title shown on the menu   | Farali Items |
    | **Emoji** | One emoji that represents the category | 🥗           |
 
-5. Click **Save**.
+4. Click **Create category**.
 
 The new category appears on the website. You can now add dishes to it using the steps above.
 
 ---
 
-## Change the order of dishes or categories
+## Change the order of categories
 
-Inside the **Menu** tab, you can drag and drop items and categories to reorder them.  
-Hold and drag the handle (≡) on the left side of any item to move it up or down.
+Open a category and change its **Sort order** number — lower numbers appear
+first on the website.
 
 ---
 
@@ -126,9 +145,10 @@ Hold and drag the handle (≡) on the left side of any item to move it up or dow
 
 These show a small badge on the dish card on the website.
 
-1. Edit the dish (pencil icon).
-2. In the **Tags** field, type `bestseller` or `new` (all lowercase).
-3. Click **Save**.
+1. Open the dish from **Menu Items**.
+2. In the **Tags** field, type `bestseller` or `new` (all lowercase,
+   comma-separated if more than one).
+3. Click **Save changes**.
 
 To remove the badge, clear the tag and save.
 
@@ -148,23 +168,32 @@ Any other tag you type will still appear as a plain label on the dish.
 
 ## Update business hours or contact info
 
-1. Click the **Site** tab.
+1. Click **Site Content** in the sidebar.
 2. Find the **Business Hours** section — change open and close times for each day.
 3. Find the **Brand & Contact** section — update phone number, address, WhatsApp number.
 4. Click **Save** at the bottom of the section.
 
 ---
 
+## Take a backup
+
+Click **Backups** in the sidebar, then **"+ Create backup now"**. A snapshot
+of the whole menu, site content, and orders is saved safely (encrypted) in the
+cloud. Do this before making big changes. If something goes wrong, contact
+Dip — a backup can be restored.
+
+---
+
 ## Common questions
 
 **Q: I saved a dish but I don't see it on the website.**  
-Wait 10–15 seconds and refresh the page. If it still doesn't show, check that you actually clicked Save and that the form had no red error messages.
+Refresh the page — changes go live immediately after saving. If it still doesn't show, check that you actually clicked Save and that the form had no red error messages.
 
 **Q: The image is not showing.**  
 The image link might be broken. Try copying the link and pasting it into a new browser tab — if you don't see the image there either, find a different photo and use that link instead.
 
 **Q: I accidentally deleted something.**  
-Contact Dip. The previous version can be recovered from the code history.
+Contact Dip. The previous version can be recovered from a database backup.
 
 **Q: I want to add a dish that does not fit any existing category.**  
 Create a new category first (see "Add a new category" above), then add the dish to it.

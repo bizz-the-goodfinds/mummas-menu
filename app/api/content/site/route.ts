@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
-import { getSiteData } from "@/lib/data";
+import { revalidateTag } from "next/cache";
+import { getSiteData, saveContent } from "@/lib/data";
 import { isAuthorized } from "@/lib/auth";
 import type { SiteData } from "@/lib/types";
 
-const filePath = path.join(process.cwd(), "data", "site.json");
 const MAX_BODY_BYTES = 128_000;
 
 const ALLOWED_KEYS: Array<keyof SiteData> = [
@@ -41,7 +39,7 @@ export async function GET() {
 }
 
 export async function PUT(req: NextRequest) {
-  if (!isAuthorized(req)) {
+  if (!(await isAuthorized(req))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -67,6 +65,7 @@ export async function PUT(req: NextRequest) {
     if (key in data) sanitized[key] = data[key];
   }
 
-  await fs.writeFile(filePath, JSON.stringify(sanitized, null, 2) + "\n", "utf-8");
+  await saveContent("site", sanitized);
+  revalidateTag("site", { expire: 0 });
   return NextResponse.json({ ok: true });
 }

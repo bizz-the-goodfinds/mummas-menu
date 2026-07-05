@@ -23,7 +23,7 @@ function sanitizeLine(line: unknown): CartLine | null {
 }
 
 export async function GET(req: NextRequest) {
-  if (!isAuthorized(req)) {
+  if (!(await isAuthorized(req))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const log = await getOrders();
@@ -69,9 +69,8 @@ export async function POST(req: NextRequest) {
   try {
     await appendOrder(order);
   } catch {
-    // Best-effort logging only (e.g. read-only filesystem on serverless) —
-    // the WhatsApp checkout message already has the full order, so failing
-    // to log it here should never block the customer.
+    // Best-effort logging only — the WhatsApp checkout message already has
+    // the full order, so a failed insert should never block the customer.
   }
 
   return NextResponse.json({ ok: true, id: order.id });

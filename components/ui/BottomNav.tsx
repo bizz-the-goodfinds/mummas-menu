@@ -113,15 +113,15 @@ export function BottomNav() {
       {totalQty > 0 && (
         <button
           onClick={handleCartClick}
-          className="bg-brand-red flex w-full items-center justify-between px-5 py-2.5"
+          className="bg-brand-red flex min-h-[52px] w-full items-center justify-between px-5 py-3.5"
         >
-          <span className="flex items-center gap-2 text-[13px] font-semibold text-white">
+          <span className="flex items-center gap-2 text-[14px] font-semibold text-white">
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/30 text-[11px] font-bold">
               {totalQty}
             </span>
             {totalQty === 1 ? "1 item" : `${totalQty} items`} in cart
           </span>
-          <span className="text-[13px] font-bold text-white">₹{totalPrice} · Checkout →</span>
+          <span className="text-[14px] font-bold text-white">₹{totalPrice} · Checkout →</span>
         </button>
       )}
 

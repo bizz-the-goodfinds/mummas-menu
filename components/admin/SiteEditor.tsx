@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { EditorSkeleton } from "@/components/ui/Skeleton";
 import type { SiteData } from "@/lib/types";
 
 export function SiteEditor({ token }: { token: string }) {
@@ -13,7 +14,7 @@ export function SiteEditor({ token }: { token: string }) {
       .then(setSite);
   }, []);
 
-  if (!site) return <p className="text-sm text-neutral-500">Loading site info…</p>;
+  if (!site) return <EditorSkeleton />;
 
   async function save() {
     if (!site) return;

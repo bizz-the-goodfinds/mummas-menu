@@ -2,90 +2,102 @@
 
 ## Authentication
 
-There is a single shared admin password (`ADMIN_PASSWORD` env var) — no per-user
-accounts. Login flow:
+Admin authentication is handled by **Supabase Auth** — a single admin user
+(`ADMIN_EMAIL` / `ADMIN_PASSWORD`, created by `npm run migrate`). Login flow:
 
-1. `POST /api/content/auth` with `{ password }`.
-   - If `ADMIN_PASSWORD` isn't set, responds `503` (fails closed, doesn't leak whether
-     a password would have worked).
-   - Compares the candidate against `ADMIN_PASSWORD` with `crypto.timingSafeEqual`
-     (constant-time, avoids timing side-channels) — see `checkPassword()` in
-     `lib/auth.ts`.
-   - On failure, sleeps 300–500ms (randomized) before responding `401`, to slow down
-     brute-force attempts.
-   - On success, issues a **session token**, not the raw password.
+1. The admin portal (unlisted route, see below) signs in directly against
+   Supabase Auth with email + password via the browser client
+   (`lib/supabase-browser.ts`, publishable key). Supabase issues a short-lived
+   JWT access token plus a refresh token; supabase-js persists the session and
+   refreshes it automatically.
 
-2. The session token is a **stateless, self-verifying HMAC token**:
-   `<expiry-timestamp>.<hmac-sha256-signature>` — see `createSessionToken()` /
-   `verifySessionToken()` in `lib/auth.ts`. The signature is computed over the expiry
-   timestamp, keyed with `ADMIN_PASSWORD` as the HMAC secret. Verifying a token means
-   recomputing the HMAC and comparing with `timingSafeEqual` — no server-side session
-   store is involved.
+2. Every admin API call sends the current access token in the `x-admin-token`
+   header. The server (`isAuthorized()` in `lib/auth.ts`) verifies it by
+   calling `supabaseAdmin.auth.getUser(token)` — a live check against
+   Supabase, so revoked/expired sessions fail immediately.
 
-   **Why stateless:** the site runs on Vercel serverless, where each request can land
-   on a different, memory-isolated function instance with no shared state. An
-   in-memory token store (e.g. a `Map` of valid tokens) would not work reliably — a
-   token issued by one instance might be checked against a different instance that
-   never saw it. The HMAC scheme sidesteps this entirely: any instance holding
-   `ADMIN_PASSWORD` can independently verify any token issued by any other instance.
+3. Authorization requires `app_metadata.role === "admin"` on the user.
+   `app_metadata` can only be set with the secret key (the migration script
+   does this) — a user who somehow self-registered could never grant
+   themselves the role, so they'd still be locked out of every admin API.
 
-3. Tokens expire 12 hours after issue (`TOKEN_TTL_MS` in `lib/auth.ts`) and are stored
-   client-side in `sessionStorage` (cleared on logout / tab close) — never `localStorage`,
-   never a cookie.
+## Data access (RLS)
 
-4. Every authenticated write (`PUT /api/content/menu`, `PUT /api/content/site`,
-   `POST /api/content/media`, `GET /api/content/orders`) calls `isAuthorized(req)`,
-   which reads the `x-admin-token` header and runs `verifySessionToken()`.
+Both tables (`site_content`, `orders`) have **Row Level Security enabled with
+no policies** — deny-all. The anon/publishable key can read and write
+_nothing_. All data access goes through Next.js server code using the secret
+key (`lib/supabase.ts`, guarded by `import "server-only"` so it can never be
+bundled client-side). The browser's Supabase client is used exclusively for
+authentication.
+
+## Unlisted admin route
+
+The admin panel lives at an unlisted path (`/mm-ops-admin`) instead of
+`/admin`:
+
+- Not linked from any page, excluded from the sitemap.
+- `noindex, nofollow` robots metadata on the route layout.
+- Deliberately **not** listed in `robots.txt` — a disallow line there would
+  advertise the URL.
+
+This is obscurity, not security — the real gate is Supabase Auth on every API
+request. Anyone who finds the page still faces the login.
 
 ## Rate limiting
 
-`proxy.ts` (Next.js 16's `middleware.ts` replacement — see the project's `AGENTS.md`
-for why the rename matters) rate-limits `POST /api/content/auth` to 10 requests per
-60-second sliding window per IP, using an in-memory `Map`. This is **best-effort**: on
-Vercel serverless, each pod keeps its own independent counter, so the real-world limit
-is "10 requests per window, per pod the request happens to land on" rather than a hard
-global cap. For stricter enforcement, swap the `Map` for a shared store (e.g. Upstash
-Redis) — the `rateLimit()` function in `proxy.ts` is the only place that would need to
-change.
+`proxy.ts` (Next.js 16's `middleware.ts` replacement) rate-limits
+`POST /api/content/orders` — the only public write endpoint — to 10 requests
+per 60-second sliding window per IP, using an in-memory `Map`. Best-effort on
+serverless (per-pod counters). Admin login is rate-limited by Supabase Auth
+itself.
 
 ## Write-endpoint hardening
 
-- **Field allowlisting** — `PUT /api/content/site` only persists keys listed in
-  `ALLOWED_KEYS` (`app/api/content/site/route.ts`); any other field in the request body
-  is silently dropped. This prevents prototype-pollution-style or arbitrary-field
-  injection via a crafted payload.
-- **Body size limits** — site/menu PUTs reject bodies over `MAX_BODY_BYTES` (128KB)
-  before parsing; order POSTs cap at 16KB and 50 items (`MAX_BODY_BYTES` /
-  `MAX_ITEMS` in `app/api/content/orders/route.ts`).
-- **JSON parse safety** — every route wraps `req.json()` in a `try/catch` and returns
-  `400` on malformed input instead of throwing a raw 500.
-- **Media upload** — `POST /api/content/media` validates file presence, size
-  (`MAX_FILE_BYTES` = 4MB), and MIME type against an allowlist (`jpeg`/`png`/`webp`)
-  before writing. Filenames are sanitized. On a read-only filesystem (Vercel
-  production), the write fails gracefully with `501` and a message to use an external
-  image URL instead — see [CONTENT.md](./CONTENT.md).
-- **Order logging** — `POST /api/content/orders` is public (called from checkout, no
-  auth) but sanitizes and clamps every field (string length caps, numeric clamps) and
-  is wrapped in a try/catch that never blocks the checkout flow even if the write fails.
+- **Field allowlisting** — `PUT /api/content/site` and
+  `PUT /api/content/messages` only persist allowlisted keys; anything else is
+  silently dropped. The admin CRUD APIs (`/api/admin/items`,
+  `/api/admin/categories`) sanitize and clamp every field (string caps, price
+  clamp, status allowlist) before writing.
+- **Body size limits** — site/menu PUTs reject bodies over `MAX_BODY_BYTES`
+  before parsing; order POSTs cap at 16KB and 50 items.
+- **JSON parse safety** — every route wraps `req.json()` in `try/catch` and
+  returns `400` on malformed input.
+- **Media upload** — `POST /api/content/media` requires admin auth and
+  validates size (max 4MB) and MIME type (`jpeg`/`png`/`webp`) before
+  uploading to Supabase Storage. Filenames are sanitized and prefixed with a
+  timestamp under `uploads/` in the bucket.
+- **Order logging** — `POST /api/content/orders` is public (called from
+  checkout) but sanitizes and clamps every field, and never blocks checkout
+  if the insert fails.
+
+## Backups
+
+`npm run backup` (CLI) and the admin panel's Backups page both encrypt dumps
+with AES-256-GCM using `BACKUP_ENCRYPTION_KEY`. CLI backups land in
+`backups/` (safe to commit to this public repo **only because** they're
+encrypted); admin-panel backups go to the private `backups` storage bucket
+with short-lived signed download links. Keep the key in `.env` (git-ignored)
+and in a password manager; without it a backup cannot be restored. Restore is
+CLI-only (`npm run restore`) by design.
 
 ## HTTP security headers
 
 `next.config.ts` sets CSP, `X-Frame-Options`, `X-Content-Type-Options`,
-`Referrer-Policy`, and `Permissions-Policy` on every response.
+`Referrer-Policy`, and `Permissions-Policy` on every response. The CSP
+`connect-src`/`img-src` include the Supabase project URL (auth calls from the
+admin portal; menu images served from Storage).
 
 ## Deployment checklist (Vercel)
 
-- [ ] Set `ADMIN_PASSWORD` as a Vercel Project Environment Variable (Production **and**
-      Preview) — without it, `/api/content/auth` returns 503 and the admin panel is
-      unusable.
-- [ ] Use a strong, unique password — it's both the login credential and the HMAC
-      signing secret for session tokens.
-- [ ] Confirm `data/*.json` writes are acceptable for your use case: Vercel's
-      filesystem is read-only at runtime and not shared/persisted across deploys or
-      instances, so admin saves and order logging won't reliably persist in
-      production. For real production use, replace the file-based reads/writes in
-      `lib/data.ts` with a database or KV store (see [SETUP.md](./SETUP.md)).
-- [ ] Image uploads via the Media tab will return `501` on Vercel — use external image
-      URLs (Unsplash, your own CDN, Vercel Blob, etc.) instead.
-- [ ] Rotate `ADMIN_PASSWORD` periodically; rotating it immediately invalidates all
-      previously issued session tokens (since they're signed with the old secret).
+- [ ] Set `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`,
+      and `SUPABASE_SECRET_KEY` as Vercel Project Environment Variables
+      (Production **and** Preview). `SUPABASE_DB_URL` and
+      `BACKUP_ENCRYPTION_KEY` are only needed locally for scripts.
+- [ ] Never expose `SUPABASE_SECRET_KEY` to the browser (no `NEXT_PUBLIC_`
+      prefix, ever).
+- [ ] Use a strong `ADMIN_PASSWORD`; rotate by editing `.env` and re-running
+      `npm run migrate` (it updates the existing user's password).
+- [ ] In Supabase Dashboard → Authentication → Sign In / Up, consider
+      disabling public sign-ups entirely (the app never needs them; the role
+      check already locks non-admin users out, this is belt-and-braces).
+- [ ] Run `npm run backup` regularly and commit the encrypted file.

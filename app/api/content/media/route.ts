@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
 import { isAuthorized } from "@/lib/auth";
+import { supabaseAdmin, IMAGES_BUCKET, storagePublicUrl } from "@/lib/supabase";
 
 const MAX_FILE_BYTES = 4_000_000;
 const ALLOWED_TYPES: Record<string, string> = {
@@ -9,7 +8,6 @@ const ALLOWED_TYPES: Record<string, string> = {
   "image/png": "png",
   "image/webp": "webp",
 };
-const uploadDir = path.join(process.cwd(), "public", "images", "uploads");
 
 function safeName(name: string): string {
   return name
@@ -19,7 +17,7 @@ function safeName(name: string): string {
 }
 
 export async function POST(req: NextRequest) {
-  if (!isAuthorized(req)) {
+  if (!(await isAuthorized(req))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -46,20 +44,17 @@ export async function POST(req: NextRequest) {
   }
 
   const filename = `${Date.now()}-${safeName(file.name.replace(/\.[^.]+$/, "")) || "image"}.${ext}`;
+  const storagePath = `uploads/${filename}`;
+  const buffer = Buffer.from(await file.arrayBuffer());
 
-  try {
-    await fs.mkdir(uploadDir, { recursive: true });
-    const buffer = Buffer.from(await file.arrayBuffer());
-    await fs.writeFile(path.join(uploadDir, filename), buffer);
-  } catch {
-    return NextResponse.json(
-      {
-        error:
-          "This server's filesystem is read-only (e.g. Vercel serverless), so local uploads aren't supported here. Paste an external image URL instead.",
-      },
-      { status: 501 },
-    );
+  const { error } = await supabaseAdmin.storage.from(IMAGES_BUCKET).upload(storagePath, buffer, {
+    contentType: file.type,
+  });
+  if (error) {
+    return NextResponse.json({ error: `Upload failed: ${error.message}` }, { status: 502 });
   }
 
-  return NextResponse.json({ ok: true, path: `/images/uploads/${filename}` });
+  // Returns a permanent public URL on Supabase Storage — works on Vercel too,
+  // unlike the old local-filesystem uploads.
+  return NextResponse.json({ ok: true, path: storagePublicUrl(storagePath) });
 }

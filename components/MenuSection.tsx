@@ -9,11 +9,10 @@ import { CategoryFilter } from "@/components/ui/CategoryFilter";
 export default function MenuSection({ menu }: { menu: MenuData }) {
   const requestedSlug = useSearchParams().get("category");
 
-  // Drop categories with no available items entirely — from the filter pills too,
-  // not just the item grid — so there's nothing to select that would show empty.
-  const availableCategories = menu.categories
-    .map((c) => ({ ...c, items: c.items.filter((item) => item.isAvailability !== false) }))
-    .filter((c) => c.items.length > 0);
+  // Drop empty categories entirely — from the filter pills too, not just the
+  // item grid — so there's nothing to select that would show empty. (Hidden
+  // items are already excluded server-side.)
+  const availableCategories = menu.categories.filter((c) => c.items.length > 0);
 
   const isValidRequestedSlug =
     requestedSlug !== null && availableCategories.some((c) => c.slug === requestedSlug);
