@@ -1,3 +1,29 @@
+/**
+ * Availability state shown on the item card. Only "available" and
+ * "festive-special" items can be added to the cart; "coming-soon" and
+ * "out-of-stock" render with a badge and a disabled add button.
+ */
+export type ItemStatus = "available" | "coming-soon" | "out-of-stock" | "festive-special";
+
+export const ITEM_STATUSES: ItemStatus[] = [
+  "available",
+  "coming-soon",
+  "out-of-stock",
+  "festive-special",
+];
+
+export const ITEM_STATUS_LABELS: Record<ItemStatus, string> = {
+  available: "Available",
+  "coming-soon": "Coming Soon",
+  "out-of-stock": "Out of Stock",
+  "festive-special": "Festive Special",
+};
+
+/** True when the item can actually be ordered right now. */
+export function isOrderable(status: ItemStatus | undefined): boolean {
+  return status === undefined || status === "available" || status === "festive-special";
+}
+
 export interface MenuItem {
   id: string;
   name: string;
@@ -5,19 +31,39 @@ export interface MenuItem {
   description: string;
   image: string;
   tags?: string[];
-  /** Whether the item is currently orderable. Defaults to true when absent. */
-  isAvailability?: boolean;
+  /** Hidden from customers entirely when false. Defaults to true when absent. */
+  isVisible?: boolean;
+  status?: ItemStatus;
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string | null;
 }
 
 export interface MenuCategory {
+  /** DB id — present on data loaded from Supabase, absent in seed JSON. */
+  id?: string;
   slug: string;
   name: string;
   emoji: string;
+  isVisible?: boolean;
+  sortOrder?: number;
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string | null;
   items: MenuItem[];
 }
 
 export interface MenuData {
   categories: MenuCategory[];
+}
+
+/** Flat admin-side view of a menu item, joined with its category. */
+export interface AdminMenuItem extends MenuItem {
+  categoryId: string;
+  categorySlug: string;
+  categoryName: string;
+  categoryEmoji: string;
+  sortOrder: number;
 }
 
 export interface FaqEntry {

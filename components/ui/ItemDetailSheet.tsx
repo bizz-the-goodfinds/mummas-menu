@@ -3,8 +3,9 @@
 import { useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
+import { isOrderable, ITEM_STATUS_LABELS } from "@/lib/types";
 import type { MenuItem } from "@/lib/types";
-import { TagBadge } from "./Badge";
+import { StatusBadge, TagBadge } from "./Badge";
 import { QtyButton } from "./QtyButton";
 import { useCart } from "@/lib/cart-context";
 import { useOverlay } from "@/lib/use-overlay";
@@ -19,6 +20,7 @@ interface ItemDetailSheetProps {
 export function ItemDetailSheet({ item, categoryEmoji, onClose }: ItemDetailSheetProps) {
   const { addItem, removeItem, qtyFor } = useCart();
   const qty = qtyFor(item.id);
+  const orderable = isOrderable(item.status);
 
   const handleAdd = () =>
     addItem({
@@ -98,13 +100,12 @@ export function ItemDetailSheet({ item, categoryEmoji, onClose }: ItemDetailShee
             </svg>
           </button>
           {/* Tag badges overlay */}
-          {item.tags && item.tags.length > 0 && (
-            <div className="absolute bottom-3 left-3 flex gap-1.5">
-              {item.tags.map((t) => (
-                <TagBadge key={t} tag={t} />
-              ))}
-            </div>
-          )}
+          <div className="absolute bottom-3 left-3 flex gap-1.5">
+            <StatusBadge status={item.status} />
+            {item.tags?.map((t) => (
+              <TagBadge key={t} tag={t} />
+            ))}
+          </div>
         </div>
 
         {/* Content */}
@@ -122,7 +123,14 @@ export function ItemDetailSheet({ item, categoryEmoji, onClose }: ItemDetailShee
 
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1">
-              {qty === 0 ? (
+              {!orderable ? (
+                <button
+                  disabled
+                  className="w-full cursor-not-allowed rounded-full bg-neutral-200 px-6 py-3 text-[15px] font-semibold text-neutral-500"
+                >
+                  {item.status ? ITEM_STATUS_LABELS[item.status] : "Unavailable"}
+                </button>
+              ) : qty === 0 ? (
                 <button
                   onClick={handleAdd}
                   className="bg-brand-red w-full rounded-full px-6 py-3 text-[15px] font-semibold text-white shadow-[0_8px_20px_rgba(211,47,47,0.35)] transition-all duration-200 hover:-translate-y-0.5"

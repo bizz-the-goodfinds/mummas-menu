@@ -64,7 +64,7 @@ export default function Footer({ site, menu }: { site: SiteData; menu: MenuData 
               Menu
             </h4>
             {menu.categories
-              .filter((cat) => cat.items.some((item) => item.isAvailability !== false))
+              .filter((cat) => cat.items.length > 0)
               .map((cat) => (
                 <Link
                   key={cat.slug}

@@ -6,10 +6,33 @@ interface QtyButtonProps {
   onRemove: () => void;
   itemName: string;
   size?: "sm" | "md";
+  /** Not orderable right now (out of stock / coming soon) — renders a muted, inert button. */
+  disabled?: boolean;
+  disabledLabel?: string;
 }
 
-export function QtyButton({ qty, onAdd, onRemove, itemName, size = "md" }: QtyButtonProps) {
+export function QtyButton({
+  qty,
+  onAdd,
+  onRemove,
+  itemName,
+  size = "md",
+  disabled = false,
+  disabledLabel = "Unavailable",
+}: QtyButtonProps) {
   const btnCls = size === "sm" ? "w-[26px] h-[26px] text-sm" : "w-[32px] h-[32px] text-base";
+
+  if (disabled) {
+    return (
+      <button
+        disabled
+        aria-label={`${itemName} is ${disabledLabel.toLowerCase()}`}
+        className="cursor-not-allowed rounded-full bg-neutral-200 px-4 py-1.5 text-[12px] font-semibold text-neutral-500"
+      >
+        {disabledLabel}
+      </button>
+    );
+  }
 
   if (qty === 0) {
     return (

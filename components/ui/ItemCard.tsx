@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useCart } from "@/lib/cart-context";
+import { isOrderable, ITEM_STATUS_LABELS } from "@/lib/types";
 import type { MenuItem } from "@/lib/types";
-import { TagBadge } from "./Badge";
+import { StatusBadge, TagBadge } from "./Badge";
+import { IMAGE_BLUR } from "./image-blur";
 import { QtyButton } from "./QtyButton";
 import { ItemDetailSheet } from "./ItemDetailSheet";
 
@@ -18,6 +20,9 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
   const { addItem, removeItem, qtyFor } = useCart();
   const qty = qtyFor(item.id);
   const [detailOpen, setDetailOpen] = useState(false);
+  const orderable = isOrderable(item.status);
+  const disabledLabel =
+    item.status && item.status !== "available" ? ITEM_STATUS_LABELS[item.status] : undefined;
 
   const doAdd = () =>
     addItem({
@@ -47,20 +52,21 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
                 alt={item.name}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                placeholder="blur"
+                blurDataURL={IMAGE_BLUR}
+                className={`object-cover transition-transform duration-500 group-hover:scale-105 ${orderable ? "" : "opacity-60 saturate-50"}`}
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center text-5xl">
                 {categoryEmoji}
               </div>
             )}
-            {item.tags && item.tags.length > 0 && (
-              <div className="absolute top-2 left-2 flex flex-col gap-1">
-                {item.tags.map((t) => (
-                  <TagBadge key={t} tag={t} />
-                ))}
-              </div>
-            )}
+            <div className="absolute top-2 left-2 flex flex-col items-start gap-1">
+              <StatusBadge status={item.status} />
+              {item.tags?.map((t) => (
+                <TagBadge key={t} tag={t} />
+              ))}
+            </div>
           </div>
           <div className="flex flex-1 flex-col gap-2 p-3">
             <div className="flex items-start justify-between gap-2">
@@ -86,6 +92,8 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
                 onRemove={doRemove}
                 itemName={item.name}
                 size="sm"
+                disabled={!orderable}
+                disabledLabel={disabledLabel}
               />
             </div>
           </div>
@@ -118,7 +126,9 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
               alt={item.name}
               fill
               sizes="90px"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              placeholder="blur"
+              blurDataURL={IMAGE_BLUR}
+              className={`object-cover transition-transform duration-500 group-hover:scale-105 ${orderable ? "" : "opacity-60 saturate-50"}`}
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center text-3xl">
@@ -128,9 +138,10 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col gap-1">
-          {item.tags && item.tags.length > 0 && (
+          {(item.tags?.length || (item.status && item.status !== "available")) && (
             <div className="flex flex-wrap items-center gap-1.5">
-              {item.tags.map((t) => (
+              <StatusBadge status={item.status} />
+              {item.tags?.map((t) => (
                 <TagBadge key={t} tag={t} />
               ))}
             </div>
@@ -145,7 +156,15 @@ export function ItemCard({ item, categoryEmoji, variant = "horizontal" }: ItemCa
             onKeyDown={(e) => e.stopPropagation()}
           >
             <span className="font-heading text-brand-red text-[15px] font-bold">₹{item.price}</span>
-            <QtyButton qty={qty} onAdd={doAdd} onRemove={doRemove} itemName={item.name} size="sm" />
+            <QtyButton
+              qty={qty}
+              onAdd={doAdd}
+              onRemove={doRemove}
+              itemName={item.name}
+              size="sm"
+              disabled={!orderable}
+              disabledLabel={disabledLabel}
+            />
           </div>
         </div>
       </div>

@@ -1,12 +1,25 @@
 # Editing Content
 
-All site copy, contact info, and the menu are config-driven JSON files under `data/`.
-You can edit them two ways:
+All content lives in **Supabase**:
 
-1. **Admin panel** (`/admin`) — Menu Editor and Site Editor tabs, no code changes needed.
-2. **Directly** — edit `data/menu.json` / `data/site.json` and redeploy.
+- **Menu** — normalized tables: `categories` and `menu_items` (one row per
+  dish, with `status`, `is_visible`, `sort_order`, and
+  `created_at`/`updated_at`/`deleted_at` timestamps). Deletes from the admin
+  panel are soft — rows get `deleted_at` stamped and can be restored.
+- **Site info & WhatsApp messages** — the `site_content` table, one JSONB row
+  per key (`site`, `messages`).
 
-## `data/menu.json`
+The JSON files under `data/` are **seed data only**, consumed by
+`npm run migrate`; the running site never reads them.
+
+You can edit content two ways:
+
+1. **Admin panel** at `/mm-ops-admin` (see [ADDING-CONTENT.md](./ADDING-CONTENT.md)) —
+   full CRUD with live previews. Saves go live immediately.
+2. **Directly in Supabase** — edit the tables in the dashboard (Table
+   Editor). Changes appear on the site within 5 minutes (cache TTL).
+
+## `menu` content (seed: `data/menu.json`)
 
 ```json
 {
@@ -23,7 +36,8 @@ You can edit them two ways:
           "description": "Char-grilled cottage cheese, smoky masala.",
           "image": "https://images.unsplash.com/photo-...",
           "tags": ["bestseller"],
-          "isAvailability": true
+          "isVisible": true,
+          "status": "available"
         }
       ]
     }
@@ -35,32 +49,35 @@ You can edit them two ways:
   derives it from the category name automatically.
 - `tags` is a free-form string array; `"bestseller"` and `"new"` get special badge
   styling in `components/ui/Badge.tsx` — any other tag still renders as a plain badge.
-- `isAvailability` (optional, defaults to `true` when absent) controls whether the item
-  is shown to customers. Setting it to `false` hides the item from the full menu, the
-  category pages, the homepage featured section, and Hero floating cards, without
-  deleting it — useful for temporarily out-of-stock or seasonal items. The admin Menu
-  Editor exposes this as an "Available" checkbox per item.
+- `isVisible` (defaults to `true`) hides the item from customers entirely when
+  `false` — it disappears from the full menu, category pages, homepage featured
+  section, and Hero floating cards without being deleted.
+- `status` is one of `available` (default), `coming-soon`, `out-of-stock`, or
+  `festive-special`. Non-`available` statuses render a badge on the card;
+  `coming-soon` and `out-of-stock` also disable the Add button so the item is
+  visible but not orderable.
 - There is no per-item veg field — the whole kitchen is pure veg, so every item shows the
   same static VEG badge (`components/ui/Badge.tsx`).
 
 ### Images
 
-`image` accepts either:
+`image` accepts any of:
 
-- An **external URL** (e.g. Unsplash, Pexels, your own CDN) — works everywhere,
-  including Vercel. This is the recommended option for production.
-- A **local path** under `/images/...` (served from `public/`) — only reliable in local
-  dev or a persistent server; see the Vercel filesystem note in
-  [SETUP.md](./SETUP.md).
+- A **Supabase Storage URL** — what the admin Media tab produces, and what
+  `npm run migrate` rewrites the seed images to. Stored in the public
+  `images` bucket; works everywhere including Vercel.
+- An **external URL** (e.g. Unsplash, Pexels, your own CDN).
+- A **local path** under `/images/...` (served from `public/`) — fine for
+  assets that ship with the app (logo, OG image).
 
 Any new external image domain must be added to `images.remotePatterns` in
-`next.config.ts`, or Next's image optimizer will reject it.
+`next.config.ts`, or Next's image optimizer will reject it (the Supabase
+storage host is already allowed).
 
-The admin Media tab (`/admin` → Media) can upload a local image and gives you back a
-path to paste into the `image` field — but only works on a writable filesystem (local
-dev). On Vercel it returns a 501 with a message to use an external URL instead.
+The admin Media tab uploads straight to Supabase Storage and returns the
+public URL to paste into the `image` field — this works on Vercel.
 
-## `data/site.json`
+## `site` content (seed: `data/site.json`)
 
 Holds everything else: brand name, tagline, description, contact details, address,
 social links, FSSAI certification, business hours, WhatsApp message templates, and
@@ -79,6 +96,7 @@ Key sections:
 
 ## Orders log
 
-`data/orders.json` is an append-only log written by `/api/content/orders` whenever a
-customer taps checkout. It's read-only from the admin side (Orders tab) — there's no
-editor for it, only a CSV export.
+The `orders` table in Supabase is an append-only log written by
+`/api/content/orders` whenever a customer taps checkout (columns: `id`,
+`created_at`, `items` jsonb, `total`, `source`). It's read-only from the
+admin side (Orders tab) — there's no editor for it, only a CSV export.

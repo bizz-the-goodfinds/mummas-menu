@@ -1,6 +1,6 @@
 # WhatsApp Messaging
 
-All customer-facing WhatsApp messages are built from templates in `data/messages.json`
+All customer-facing WhatsApp messages are built from templates stored in Supabase (`site_content` row `messages`; seed file `data/messages.json`)
 (see `lib/whatsapp.ts`), so wording can be changed without touching code.
 
 ---
@@ -30,7 +30,7 @@ _(via https://mummas-menu.vercel.app)_
 
 ---
 
-## Templates (`data/messages.json`)
+## Templates (`messages` content)
 
 | Field              | Used by                                  | Purpose                                    |
 | ------------------ | ---------------------------------------- | ------------------------------------------ |
@@ -62,13 +62,13 @@ the site never breaks.
 
 ## Editing templates
 
-**Via admin panel** (recommended): `/admin` → Messages tab.
+**Via admin panel** (recommended): unlisted admin route → Messages tab.
 
 - Each field shows a `{{variable}}` hint bar at the top.
 - The live green-bubble preview resolves variables using the current browser origin,
   so you see the exact rendered message before saving.
 
-**Directly**: edit `data/messages.json`. Changes take effect on the next request
+**Directly**: edit the `messages` row in Supabase Table Editor. Changes take effect within 5 minutes
 (the server caches per request, not persistently).
 
 ---

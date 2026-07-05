@@ -13,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const categoryRoutes: MetadataRoute.Sitemap = menu.categories
-    .filter((cat) => cat.items.some((item) => item.isAvailability !== false))
+    .filter((cat) => cat.items.length > 0)
     .map((cat) => ({
       url: `${site.siteUrl}/menu/${cat.slug}`,
       lastModified,

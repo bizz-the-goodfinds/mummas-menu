@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
+import { revalidateTag } from "next/cache";
 import { isAuthorized } from "@/lib/auth";
-import { getMessages } from "@/lib/data";
+import { getMessages, saveContent } from "@/lib/data";
 import type { MessagesData } from "@/lib/types";
-
-const filePath = path.join(process.cwd(), "data", "messages.json");
 
 const ALLOWED_KEYS: Array<keyof MessagesData> = [
   "orderPrefix",
@@ -22,7 +19,7 @@ export async function GET() {
 }
 
 export async function PUT(req: NextRequest) {
-  if (!isAuthorized(req)) {
+  if (!(await isAuthorized(req))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -43,6 +40,9 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: "No valid fields provided" }, { status: 400 });
   }
 
-  await fs.writeFile(filePath, JSON.stringify(sanitized, null, 2) + "\n", "utf-8");
+  await saveContent("messages", sanitized);
+  revalidateTag("messages", { expire: 0 });
+  // Site data embeds messages, so its cached copy must expire too.
+  revalidateTag("site", { expire: 0 });
   return NextResponse.json({ ok: true });
 }

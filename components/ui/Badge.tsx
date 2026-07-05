@@ -23,6 +23,34 @@ export function VegBadge() {
   );
 }
 
+const STATUS_BADGES: Record<string, { label: string; className: string }> = {
+  "coming-soon": {
+    label: "🔜 Coming Soon",
+    className: "bg-sky-100 text-sky-700 border border-sky-200",
+  },
+  "out-of-stock": {
+    label: "⏳ Out of Stock",
+    className: "bg-neutral-200 text-neutral-600 border border-neutral-300",
+  },
+  "festive-special": {
+    label: "🪔 Festive Special",
+    className: "bg-amber-100 text-amber-800 border border-amber-200",
+  },
+};
+
+/** Availability badge — renders nothing for plain "available" items. */
+export function StatusBadge({ status }: { status?: string }) {
+  const cfg = status ? STATUS_BADGES[status] : undefined;
+  if (!cfg) return null;
+  return (
+    <span
+      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold ${cfg.className}`}
+    >
+      {cfg.label}
+    </span>
+  );
+}
+
 export function TagBadge({ tag }: { tag: string }) {
   const style = TAG_STYLES[tag] ?? "bg-neutral-100 text-neutral-600 border border-neutral-200";
   const label = TAG_LABELS[tag] ?? tag;

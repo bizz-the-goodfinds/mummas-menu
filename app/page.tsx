@@ -3,6 +3,7 @@ import Link from "next/link";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import { getMenuData, getSiteData } from "@/lib/data";
+import { isOrderable } from "@/lib/types";
 import type { MenuItem, MenuData, Testimonial } from "@/lib/types";
 import { FeaturedGrid } from "@/components/FeaturedGrid";
 
@@ -56,7 +57,7 @@ function FeaturedSection({ menu }: { menu: MenuData }) {
 
   for (const cat of menu.categories) {
     for (const item of cat.items) {
-      if (item.isAvailability === false) continue;
+      if (!isOrderable(item.status)) continue;
       const hasTag = item.tags?.some((t) => t.trim().length > 0);
       const bucket = hasTag ? tagged : untagged;
       bucket.push({ ...item, categoryEmoji: cat.emoji });
@@ -82,7 +83,7 @@ function FeaturedSection({ menu }: { menu: MenuData }) {
   const taggedPicks = taggedByVariety.slice(0, taggedSlots);
 
   return (
-    <section className="py-10 md:py-14">
+    <section className="pt-6 pb-10 md:py-14">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-6 flex items-end justify-between">
           <div>
@@ -119,7 +120,7 @@ const AVATAR_EMOJIS = ["😋", "🤩", "🙌", "😍", "🥰", "👍", "🎉", "
 
 function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   return (
-    <section className="py-14">
+    <section className="py-10 md:py-14">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-8 text-center">
           <span className="text-brand-red mb-2 inline-block text-[13px] font-semibold tracking-wider uppercase">
@@ -169,7 +170,7 @@ function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) 
 
 function FaqSection({ faq }: { faq: { question: string; answer: string }[] }) {
   return (
-    <section id="faq" className="py-14">
+    <section id="faq" className="py-10 md:py-14">
       <div className="mx-auto max-w-3xl px-6">
         <h2 className="font-heading mb-8 text-center text-[26px] md:text-[30px]">
           Frequently Asked Questions

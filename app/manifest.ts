@@ -9,7 +9,9 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     description: site.description,
     start_url: "/",
     display: "standalone",
-    background_color: "#fdf9f8",
+    // Splash screen: brand-pink background behind the black-line logo icon;
+    // Android renders the app name below the icon automatically.
+    background_color: "#ffeded",
     theme_color: "#fdf9f8",
     orientation: "portrait",
     categories: ["food", "shopping", "lifestyle"],
