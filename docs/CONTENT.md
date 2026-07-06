@@ -6,8 +6,8 @@ All content lives in **Supabase**:
   dish, with `status`, `is_visible`, `sort_order`, and
   `created_at`/`updated_at`/`deleted_at` timestamps). Deletes from the admin
   panel are soft — rows get `deleted_at` stamped and can be restored.
-- **Site info & WhatsApp messages** — the `site_content` table, one JSONB row
-  per key (`site`, `messages`).
+- **Site info, WhatsApp messages & SEO settings** — the `site_content` table,
+  one JSONB row per key (`site`, `messages`, `seo`).
 
 The JSON files under `data/` are **seed data only**, consumed by
 `npm run migrate`; the running site never reads them.

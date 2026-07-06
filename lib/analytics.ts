@@ -91,6 +91,10 @@ export function trackBeginCheckout(
 
 // ─── Custom events ────────────────────────────────────────────────────────────
 
+export function trackAskAi(provider: "chatgpt" | "claude" | "gemini") {
+  track("ask_ai_click", { provider });
+}
+
 export function trackWhatsAppFloat() {
   track("whatsapp_float_click");
 }

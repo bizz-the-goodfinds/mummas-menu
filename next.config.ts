@@ -59,6 +59,16 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: securityHeaders,
       },
+      {
+        // Belt-and-braces: the admin layout already sets noindex metadata,
+        // but a header can't be missed by crawlers that skip HTML parsing.
+        source: "/mm-ops-admin/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
+      },
+      {
+        source: "/mm-ops-admin",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
+      },
     ];
   },
 };

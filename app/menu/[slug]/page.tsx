@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getMenuData, getSiteData } from "@/lib/data";
+import { isOrderable } from "@/lib/types";
 import { ItemCard } from "@/components/ui/ItemCard";
 
 export async function generateStaticParams() {
@@ -66,7 +67,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           "@type": "Offer",
           price: item.price,
           priceCurrency: "INR",
-          availability: "https://schema.org/InStock",
+          availability: isOrderable(item.status)
+            ? "https://schema.org/InStock"
+            : "https://schema.org/OutOfStock",
         },
         suitableForDiet: "https://schema.org/VegetarianDiet",
       },

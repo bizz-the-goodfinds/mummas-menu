@@ -78,14 +78,15 @@ Firebase Analytics (GA4) is integrated. Events are tracked automatically — no 
 
 ### Custom events
 
-| Event                               | Trigger                                 |
-| ----------------------------------- | --------------------------------------- |
-| `whatsapp_float_click`              | Floating WhatsApp button clicked        |
-| `pwa_install_prompted`              | Install-to-home-screen banner shown     |
-| `pwa_install_accepted`              | User installs the PWA                   |
-| `pwa_install_dismissed`             | User dismisses the install banner       |
-| `app_exception`                     | Unhandled JS error or promise rejection |
-| Web Vitals (`lcp`, `cls`, `inp`, …) | Reported automatically on each page     |
+| Event                               | Trigger                                   |
+| ----------------------------------- | ----------------------------------------- |
+| `whatsapp_float_click`              | Floating WhatsApp button clicked          |
+| `ask_ai_click`                      | ChatGPT/Claude/Gemini button on `/ask-ai` |
+| `pwa_install_prompted`              | Install-to-home-screen banner shown       |
+| `pwa_install_accepted`              | User installs the PWA                     |
+| `pwa_install_dismissed`             | User dismisses the install banner         |
+| `app_exception`                     | Unhandled JS error or promise rejection   |
+| Web Vitals (`lcp`, `cls`, `inp`, …) | Reported automatically on each page       |
 
 ### Error tracking (web Crashlytics equivalent)
 
@@ -101,6 +102,8 @@ app/                 Next.js App Router pages & layouts
   page.tsx           Home page
   menu/              Full menu page
   contact/           Contact page
+  ask-ai/            "Ask AI about us" page (ChatGPT / Claude / Gemini)
+  llms.txt/          Live plain-text business feed for AI assistants (GEO)
   mm-ops-admin/      Admin panel (unlisted route, Supabase Auth, sidebar UI)
   api/               Public API routes (content, orders, media)
   api/admin/         Admin CRUD APIs (items, categories, menu, backups)
@@ -139,6 +142,7 @@ public/              Static assets, service worker, fonts
 instrumentation-client.ts   Global error tracking (runs before app boots)
 
 docs/
+  SEO.md             SEO/AEO/GEO setup + how to check indexing
   ADDING-CONTENT.md  Plain-English guide for non-technical users (add items, categories, photos)
   CONTENT.md         Developer reference for data/menu.json and data/site.json shape
   SETUP.md           Local dev setup steps
@@ -175,7 +179,10 @@ A full admin panel lives at `/mm-ops-admin` (unlisted — not linked anywhere, `
 - **Menu Items** — searchable/sortable/paginated table with category & status filters, dedicated add/edit pages with a **live customer-view preview**, image upload, soft delete + recycle bin restore
 - **Categories** — same CRUD treatment, with slug/order/visibility control
 - **Orders** — sortable table + CSV export
-- **Site Content / WhatsApp Messages / Media** — brand info, templates, image uploads
+- **Site Content** — every field: brand, contact, address, social, about, FAQs, testimonials, FSSAI, hours, support/retention
+- **SEO & AI** — meta title/description/keywords with Google preview, AI summary for `/llms.txt`, Search Console verification
+- **WhatsApp Messages** — templates with live WhatsApp-bubble previews
+- **Media** — full storage manager: browse, search, upload, copy URL, delete
 - **Backups** — one-click encrypted backup into a private Storage bucket, with download links
 
 Every item carries `isVisible` (hide without deleting), a `status` (`available`, `coming-soon`, `out-of-stock`, `festive-special` — non-orderable statuses show a badge and disable Add), and `createdAt`/`updatedAt`/`deletedAt` timestamps. Every save expires the site's content cache, so changes are live immediately.
