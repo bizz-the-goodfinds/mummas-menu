@@ -47,6 +47,7 @@ export default function Footer({ site, menu }: { site: SiteData; menu: MenuData 
               { href: "/menu", label: "Full Menu" },
               { href: "/#about", label: "Our Story" },
               { href: "/contact", label: "Contact" },
+              { href: "/ask-ai", label: "Ask AI About Us" },
             ].map(({ href, label }) => (
               <Link
                 key={href}

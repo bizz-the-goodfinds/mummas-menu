@@ -158,6 +158,31 @@ export interface SiteData {
   testimonials?: Testimonial[];
 }
 
+/**
+ * Search/answer/generative engine settings, editable from the admin panel.
+ * Empty strings fall back to sensible defaults derived from site data.
+ */
+export interface SeoData {
+  /** Overrides the home <title>. Empty → default built from brand + tagline. */
+  metaTitle: string;
+  /** Overrides the meta description. Empty → site.description. */
+  metaDescription: string;
+  /** Extra keywords merged with the built-in ones. */
+  keywords: string[];
+  /** Opening paragraph of /llms.txt — how AI assistants should describe the kitchen. */
+  aiSummary: string;
+  /** Google Search Console verification token (content of the meta tag). */
+  googleSiteVerification: string;
+}
+
+export const DEFAULT_SEO: SeoData = {
+  metaTitle: "",
+  metaDescription: "",
+  keywords: [],
+  aiSummary: "",
+  googleSiteVerification: "",
+};
+
 export interface CartLine {
   id: string;
   name: string;

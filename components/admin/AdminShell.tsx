@@ -12,6 +12,7 @@ const NAV: { href: string; label: string; icon: string; exact?: boolean }[] = [
   { href: `${BASE}/categories`, label: "Categories", icon: "🗂️" },
   { href: `${BASE}/orders`, label: "Orders", icon: "🧾" },
   { href: `${BASE}/site`, label: "Site Content", icon: "🏠" },
+  { href: `${BASE}/seo`, label: "SEO & AI", icon: "🔍" },
   { href: `${BASE}/messages`, label: "WhatsApp Messages", icon: "💬" },
   { href: `${BASE}/media`, label: "Media", icon: "🖼️" },
   { href: `${BASE}/backups`, label: "Backups", icon: "🗄️" },

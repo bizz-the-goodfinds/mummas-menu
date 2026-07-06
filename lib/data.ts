@@ -3,14 +3,15 @@ import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { supabaseAdmin } from "./supabase";
 import { readPublicMenu } from "./menu-store";
-import type { MenuData, MessagesData, OrderLog, SiteData } from "./types";
+import { DEFAULT_SEO } from "./types";
+import type { MenuData, MessagesData, OrderLog, SeoData, SiteData } from "./types";
 
 // Menu lives in normalized tables (see lib/menu-store.ts); site + messages
 // live in Supabase site_content (one jsonb row per key). Reads are cached
 // with unstable_cache under a tag per key; admin writes call
 // revalidateTag(tag, { expire: 0 }) after every save so edits go live
 // immediately, while normal traffic is served from cache.
-export type ContentKey = "site" | "messages";
+export type ContentKey = "site" | "messages" | "seo";
 
 async function readContent<T>(key: ContentKey): Promise<T> {
   const { data, error } = await supabaseAdmin
@@ -66,6 +67,17 @@ const siteCached = unstable_cache(() => readContent<SiteData>("site"), ["content
   tags: ["site"],
   revalidate: 300,
 });
+
+const seoCached = unstable_cache(
+  () => readContent<SeoData>("seo").catch(() => DEFAULT_SEO),
+  ["content-seo"],
+  { tags: ["seo"], revalidate: 300 },
+);
+
+export const getSeoData = cache(async (): Promise<SeoData> => ({
+  ...DEFAULT_SEO,
+  ...(await seoCached()),
+}));
 
 // React.cache memoises per request so duplicate calls in the same render
 // (e.g. generateMetadata + page component) only hit the data cache once.

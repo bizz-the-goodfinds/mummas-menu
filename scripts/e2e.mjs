@@ -44,10 +44,13 @@ function check(name, ok, detail = "") {
 }
 
 console.log("Starting production server…");
-const server = spawn("npx", ["next", "start", "-p", String(PORT)], {
-  stdio: ["ignore", "pipe", "pipe"],
-  env: process.env,
-});
+// Run the next binary directly (not via npx) so server.kill() reaches the
+// actual server process instead of orphaning it behind a wrapper.
+const server = spawn(
+  process.execPath,
+  ["node_modules/next/dist/bin/next", "start", "-p", String(PORT)],
+  { stdio: ["ignore", "pipe", "pipe"], env: process.env },
+);
 let serverOutput = "";
 server.stdout.on("data", (d) => (serverOutput += d));
 server.stderr.on("data", (d) => (serverOutput += d));
@@ -306,6 +309,74 @@ try {
       "backup downloads and is encrypted (MMBK1)",
       dl.ok && body.subarray(0, 5).toString() === "MMBK1",
     );
+  }
+
+  /* ── SEO / GEO surfaces ───────────────────────────────────────────────── */
+  console.log("\nSEO / GEO:");
+  const llms = await fetch(`${BASE}/llms.txt`);
+  const llmsText = await llms.text();
+  check(
+    "llms.txt serves live business data",
+    llms.ok && llmsText.includes(site.brandName) && llmsText.includes("## Menu"),
+  );
+
+  const askAi = await fetch(`${BASE}/ask-ai`);
+  const askAiHtml = await askAi.text();
+  check(
+    "/ask-ai renders with all three providers",
+    askAi.ok &&
+      askAiHtml.includes("ChatGPT") &&
+      askAiHtml.includes("Claude") &&
+      askAiHtml.includes("Gemini"),
+  );
+
+  const robotsAi = await (await fetch(`${BASE}/robots.txt`)).text();
+  check(
+    "robots.txt welcomes AI crawlers",
+    robotsAi.includes("GPTBot") && robotsAi.includes("ClaudeBot"),
+  );
+
+  const menuHtml = await (await fetch(`${BASE}/menu`)).text();
+  check("Menu structured data present", menuHtml.includes('"@type":"Menu"'));
+
+  const originalSeo = await (
+    await fetch(`${BASE}/api/admin/seo`, { headers: { "x-admin-token": token } })
+  ).json();
+  const seoMarker = `E2E SEO ${Date.now()}`;
+  const seoPut = await fetch(`${BASE}/api/admin/seo`, {
+    method: "PUT",
+    headers: authed,
+    body: JSON.stringify({ ...originalSeo, metaTitle: seoMarker }),
+  });
+  const homeAfterSeo = await (await fetch(`${BASE}/`)).text();
+  check("SEO title override live on home page", seoPut.ok && homeAfterSeo.includes(seoMarker));
+  const seoRevert = await fetch(`${BASE}/api/admin/seo`, {
+    method: "PUT",
+    headers: authed,
+    body: JSON.stringify(originalSeo),
+  });
+  check("SEO settings reverted", seoRevert.ok);
+
+  /* ── media manager API ────────────────────────────────────────────────── */
+  console.log("\nMedia manager:");
+  check("media list rejects anonymous", (await fetch(`${BASE}/api/admin/media`)).status === 401);
+  const mediaList = await (
+    await fetch(`${BASE}/api/admin/media`, { headers: { "x-admin-token": token } })
+  ).json();
+  check(
+    "media list returns bucket files with URLs",
+    Array.isArray(mediaList.files) &&
+      mediaList.files.length > 0 &&
+      mediaList.files.every((f) => f.url.includes("/storage/v1/")),
+  );
+  if (uploadedStoragePath) {
+    const mediaDelete = await fetch(`${BASE}/api/admin/media`, {
+      method: "DELETE",
+      headers: authed,
+      body: JSON.stringify({ path: uploadedStoragePath }),
+    });
+    check("media delete removes the test upload", mediaDelete.ok);
+    if (mediaDelete.ok) uploadedStoragePath = null; // already cleaned
   }
 
   /* ── cleanup ──────────────────────────────────────────────────────────── */

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { getSiteData, getMenuData } from "@/lib/data";
+import { getSiteData, getMenuData, getSeoData } from "@/lib/data";
 import { CartProvider } from "@/lib/cart-context";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -37,15 +37,19 @@ export const viewport: Viewport = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const site = await getSiteData();
+  const [site, seo] = await Promise.all([getSiteData(), getSeoData()]);
+  const defaultTitle = `${site.brandName} — FSSAI Approved Homestyle Cloud Kitchen | Order on WhatsApp`;
+  const title = seo.metaTitle || defaultTitle;
+  const description = seo.metaDescription || site.description;
   return {
     metadataBase: new URL(site.siteUrl),
     title: {
-      default: `${site.brandName} — FSSAI Approved Homestyle Cloud Kitchen | Order on WhatsApp`,
+      default: title,
       template: `%s | ${site.brandName}`,
     },
-    description: site.description,
+    description,
     keywords: [
+      ...seo.keywords,
       "cloud kitchen",
       "home kitchen",
       "FSSAI approved kitchen",
@@ -67,17 +71,18 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       url: site.siteUrl,
       siteName: site.brandName,
-      title: `${site.brandName} — FSSAI Approved Homestyle Cloud Kitchen`,
-      description: site.description,
+      title: seo.metaTitle || `${site.brandName} — FSSAI Approved Homestyle Cloud Kitchen`,
+      description,
       images: [{ url: site.ogImage, width: 1200, height: 630, alt: site.brandName }],
       locale: "en_IN",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${site.brandName} — Homestyle Cloud Kitchen`,
-      description: site.description,
+      title: seo.metaTitle || `${site.brandName} — Homestyle Cloud Kitchen`,
+      description,
       images: [site.ogImage],
     },
+    ...(seo.googleSiteVerification ? { verification: { google: seo.googleSiteVerification } } : {}),
     robots: {
       index: true,
       follow: true,

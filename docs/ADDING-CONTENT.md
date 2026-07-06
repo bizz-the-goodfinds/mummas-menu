@@ -16,7 +16,7 @@ No technical knowledge needed. Just a web browser.
 
 You are now inside the admin panel. The menu on the left (or the chips on top,
 on a phone) has: **Dashboard**, **Menu Items**, **Categories**, **Orders**,
-**Site Content**, **WhatsApp Messages**, **Media**, and **Backups**.
+**Site Content**, **SEO & AI**, **WhatsApp Messages**, **Media**, and **Backups**.
 
 ---
 
@@ -172,6 +172,25 @@ Any other tag you type will still appear as a plain label on the dish.
 2. Find the **Business Hours** section — change open and close times for each day.
 3. Find the **Brand & Contact** section — update phone number, address, WhatsApp number.
 4. Click **Save** at the bottom of the section.
+
+---
+
+## Manage photos (Media page)
+
+The **Media** page shows every photo stored in the cloud. You can search,
+upload new ones, copy a photo's link (to paste into a dish), and delete
+photos you no longer need. Careful: deleting a photo that a dish still uses
+leaves that dish without a picture.
+
+---
+
+## Help Google and AI find us (SEO & AI page)
+
+The **SEO & AI** page controls how the website appears on Google and how AI
+apps like ChatGPT describe us. The preview box shows exactly how the Google
+result will look. If unsure, leave fields blank — good automatic values are
+used. See [SEO.md](./SEO.md) for the full guide, including how to check that
+Google has indexed the site.
 
 ---
 
