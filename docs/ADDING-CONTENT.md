@@ -188,9 +188,18 @@ leaves that dish without a picture.
 
 The **SEO & AI** page controls how the website appears on Google and how AI
 apps like ChatGPT describe us. The preview box shows exactly how the Google
-result will look. If unsure, leave fields blank — good automatic values are
-used. See [SEO.md](./SEO.md) for the full guide, including how to check that
-Google has indexed the site.
+result will look. If unsure, leave fields blank — Vadodara-focused defaults
+are used.
+
+**You do not need to paste a Google verification code here.** Ownership uses
+the HTML file already on the site. After a deploy, finish these steps in
+your Google account (also listed at the top of the SEO & AI page):
+
+1. [Search Console](https://search.google.com/search-console) → **Verify**.
+2. **Sitemaps** → submit `sitemap.xml`.
+3. **URL Inspection** → request indexing for the homepage and `/menu`.
+
+See [SEO.md](./SEO.md) for the full guide.
 
 ---
 

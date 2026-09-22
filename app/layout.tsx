@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { getSiteData, getMenuData, getSeoData } from "@/lib/data";
+import { restaurantJsonLd, websiteJsonLd } from "@/lib/seo";
 import { CartProvider } from "@/lib/cart-context";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -66,7 +67,6 @@ export async function generateMetadata(): Promise<Metadata> {
     applicationName: site.brandName,
     authors: [{ name: site.brandName }],
     creator: site.brandName,
-    alternates: { canonical: "/" },
     openGraph: {
       type: "website",
       url: site.siteUrl,
@@ -96,61 +96,16 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const [site, menu] = await Promise.all([getSiteData(), getMenuData()]);
 
-  const restaurantJsonLd = {
-    "@context": "https://schema.org",
-    "@type": ["Restaurant", "FoodEstablishment", "LocalBusiness"],
-    name: site.brandName,
-    description: site.description,
-    url: site.siteUrl,
-    image: `${site.siteUrl}${site.ogImage}`,
-    logo: `${site.siteUrl}${site.logo}`,
-    telephone: site.phoneDisplay,
-    email: site.email,
-    priceRange: site.priceRange,
-    servesCuisine: ["Indian", "Gujarati", "Maharashtrian", "Vegetarian"],
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: site.address.street || undefined,
-      addressLocality: site.address.locality,
-      addressRegion: site.address.region || undefined,
-      postalCode: site.address.postalCode || undefined,
-      addressCountry: site.address.country,
-    },
-    openingHoursSpecification: site.businessHours.map((h) => ({
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: `https://schema.org/${h.day}`,
-      opens: h.open,
-      closes: h.close,
-    })),
-    sameAs: [site.social.instagram, site.social.facebook, site.social.whatsapp].filter(Boolean),
-    acceptsReservations: false,
-    hasMenu: `${site.siteUrl}/menu`,
-    areaServed: site.deliveryArea,
-    ...(site.testimonials && site.testimonials.length > 0
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: (
-              site.testimonials.reduce((sum, t) => sum + t.rating, 0) / site.testimonials.length
-            ).toFixed(1),
-            reviewCount: site.testimonials.length,
-          },
-          review: site.testimonials.map((t) => ({
-            "@type": "Review",
-            author: { "@type": "Person", name: t.name },
-            reviewRating: { "@type": "Rating", ratingValue: t.rating, bestRating: 5 },
-            reviewBody: t.text,
-          })),
-        }
-      : {}),
-  };
-
   return (
-    <html lang="en" className={`${poppins.variable} ${magnolia.variable} h-full antialiased`}>
+    <html lang="en-IN" className={`${poppins.variable} ${magnolia.variable} h-full antialiased`}>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd(site)) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd(site)) }}
         />
       </head>
       <body className="relative flex min-h-full flex-col overflow-x-hidden pb-[56px] font-sans md:pb-0">

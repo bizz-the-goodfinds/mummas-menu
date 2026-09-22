@@ -74,10 +74,18 @@ const seoCached = unstable_cache(
   { tags: ["seo"], revalidate: 300 },
 );
 
-export const getSeoData = cache(async (): Promise<SeoData> => ({
-  ...DEFAULT_SEO,
-  ...(await seoCached()),
-}));
+export const getSeoData = cache(async (): Promise<SeoData> => {
+  const stored = await seoCached();
+  const storedKeywords = (stored.keywords ?? []).map((k) => k.trim()).filter(Boolean);
+  return {
+    metaTitle: stored.metaTitle?.trim() || DEFAULT_SEO.metaTitle,
+    metaDescription: stored.metaDescription?.trim() || DEFAULT_SEO.metaDescription,
+    keywords: storedKeywords.length > 0 ? storedKeywords : DEFAULT_SEO.keywords,
+    aiSummary: stored.aiSummary?.trim() || DEFAULT_SEO.aiSummary,
+    googleSiteVerification:
+      stored.googleSiteVerification?.trim() || DEFAULT_SEO.googleSiteVerification,
+  };
+});
 
 // React.cache memoises per request so duplicate calls in the same render
 // (e.g. generateMetadata + page component) only hit the data cache once.

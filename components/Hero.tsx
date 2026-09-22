@@ -68,13 +68,12 @@ export default function Hero({ site, menu }: { site: SiteData; menu: MenuData })
             </div>
 
             <h1 className="font-heading mb-5 text-[34px] leading-[1.2] md:text-[54px]">
-              Homestyle food, <span className="text-brand-red">made with love</span>
-              <br />
+              Pure veg homestyle tiffin <span className="text-brand-red">in Vadodara</span>
             </h1>
 
             <p className="mb-7 max-w-[480px] text-[15px] leading-[1.75] text-neutral-600 md:text-[16px]">
-              Parathas, theplas, sabji, khichdi, farali specials &amp; comforting Maggi — all cooked
-              fresh daily, the way Mumma makes it. Order on WhatsApp in under a minute.
+              Parathas, theplas, sabji, farali specials &amp; comforting Maggi — cooked fresh daily
+              by Mumma, the way she makes it at home. Order on WhatsApp in under a minute.
             </p>
 
             <div className="mb-2 flex flex-wrap gap-3 md:mb-10">

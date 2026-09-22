@@ -4,20 +4,20 @@ import { buildGeneralMessage, buildSupportMessage, whatsappLink } from "@/lib/wh
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteData();
-  const description = `Get in touch with ${site.brandName} on WhatsApp, phone, or social media. We're happy to help with your order.`;
+  const description = `Call, WhatsApp or email ${site.brandName} in Vadodara. Hours, pickup, and order support — usually replies within 30 minutes.`;
   return {
-    title: `Contact Us — ${site.brandName}`,
+    title: { absolute: `Contact ${site.brandName} in Vadodara` },
     description,
     alternates: { canonical: "/contact" },
     openGraph: {
-      title: `Contact Us — ${site.brandName}`,
+      title: `Contact ${site.brandName} in Vadodara`,
       description,
       url: `${site.siteUrl}/contact`,
       images: [{ url: site.ogImage, width: 1200, height: 630, alt: site.brandName }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `Contact Us — ${site.brandName}`,
+      title: `Contact ${site.brandName} in Vadodara`,
       description,
       images: [site.ogImage],
     },
@@ -38,7 +38,7 @@ export default async function ContactPage() {
           Get In Touch
         </span>
         <h1 className="font-heading mb-4 text-3xl font-bold md:text-4xl">
-          We&apos;d love to hear from you
+          Contact {site.brandName} in Vadodara
         </h1>
         <p className="mx-auto mb-3 max-w-xl text-neutral-600">
           Questions about an order, bulk catering, or just want to say hi? Reach {site.brandName}{" "}

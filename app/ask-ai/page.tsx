@@ -6,7 +6,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteData();
   const description = `Ask ChatGPT, Claude, or Gemini anything about ${site.brandName} — menu, prices, delivery, timings. The AI reads our live data and answers instantly.`;
   return {
-    title: `Ask AI About ${site.brandName}`,
+    title: { absolute: `Ask AI About ${site.brandName}` },
     description,
     alternates: { canonical: "/ask-ai" },
     openGraph: {

@@ -2,8 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Page Not Found — Mumma's Menu",
+  title: { absolute: "Page not found | Mumma's Menu" },
   description: "The page you're looking for doesn't exist. Browse our full menu on Mumma's Menu.",
+  robots: { index: false, follow: false },
 };
 
 export default function NotFound() {

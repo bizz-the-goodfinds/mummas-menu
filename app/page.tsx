@@ -2,16 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import { getMenuData, getSiteData } from "@/lib/data";
+import { getMenuData, getSeoData, getSiteData } from "@/lib/data";
 import { isOrderable } from "@/lib/types";
 import type { MenuItem, MenuData, Testimonial } from "@/lib/types";
 import { FeaturedGrid } from "@/components/FeaturedGrid";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const site = await getSiteData();
+  const [site, seo] = await Promise.all([getSiteData(), getSeoData()]);
+  const title = seo.metaTitle || `${site.brandName} — Pure Veg Homestyle Tiffin in Vadodara`;
+  const description = seo.metaDescription || site.description;
   return {
-    title: `${site.brandName} — 100% Pure Veg Homestyle Cloud Kitchen, Vadodara`,
-    description: site.description,
+    title: { absolute: title },
+    description,
     alternates: { canonical: "/" },
   };
 }
