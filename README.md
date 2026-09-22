@@ -123,6 +123,7 @@ lib/
   auth.ts            Admin request authorization (Supabase JWT verification)
   cart-context.tsx   Cart state (React context)
   data.ts            Site/messages/orders loaders (Supabase + cache tags)
+  seo.ts             LocalBusiness / WebSite JSON-LD + 24-hour hours helper
   haptics.ts         Vibration feedback helper (best-effort, PWA)
   types.ts           Shared TypeScript types
   use-overlay.ts     Overlay hook: body scroll lock + back-gesture close
@@ -180,7 +181,7 @@ A full admin panel lives at `/mm-ops-admin` (unlisted — not linked anywhere, `
 - **Categories** — same CRUD treatment, with slug/order/visibility control
 - **Orders** — sortable table + CSV export
 - **Site Content** — every field: brand, contact, address, social, about, FAQs, testimonials, FSSAI, hours, support/retention
-- **SEO & AI** — meta title/description/keywords with Google preview, AI summary for `/llms.txt`, Search Console verification
+- **SEO & AI** — meta title/description/keywords with Google preview, AI summary for `/llms.txt`, and a Search Console indexing checklist (HTML-file verification is already on the site)
 - **WhatsApp Messages** — templates with live WhatsApp-bubble previews
 - **Media** — full storage manager: browse, search, upload, copy URL, delete
 - **Backups** — one-click encrypted backup into a private Storage bucket, with download links

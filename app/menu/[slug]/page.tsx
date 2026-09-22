@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getMenuData, getSiteData } from "@/lib/data";
+import { absoluteUrl } from "@/lib/seo";
 import { isOrderable } from "@/lib/types";
 import { ItemCard } from "@/components/ui/ItemCard";
 
@@ -18,14 +19,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const [site, menu] = await Promise.all([getSiteData(), getMenuData()]);
   const category = menu.categories.find((c) => c.slug === slug);
-  if (!category) return {};
+  if (!category) {
+    return { robots: { index: false, follow: false }, title: { absolute: "Page not found" } };
+  }
   const availableItems = category.items;
-  if (availableItems.length === 0) return {};
+  if (availableItems.length === 0) {
+    return { robots: { index: false, follow: false }, title: { absolute: "Page not found" } };
+  }
   const itemNames = availableItems.map((i) => i.name).join(", ");
-  const description = `Order fresh ${category.name} from ${site.brandName}: ${itemNames}. FSSAI-approved home-style cooking, checkout instantly on WhatsApp.`;
+  const description = `Order fresh ${category.name} from ${site.brandName} in Vadodara: ${itemNames}. FSSAI-approved home-style cooking, checkout on WhatsApp.`;
   const ogImage = availableItems[0]?.image || site.ogImage;
   return {
-    title: `${category.name} — ${site.brandName} Menu`,
+    title: { absolute: `${category.name} in Vadodara — ${site.brandName}` },
     description,
     alternates: { canonical: `/menu/${slug}` },
     openGraph: {
@@ -62,7 +67,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         "@type": "MenuItem",
         name: item.name,
         description: item.description,
-        image: item.image || undefined,
+        image: absoluteUrl(site.siteUrl, item.image),
         offers: {
           "@type": "Offer",
           price: item.price,
@@ -123,7 +128,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         </h1>
         <p className="mb-8 text-[15px] text-neutral-600">
           {availableItems.length} item{availableItems.length !== 1 ? "s" : ""} freshly made by{" "}
-          {site.brandName} — FSSAI approved, no artificial colours.
+          {site.brandName} in Vadodara — FSSAI approved, no artificial colours.
         </p>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -88,9 +88,13 @@ Retention sections — see `components/admin/SiteEditor.tsx` for the exact field
 Key sections:
 
 - `fssai` — licence number, issue/expiry dates, certificate image. Surfaced in
-  the footer and in `LocalBusiness` JSON-LD structured data.
+  the footer and as an `identifier` on `LocalBusiness` JSON-LD.
 - `businessHours` — one entry per day (`day`, `open`, `close`, `closed`), used on the
-  Contact page and in `OpeningHoursSpecification` structured data.
+  Contact page and in `OpeningHoursSpecification` structured data. Times are
+  converted to 24-hour `HH:MM` for schema; days with `closed: true` are omitted.
+- `testimonials` — shown on the homepage only. They are **not** emitted as
+  `aggregateRating` / `Review` JSON-LD (Google rejects self-published review
+  stars). Collect real reviews on Google Business Profile instead.
 - `messages` — WhatsApp templates; see [WHATSAPP.md](./WHATSAPP.md).
 - `retention` — `promoText` / `promoLink` shown in promo banners.
 

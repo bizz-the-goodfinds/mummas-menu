@@ -5,7 +5,14 @@ import { buildGeneralMessage, whatsappLink } from "@/lib/whatsapp";
 
 export default function Footer({ site, menu }: { site: SiteData; menu: MenuData }) {
   const waLink = whatsappLink(site.whatsappNumber, buildGeneralMessage(site));
-  const todayHours = site.businessHours?.[0];
+  const weekday = new Date().toLocaleDateString("en-IN", {
+    weekday: "long",
+    timeZone: "Asia/Kolkata",
+  });
+  const todayHours =
+    site.businessHours.find((h) => h.day === weekday) ??
+    site.businessHours.find((h) => !h.closed) ??
+    site.businessHours[0];
 
   return (
     <footer className="mt-16">
@@ -29,7 +36,9 @@ export default function Footer({ site, menu }: { site: SiteData; menu: MenuData 
             </p>
             {todayHours && (
               <p className="text-[12px] text-neutral-500">
-                ⏰ Open {todayHours.open} – {todayHours.close}
+                {todayHours.closed
+                  ? `⏰ Closed ${todayHours.day}`
+                  : `⏰ Open ${todayHours.open} – ${todayHours.close}`}
               </p>
             )}
             {site.deliveryNote && (
@@ -69,8 +78,7 @@ export default function Footer({ site, menu }: { site: SiteData; menu: MenuData 
               .map((cat) => (
                 <Link
                   key={cat.slug}
-                  href={`/menu?category=${cat.slug}`}
-                  scroll={false}
+                  href={`/menu/${cat.slug}`}
                   className="hover:text-brand-red text-[13px] text-neutral-600 transition-colors"
                 >
                   {cat.emoji} {cat.name}

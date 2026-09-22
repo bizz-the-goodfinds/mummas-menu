@@ -176,10 +176,20 @@ export interface SeoData {
 }
 
 export const DEFAULT_SEO: SeoData = {
-  metaTitle: "",
-  metaDescription: "",
-  keywords: [],
-  aiSummary: "",
+  metaTitle: "Mumma's Menu — Pure Veg Homestyle Tiffin in Vadodara",
+  metaDescription:
+    "FSSAI-approved home kitchen in Vadodara. Fresh parathas, tiffin meals, farali food and Maggi — cooked daily, no artificial colours. Order on WhatsApp.",
+  keywords: [
+    "tiffin service Vadodara",
+    "homestyle food Vadodara",
+    "farali food Vadodara",
+    "aloo paratha Vadodara",
+    "pure veg cloud kitchen Vadodara",
+    "home food delivery Vadodara",
+    "thepla order Vadodara",
+  ],
+  aiSummary:
+    "Mumma's Menu is a 100% pure-veg, FSSAI-approved home kitchen and cloud kitchen in Vadodara, Gujarat. Mumma cooks parathas, theplas, sabji, tiffin meals, farali (fasting) food and Maggi fresh daily with no artificial colours or preservatives. Customers order on WhatsApp. Self-pickup is available; delivery is arranged via a partner rider.",
   googleSiteVerification: "",
 };
 

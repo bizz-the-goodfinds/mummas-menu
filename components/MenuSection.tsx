@@ -17,8 +17,8 @@ export default function MenuSection({ menu }: { menu: MenuData }) {
   const isValidRequestedSlug =
     requestedSlug !== null && availableCategories.some((c) => c.slug === requestedSlug);
 
-  // Links like the footer's category links (e.g. /menu?category=parathas) select
-  // the matching filter pill, same as clicking it directly. The lazy initializer
+  // Legacy links such as /menu?category=parathas still select the matching
+  // filter pill. New footer/category links use /menu/<slug> instead. The lazy initializer
   // covers a fresh navigation to /menu?category=X; the render-time re-sync below
   // (per https://react.dev/learn/you-might-not-need-an-effect) covers a same-page
   // link click that only changes the query string without remounting.
@@ -56,7 +56,7 @@ export default function MenuSection({ menu }: { menu: MenuData }) {
           <span className="text-brand-red mb-1 block text-[13px] font-semibold tracking-wider uppercase">
             100% Pure Veg · Cooked Fresh Daily
           </span>
-          <h1 className="font-heading text-[28px] md:text-[36px]">Our Menu</h1>
+          <h1 className="font-heading text-[28px] md:text-[36px]">Homestyle menu in Vadodara</h1>
         </div>
 
         {/* Sticky filter bar */}

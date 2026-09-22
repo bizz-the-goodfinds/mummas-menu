@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { getSiteData, getMenuData } from "@/lib/data";
 
+// Rebuild when admin adds a category — the July static build was missing festive.
+export const revalidate = 300;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const site = await getSiteData();
   const menu = await getMenuData();

@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import MenuSection from "@/components/MenuSection";
 import { getMenuData, getSiteData } from "@/lib/data";
+import { absoluteUrl } from "@/lib/seo";
 import { isOrderable } from "@/lib/types";
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteData();
-  const description = `Browse the full ${site.brandName} menu: parathas, theplas, sabji, khichdi, farali specials, Maggi and more. Add to cart and order on WhatsApp in seconds.`;
+  const description = `Browse the full ${site.brandName} menu in Vadodara: parathas, theplas, sabji, tiffin meals, farali specials, Maggi and more. Add to cart and order on WhatsApp.`;
   return {
-    title: `Full Menu — ${site.brandName}`,
+    title: { absolute: `Full Menu — ${site.brandName} | Pure Veg Tiffin, Vadodara` },
     description,
     alternates: { canonical: "/menu" },
     openGraph: {
@@ -47,7 +48,7 @@ export default async function MenuPage() {
           "@type": "MenuItem",
           name: item.name,
           description: item.description,
-          image: item.image || undefined,
+          image: absoluteUrl(site.siteUrl, item.image),
           suitableForDiet: "https://schema.org/VegetarianDiet",
           offers: {
             "@type": "Offer",
@@ -81,7 +82,7 @@ function MenuSectionFallback() {
         <span className="text-brand-red mb-1 block text-[13px] font-semibold tracking-wider uppercase">
           100% Pure Veg · Cooked Fresh Daily
         </span>
-        <h1 className="font-heading text-[28px] md:text-[36px]">Our Menu</h1>
+        <h1 className="font-heading text-[28px] md:text-[36px]">Homestyle menu in Vadodara</h1>
       </div>
     </section>
   );
